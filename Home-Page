@@ -79,7 +79,7 @@
 
     /* Hero image styles */
     .hero-image {
-      background-image: url('C:/Users/akopp/Desktop/Kopes 3d Prints/Home-screen-title-bg.jpg');
+      background-image: url('https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Home-screen-title-bg.jpg');
       background-size: cover;
       background-position: center;
       width: 100%;
