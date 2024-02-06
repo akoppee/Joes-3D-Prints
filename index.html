@@ -45,22 +45,48 @@
 	  padding: 0.5em; /* Add padding to increase tap/click area if needed */
 	}
 
-	.order-now-btn {
-	  position: fixed; /* Fixed position */
-	  top: 0; /* Align to the top */
-	  right: 0; /* Align to the right */
-	  z-index: 1000; /* Ensure it's above other items */
-	  background-color: #ff9900; /* Button color */
-	  color: white; /* Text color */
-	  padding: 10px 20px; /* Padding for size */
-	  text-decoration: none; /* Remove underline from link */
-	  font-weight: bold; /* Bold text */
-	  border-radius: 0 0 0 5px; /* Rounded bottom left corner */
-	}
+    /* Fixed header style */
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #162b6f; /* Dark blue to match your color scheme */
+      z-index: 1000; /* High z-index to ensure it's above other items */
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+      display: flex;
+      justify-content: space-between; /* Aligns items on both ends */
+      align-items: center; /* Vertically centers items */
+      padding: 10px 20px; /* Padding on all sides */
+    }
 
-/* Optional: Add some style for hover effect */
-.order-now-btn:hover {
-  background-color: #e68a00;
+    .order-now-btn {
+      font-family: 'Mulish', sans-serif;
+      font-weight: 400; /* Adjusted weight */
+      color: white; /* Text color */
+      background-color: #ff9900; /* Button color */
+      text-decoration: none; /* Removes underline from link */
+      padding: 10px 25px; /* Adjust padding for size */
+      border-radius: 5px; /* Rounded corners */
+      transition: background-color 0.3s; /* Smooth transition for hover effect */
+      border: none; /* No border */
+      cursor: pointer; /* Cursor to indicate clickability */
+      font-size: 1em; /* Adjust font size as needed */
+    }
+
+    /* Style adjustments for hover state */
+    .order-now-btn:hover {
+      background-color: #e68a00; /* Darker orange on hover */
+      color: #fff; /* Keep text color white */
+    }
+
+    /* Add styles for any additional links or nav items you may have in your header */
+    .fixed-header a {
+      color: white; /* Match text color */
+      text-decoration: none; /* Removes underline */
+      padding: 0 15px; /* Space out inline items */
+      font-size: 1em; /* Adjust font size as needed */
+    }und-color: #e68a00;
 }
 
     /* Rest of your CSS */
