@@ -45,6 +45,23 @@
 	  padding: 0.5em; /* Add padding to increase tap/click area if needed */
 	}
 
+	.order-now-btn {
+	  position: fixed; /* Fixed position */
+	  top: 0; /* Align to the top */
+	  right: 0; /* Align to the right */
+	  z-index: 1000; /* Ensure it's above other items */
+	  background-color: #ff9900; /* Button color */
+	  color: white; /* Text color */
+	  padding: 10px 20px; /* Padding for size */
+	  text-decoration: none; /* Remove underline from link */
+	  font-weight: bold; /* Bold text */
+	  border-radius: 0 0 0 5px; /* Rounded bottom left corner */
+	}
+
+/* Optional: Add some style for hover effect */
+.order-now-btn:hover {
+  background-color: #e68a00;
+}
 
     /* Rest of your CSS */
   </style>
@@ -299,6 +316,8 @@
   </style>
 </head>
 <body>
+<a href="http://example.com/order" class="order-now-btn">Order Now</a>
+	
 <!-- Existing hero-image section -->
 <div class="hero-image">
   <div class="hero-text">
