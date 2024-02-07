@@ -432,6 +432,7 @@ function moveSlide(direction) {
     container.innerHTML = '';
 
     // Process each product
+    let productCount = 0;
     products.forEach(product => {
       if (product.completed && productCount < 3) {
         const productDiv = document.createElement('div');
