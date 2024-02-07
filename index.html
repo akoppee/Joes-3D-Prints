@@ -387,33 +387,56 @@
 
 <script>
   
-  let slideIndex = 0;
-const itemsToShow = 3; // Number of items to show at a time
+let currentIndex = 0; // Global index to track the set of displayed products
+const itemsToShow = 3; // Number of items to show at once
 
 function moveSlide(direction) {
-  const container = document.getElementById('products-container');
-  const items = document.getElementsByClassName('product-item');
-  const itemWidth = items[0].offsetWidth; // Assume all items have the same width
+  fetchProducts().then(products => {
+    const totalProducts = products.length;
+    const maxIndex = Math.ceil(totalProducts / itemsToShow) - 1;
 
-  // Calculate the total width to scroll
-  const scrollWidth = itemWidth * itemsToShow;
+    // Update currentIndex based on direction
+    currentIndex += direction;
+    if (currentIndex > maxIndex) {
+      currentIndex = 0; // Loop back to the start
+    } else if (currentIndex < 0) {
+      currentIndex = maxIndex; // Loop to the end
+    }
 
-  // Update the slideIndex based on direction
-  slideIndex += direction * itemsToShow;
-
-  // Wrap the slideIndex when reaching the end or beginning
-  if (slideIndex >= items.length) {
-    slideIndex = 0; // Go back to the first item
-  } else if (slideIndex < 0) {
-    slideIndex = items.length - itemsToShow; // Go to the last set of items
-    slideIndex = slideIndex < 0 ? 0 : slideIndex; // Make sure it's not negative
-  }
-
-  // Scroll to the new slide position
-  container.scrollLeft = scrollWidth * slideIndex / itemsToShow;
+    displayProducts(products, currentIndex * itemsToShow, itemsToShow);
+  });
 }
 
-// Your fetch and other code remains the same
+function fetchProducts() {
+  return fetch('https://api.sheety.co/23bbb92e8772b41cceb6946c4ab89059/kopes3DPrints/products')
+    .then(response => response.json())
+    .then(data => data.products.filter(product => product.completed));
+}
+
+function displayProducts(products, startIndex, count) {
+  const container = document.getElementById('products-container');
+  container.innerHTML = ''; // Clear existing products
+
+  for (let i = startIndex; i < startIndex + count && i < products.length; i++) {
+    const product = products[i];
+    let ribbonHTML = product.banner && product.banner.trim() !== '' ? `<div class="ribbon"><span>${product.banner}</span></div>` : '';
+    const formattedPrice = `$${parseFloat(product.price).toFixed(2)}`;
+
+    const productDiv = document.createElement('div');
+    productDiv.className = 'product-item';
+    productDiv.innerHTML = `
+      ${ribbonHTML}
+      <div class="Sirv" data-src="${product.image}" alt="${product.name}"></div>
+      <h3>${product.name}</h3>
+      <p class="price">${formattedPrice}</p>
+    `;
+    container.appendChild(productDiv);
+  }
+}
+
+// Initial call to display the first set of products
+moveSlide(0);
+
 
 
   fetch('https://api.sheety.co/23bbb92e8772b41cceb6946c4ab89059/kopes3DPrints/products')
