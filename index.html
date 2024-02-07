@@ -388,25 +388,33 @@
 <script>
   
   let slideIndex = 0;
+const itemsToShow = 3; // Number of items to show at a time
 
-  function moveSlide(direction) {
+function moveSlide(direction) {
   const container = document.getElementById('products-container');
   const items = document.getElementsByClassName('product-item');
-  const itemWidth = items[0].offsetWidth + 15; // width + margin-right
+  const itemWidth = items[0].offsetWidth; // Assume all items have the same width
 
-  // Calculate the new slide index
-  slideIndex += direction;
+  // Calculate the total width to scroll
+  const scrollWidth = itemWidth * itemsToShow;
 
-  // Make sure the slideIndex wraps around correctly
-  if (slideIndex >= 3) { // Limit the index to 3 if there are more products
-    slideIndex = 0;
+  // Update the slideIndex based on direction
+  slideIndex += direction * itemsToShow;
+
+  // Wrap the slideIndex when reaching the end or beginning
+  if (slideIndex >= items.length) {
+    slideIndex = 0; // Go back to the first item
   } else if (slideIndex < 0) {
-    slideIndex = 2; // Assume that there are at least 3 products for wrapping
+    slideIndex = items.length - itemsToShow; // Go to the last set of items
+    slideIndex = slideIndex < 0 ? 0 : slideIndex; // Make sure it's not negative
   }
 
-  // Scroll to the new slide
-  container.scrollLeft = itemWidth * slideIndex;
+  // Scroll to the new slide position
+  container.scrollLeft = scrollWidth * slideIndex / itemsToShow;
 }
+
+// Your fetch and other code remains the same
+
 
   fetch('https://api.sheety.co/23bbb92e8772b41cceb6946c4ab89059/kopes3DPrints/products')
   .then(response => {
