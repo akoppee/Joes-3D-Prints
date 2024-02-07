@@ -390,22 +390,24 @@
   let slideIndex = 0;
 
   function moveSlide(direction) {
-    const container = document.getElementById('products-container');
-    const items = document.getElementsByClassName('product-item');
-    const containerWidth = container.offsetWidth;
-    const itemWidth = items[0].offsetWidth + 15; // width + margin-right
+  const container = document.getElementById('products-container');
+  const items = document.getElementsByClassName('product-item');
+  const itemWidth = items[0].offsetWidth + 15; // width + margin-right
 
-    // Calculate the new slide index
-    slideIndex += direction;
-    if (slideIndex >= items.length) {
-      slideIndex = 0;
-    } else if (slideIndex < 0) {
-      slideIndex = items.length - 1;
-    }
+  // Calculate the new slide index
+  slideIndex += direction;
 
-    // Scroll to the new slide
-    container.scrollLeft = itemWidth * slideIndex;
+  // Make sure the slideIndex wraps around correctly
+  if (slideIndex >= 3) { // Limit the index to 3 if there are more products
+    slideIndex = 0;
+  } else if (slideIndex < 0) {
+    slideIndex = 2; // Assume that there are at least 3 products for wrapping
   }
+
+  // Scroll to the new slide
+  container.scrollLeft = itemWidth * slideIndex;
+}
+
   fetch('https://api.sheety.co/23bbb92e8772b41cceb6946c4ab89059/kopes3DPrints/products')
   .then(response => {
     // Check if the response is ok (status 200)
@@ -423,7 +425,7 @@
 
     // Process each product
     products.forEach(product => {
-      if (product.completed) {
+      if (product.completed && productCount < 3) {
         const productDiv = document.createElement('div');
         productDiv.className = 'product-item';
 
@@ -442,6 +444,7 @@
           <p class="price">${formattedPrice}</p>
         `;
         container.appendChild(productDiv);
+	productCount++;
       }
     });
   })
