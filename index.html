@@ -390,9 +390,9 @@
 let currentIndex = 0; // Tracks the current index for pagination
 const itemsPerPage = 3; // Number of items to show per page
 
-// Function to fetch and display products
 function fetchAndDisplayProducts() {
-  fetch('https://api.sheety.co/23bbb92e8772b41cceb6946c4ab89059/kopes3DPrints/products')
+  const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:M?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
+  fetch(apiURL)
     .then(response => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -400,89 +400,32 @@ function fetchAndDisplayProducts() {
       return response.json();
     })
     .then(data => {
-      const products = data.products;
-      displayProducts(products, currentIndex);
+      const rows = data.values;
+      const container = document.getElementById('products-container');
+      container.innerHTML = '';
+      // Start from the first row if you don't have headers, adjust logic as needed
+      let displayedCount = 0;
+      rows.forEach((row, index) => {
+        if (displayedCount < itemsPerPage) {
+          <div class="product">
+		  <div class="ribbon">${ribbonHTML}</div> <!-- Only if ribbonHTML is not empty -->
+		  <div class="product-profile">${row[1]}</div> <!-- Profile Code -->
+		  <h3 class="product-name">${row[2]}</h3> <!-- Product Name -->
+		  <p class="product-price">${formattedPrice}</p> <!-- Product Price -->
+	  </div>
+          container.innerHTML += productHTML;
+          displayedCount++;
+        }
+      });
     })
     .catch(error => {
       console.error('Error fetching products:', error);
     });
 }
 
-// Function to display products based on the current index
-function displayProducts(products, startIndex) {
-  const container = document.getElementById('products-container');
-  container.innerHTML = ''; // Clear previous content
-  const endIndex = startIndex + itemsPerPage;
-  const slicedProducts = products.slice(startIndex, endIndex);
-
-  slicedProducts.forEach(product => {
-    if (product.completed) {
-      let ribbonHTML = product.banner && product.banner.trim() !== '' ? `<div class="ribbon"><span>${product.banner}</span></div>` : '';
-      const price = parseFloat(product.price).toFixed(2);
-      const formattedPrice = `$${price}`;
-      const productDiv = document.createElement('div');
-      productDiv.className = 'product-item';
-      productDiv.innerHTML = `
-        ${ribbonHTML}
-        ${product.profileCode} <!-- Assuming this is safe and sanitized HTML -->
-        <h3>${product.name}</h3>
-        <p class="price">${formattedPrice}</p>
-      `;
-      container.appendChild(productDiv);
-    }
-  });
-}
-
-// Navigation function to move through products
-function moveSlide(direction) {
-  currentIndex += direction * itemsPerPage;
-  fetchAndDisplayProducts(); // Refetch and display products at new index
-}
-
-// Initial fetch and display
 fetchAndDisplayProducts();
-
-  fetch('https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:M?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(data => {
-    const rows = data.values; // 'values' contains the row data.
-    const container = document.getElementById('products-container');
-    container.innerHTML = ''; // Clear previous content
-
-    // Assume your data starts from the second row, skipping header row
-    let productCount = 0;
-    rows.forEach((row, index) => {
-      // Skipping header row and limiting the products displayed
-      if (index > 0 && productCount < 3) {
-        const productDiv = document.createElement('div');
-        productDiv.className = 'product-item';
-
-        // Assuming column order: Banner, ProfileCode, Name, Price
-        let ribbonHTML = row[0] && row[0].trim() !== '' ? `<div class="ribbon"><span>${row[0]}</span></div>` : '';
-        const formattedPrice = `$${parseFloat(row[3]).toFixed(2)}`;
-
-        productDiv.innerHTML = `
-          ${ribbonHTML}
-          ${row[1]} <!-- ProfileCode -->
-          <h3>${row[2]}</h3> <!-- Name -->
-          <p class="price">${formattedPrice}</p>
-        `;
-        container.appendChild(productDiv);
-        productCount++;
-      }
-    });
-  })
-  .catch(error => {
-    console.error('Error fetching products:', error);
-  });
-
-
 </script>
+
 
 </body>
 </html>
