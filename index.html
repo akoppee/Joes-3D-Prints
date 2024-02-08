@@ -389,7 +389,7 @@
 <script>
 let currentIndex = 0; // Tracks the current index for pagination
 const itemsPerPage = 3; // Number of items to show per page
-const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:M?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU'; // Replace with your actual API endpoint
+const apiURL = 'YOUR_API_ENDPOINT'; // Replace with your actual API endpoint
 
 function fetchAndDisplayProducts() {
   fetch(apiURL)
@@ -400,28 +400,30 @@ function fetchAndDisplayProducts() {
       return response.json();
     })
     .then(data => {
-      const rows = data.values; // 'values' contains the row data.
+      const rows = data.values;
       const container = document.getElementById('products-container'); // Ensure you have a div with this id.
       container.innerHTML = ''; // Clear previous content
 
-      // Start from the second row, index 1, skipping header row
+      // Start from the second row, index 1, skipping the header row
       const startIndex = 1 + (currentIndex * itemsPerPage);
       const endIndex = startIndex + itemsPerPage;
 
       for (let i = startIndex; i < endIndex && i < rows.length; i++) {
-        const product = rows[i];
-        let ribbonHTML = product[3] && product[3].trim() !== '' ? `<div class="ribbon">${product[3]}</div>` : '';
-        const formattedPrice = `$${parseFloat(product[2]).toFixed(2)}`;
+        const row = rows[i];
+        if (row[12] === "TRUE") { // Check if the 'Completed' column is true
+          let ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : ''; // Banner
+          const formattedPrice = `$${parseFloat(row[2]).toFixed(2)}`; // Price
 
-        let productHTML = `
-          <div class="product-item">
-            ${ribbonHTML}
-            <div class="product-profile">${product[0]}</div> <!-- Profile Code -->
-            <h3 class="product-name">${product[1]}</h3> <!-- Name -->
-            <p class="product-price">${formattedPrice}</p> <!-- Price -->
-          </div>
-        `;
-        container.innerHTML += productHTML;
+          let productHTML = `
+            <div class="product-item">
+              ${ribbonHTML}
+              <div class="product-profile">${row[1]}</div> <!-- Profile Code -->
+              <h3 class="product-name">${row[0]}</h3> <!-- Name -->
+              <p class="product-price">${formattedPrice}</p> <!-- Price -->
+            </div>
+          `;
+          container.innerHTML += productHTML;
+        }
       }
     })
     .catch(error => {
@@ -429,12 +431,16 @@ function fetchAndDisplayProducts() {
     });
 }
 
+// Navigation function to move through products
+function moveSlide(direction) {
+  currentIndex += direction * itemsPerPage;
+  fetchAndDisplayProducts(); // Refetch and display products at new index
+}
+
 // Initial fetch and display
 fetchAndDisplayProducts();
-
-// Add event listeners to your navigation buttons to call moveSlide with -1 for left and 1 for right
-// moveSlide function to update currentIndex and call fetchAndDisplayProducts again
 </script>
+
 
 
 
