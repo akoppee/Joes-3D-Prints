@@ -387,78 +387,60 @@
 
 
 <script>
-  // Assuming you've fetched your products and stored them in a variable
-  let products = []; // This should be filled with your fetched product data
-  let currentIndex = 0;
-  const itemsToShow = 3;
+let currentIndex = 0; // Tracks the current index for pagination
+const itemsPerPage = 3; // Number of items to show per page
 
-  // Function to fetch products (assuming your fetch logic is correct)
-  function fetchProducts() {
-    return fetch('https://api.sheety.co/23bbb92e8772b41cceb6946c4ab89059/kopes3DPrints/products')
-      .then(response => response.json())
-      .then(data => {
-        products = data.products.filter(product => product.completed);
-        displayProducts(0); // Initial display
-      });
-  }
+// Function to fetch and display products
+function fetchAndDisplayProducts() {
+  fetch('https://api.sheety.co/23bbb92e8772b41cceb6946c4ab89059/kopes3DPrints/products')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      const products = data.products;
+      displayProducts(products, currentIndex);
+    })
+    .catch(error => {
+      console.error('Error fetching products:', error);
+    });
+}
 
-  function displayProducts(startIndex) {
-    fetch('https://api.sheety.co/23bbb92e8772b41cceb6946c4ab89059/kopes3DPrints/products')
-	  .then(response => {
-	    // Check if the response is ok (status 200)
-	    if (!response.ok) {
-	      throw new Error(`HTTP error! status: ${response.status}`);
-	    }
-	    return response.json();
-	  })
-	  .then(data => {
-	    const products = data.products;
-	    const container = document.getElementById('products-container');
-	
-	    // Clear previous content
-	    container.innerHTML = '';
-	
-	    // Process each product
-	    let productCount = 0;
-	    products.forEach(product => {
-	      if (product.completed && productCount < 3) {
-	        const productDiv = document.createElement('div');
-	        productDiv.className = 'product-item';
-	
-	        let ribbonHTML = '';
-	        if (product.banner && product.banner.trim() !== '') {
-	          ribbonHTML = `<div class="ribbon"><span>${product.banner}</span></div>`;
-	        }
-	
-	        const price = parseFloat(product.price).toFixed(2);
-	        const formattedPrice = `$${price}`;
-	
-	        productDiv.innerHTML = `
-	          ${ribbonHTML}
-	          ${product.profileCode} <!-- Assuming this is safe and sanitized HTML -->
-	          <h3>${product.name}</h3>
-	          <p class="price">${formattedPrice}</p>
-	        `;
-	        container.appendChild(productDiv);
-		productCount++;
-	      }
-	    });
-	  })
-	  .catch(error => {
-	    console.error('Error fetching products:', error);
-	    // Handle errors, such as showing a message to the user
-	  });
+// Function to display products based on the current index
+function displayProducts(products, startIndex) {
+  const container = document.getElementById('products-container');
+  container.innerHTML = ''; // Clear previous content
+  const endIndex = startIndex + itemsPerPage;
+  const slicedProducts = products.slice(startIndex, endIndex);
 
+  slicedProducts.forEach(product => {
+    if (product.completed) {
+      let ribbonHTML = product.banner && product.banner.trim() !== '' ? `<div class="ribbon"><span>${product.banner}</span></div>` : '';
+      const price = parseFloat(product.price).toFixed(2);
+      const formattedPrice = `$${price}`;
+      const productDiv = document.createElement('div');
+      productDiv.className = 'product-item';
+      productDiv.innerHTML = `
+        ${ribbonHTML}
+        ${product.profileCode} <!-- Assuming this is safe and sanitized HTML -->
+        <h3>${product.name}</h3>
+        <p class="price">${formattedPrice}</p>
+      `;
+      container.appendChild(productDiv);
+    }
+  });
+}
 
-  function moveSlide(direction) {
-    currentIndex += direction * itemsToShow;
-    if (currentIndex >= products.length) currentIndex = 0;
-    if (currentIndex < 0) currentIndex = products.length - itemsToShow;
-    displayProducts(currentIndex);
-  }
+// Navigation function to move through products
+function moveSlide(direction) {
+  currentIndex += direction * itemsPerPage;
+  fetchAndDisplayProducts(); // Refetch and display products at new index
+}
 
-  // Initial call to fetch and display products
-  fetchProducts();
+// Initial fetch and display
+fetchAndDisplayProducts();
 
   fetch('https://api.sheety.co/23bbb92e8772b41cceb6946c4ab89059/kopes3DPrints/products')
   .then(response => {
