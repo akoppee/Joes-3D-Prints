@@ -442,7 +442,7 @@ function moveSlide(direction) {
 // Initial fetch and display
 fetchAndDisplayProducts();
 
-  fetch('https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Sheet1!A1:D50?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU')
+  fetch('https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:M?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU')
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
