@@ -403,21 +403,52 @@
   }
 
   function displayProducts(startIndex) {
-    const container = document.getElementById('products-container');
-    container.innerHTML = ''; // Clear the container
-    for (let i = startIndex; i < startIndex + itemsToShow && i < products.length; i++) {
-      const product = products[i];
-      const productElement = document.createElement('div');
-      productElement.className = 'product-item';
-      productElement.innerHTML = `
-        <div class="ribbon"><span>${product.banner || ''}</span></div>
-        <img class="Sirv" data-src="${product.image}" alt="${product.name}" />
-        <h3>${product.name}</h3>
-        <p class="price">$${parseFloat(product.price).toFixed(2)}</p>
-      `;
-      container.appendChild(productElement);
-    }
-  }
+    fetch('https://api.sheety.co/23bbb92e8772b41cceb6946c4ab89059/kopes3DPrints/products')
+	  .then(response => {
+	    // Check if the response is ok (status 200)
+	    if (!response.ok) {
+	      throw new Error(`HTTP error! status: ${response.status}`);
+	    }
+	    return response.json();
+	  })
+	  .then(data => {
+	    const products = data.products;
+	    const container = document.getElementById('products-container');
+	
+	    // Clear previous content
+	    container.innerHTML = '';
+	
+	    // Process each product
+	    let productCount = 0;
+	    products.forEach(product => {
+	      if (product.completed && productCount < 3) {
+	        const productDiv = document.createElement('div');
+	        productDiv.className = 'product-item';
+	
+	        let ribbonHTML = '';
+	        if (product.banner && product.banner.trim() !== '') {
+	          ribbonHTML = `<div class="ribbon"><span>${product.banner}</span></div>`;
+	        }
+	
+	        const price = parseFloat(product.price).toFixed(2);
+	        const formattedPrice = `$${price}`;
+	
+	        productDiv.innerHTML = `
+	          ${ribbonHTML}
+	          ${product.profileCode} <!-- Assuming this is safe and sanitized HTML -->
+	          <h3>${product.name}</h3>
+	          <p class="price">${formattedPrice}</p>
+	        `;
+	        container.appendChild(productDiv);
+		productCount++;
+	      }
+	    });
+	  })
+	  .catch(error => {
+	    console.error('Error fetching products:', error);
+	    // Handle errors, such as showing a message to the user
+	  });
+
 
   function moveSlide(direction) {
     currentIndex += direction * itemsToShow;
