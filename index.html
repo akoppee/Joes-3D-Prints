@@ -51,6 +51,7 @@
   top: 0;
   left: 0;
   width: 100%;
+  height: 90px;
   background: rgba(255, 255, 255, 0.5);
   z-index: 10000;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* white with 50% opacity */
@@ -420,20 +421,20 @@ function displayProducts(products, startIndex, count) {
   for (let i = startIndex; i < startIndex + count && i < products.length; i++) {
     const product = products[i];
     let ribbonHTML = product.banner && product.banner.trim() !== '' ? `<div class="ribbon"><span>${product.banner}</span></div>` : '';
-    <div class="Sirv" data-src="${product.image}" alt="${product.name}"></div>
     const formattedPrice = `$${parseFloat(product.price).toFixed(2)}`;
 
     const productDiv = document.createElement('div');
     productDiv.className = 'product-item';
     productDiv.innerHTML = `
       ${ribbonHTML}
-      <div class="Sirv" data-src="${product.image}" alt="${product.name}"></div>
+      <img class="Sirv" data-src="${product.image}" alt="${product.name}" />
       <h3>${product.name}</h3>
       <p class="price">${formattedPrice}</p>
     `;
     container.appendChild(productDiv);
   }
 }
+
 
 // Initial call to display the first set of products
 moveSlide(0);
