@@ -420,6 +420,7 @@ function displayProducts(products, startIndex, count) {
   for (let i = startIndex; i < startIndex + count && i < products.length; i++) {
     const product = products[i];
     let ribbonHTML = product.banner && product.banner.trim() !== '' ? `<div class="ribbon"><span>${product.banner}</span></div>` : '';
+    <div class="Sirv" data-src="${product.image}" alt="${product.name}"></div>
     const formattedPrice = `$${parseFloat(product.price).toFixed(2)}`;
 
     const productDiv = document.createElement('div');
