@@ -404,13 +404,12 @@ function fetchAndDisplayProducts() {
       const container = document.getElementById('products-container');
       container.innerHTML = ''; // Clear previous content
 
-      // Start from the second row, index 1, skipping the header row
-      let displayedCount = 0;
-      rows.forEach((row, index) => {
-        if (index >= 1 && displayedCount < itemsPerPage) {
-          const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
+      // Skipping the header row with slice(1)
+      rows.slice(1).forEach(row => {
+        if (row[12] === "TRUE") { // Assuming "Completed" is in the last column
+          let ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
           const formattedPrice = `$${parseFloat(row[2]).toFixed(2)}`;
-          
+
           const productHTML = `
             <div class="product-item">
               ${ribbonHTML}
@@ -420,8 +419,7 @@ function fetchAndDisplayProducts() {
             </div>
           `; // Construct product HTML here
           
-          container.innerHTML += productHTML;
-          displayedCount++;
+          container.innerHTML += productHTML; // Append new product HTML
         }
       });
     })
@@ -429,7 +427,6 @@ function fetchAndDisplayProducts() {
       console.error('Error fetching products:', error);
     });
 }
-
 
 // Navigation function to move through products
 function moveSlide(direction) {
