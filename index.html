@@ -405,18 +405,21 @@ function fetchAndDisplayProducts() {
       container.innerHTML = '';
       // Start from the first row if you don't have headers, adjust logic as needed
       let displayedCount = 0;
-      rows.forEach((row, index) => {
-        if (displayedCount < itemsPerPage) {
-          <div class="product">
-		  <div class="ribbon">${ribbonHTML}</div> <!-- Only if ribbonHTML is not empty -->
-		  <div class="product-profile">${row[1]}</div> <!-- Profile Code -->
-		  <h3 class="product-name">${row[2]}</h3> <!-- Product Name -->
-		  <p class="product-price">${formattedPrice}</p> <!-- Product Price -->
-	  </div>
-          container.innerHTML += productHTML;
-          displayedCount++;
-        }
-      });
+	rows.forEach((row, index) => {
+	  if (displayedCount < itemsPerPage) {
+	    let ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon"><span>${row[5]}</span></div>` : '';
+	    const formattedPrice = `$${parseFloat(row[2]).toFixed(2)}`;
+	    let productHTML = `
+	      <div class="product">
+	        ${ribbonHTML}
+	        <div class="product-profile">${row[1]}</div> <!-- Profile Code -->
+	        <h3 class="product-name">${row[0]}</h3> <!-- Product Name -->
+	        <p class="product-price">${formattedPrice}</p> <!-- Product Price -->
+	      </div>`;
+	    container.innerHTML += productHTML;
+	    displayedCount++;
+	  }
+	});
     })
     .catch(error => {
       console.error('Error fetching products:', error);
