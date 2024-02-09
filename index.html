@@ -404,11 +404,11 @@ function fetchAndDisplayProducts() {
       const container = document.getElementById('products-container');
       container.innerHTML = ''; // Clear previous content
 
-      // Skipping the header row with slice(1)
       rows.slice(1).forEach(row => {
-        if (row[12] === "TRUE") { // Assuming "Completed" is in the last column
+        if (row[12] === "TRUE") {
           let ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
-          const formattedPrice = `$${parseFloat(row[2]).toFixed(2)}`;
+          const price = row[2].replace("$", "").trim(); // Remove the dollar sign
+          const formattedPrice = `$${parseFloat(price).toFixed(2)}`;
 
           const productHTML = `
             <div class="product-item">
@@ -417,7 +417,7 @@ function fetchAndDisplayProducts() {
               <h3 class="product-name">${row[0]}</h3> <!-- Name -->
               <p class="product-price">${formattedPrice}</p> <!-- Price -->
             </div>
-          `; // Construct product HTML here
+          `; 
           
           container.innerHTML += productHTML; // Append new product HTML
         }
@@ -428,11 +428,6 @@ function fetchAndDisplayProducts() {
     });
 }
 
-// Navigation function to move through products
-function moveSlide(direction) {
-  currentIndex += direction * itemsPerPage;
-  fetchAndDisplayProducts(); // Refetch and display products at new index
-}
 
 // Initial fetch and display
 fetchAndDisplayProducts();
