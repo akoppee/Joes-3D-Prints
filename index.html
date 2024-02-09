@@ -399,41 +399,44 @@ function fetchAndDisplayProducts() {
       const rows = data.values;
       const container = document.getElementById('products-container');
       container.innerHTML = ''; // Clear previous content
-
-	rows.slice(1).forEach(row => {
-	  if (row[12] === "TRUE") {
-	    let ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
-	    const price = row[2]; // Assuming price comes correctly formatted from your sheet
-	    const profileCodeHTML = row[1]; // Assuming this is the HTML code for Sirv image
-	
-	    const productHTML = `
-	      <div class="product-item">
-	        ${ribbonHTML}
-	        <div class="product-profile">${profileCodeHTML}</div> <!-- Sirv Code -->
-	        <h3 class="product-name">${row[0]}</h3> <!-- Name -->
-	        <p class="product-price">${price}</p> <!-- Price -->
-	      </div>
-	    `; 
-	    
-	    container.innerHTML += productHTML;
-	  }
-	});
-	
-	// After adding all products to the DOM, reinitialize Sirv to process new spin images
-	if (window.Sirv) {
-	  Sirv.start(); // This line of code will start Sirv on the newly added elements
-	}
-
-
-// After updating the DOM, reinitialize Sirv to apply to new elements
-Sirv.start(); // This is an assumption of the Sirv API call, check the actual API for the correct function
-
+      // Calculate the index for slicing the array to get the current page
+      const pageStart = currentIndex * itemsPerPage + 1; // +1 to skip header row
+      const pageEnd = pageStart + itemsPerPage;
+      // Loop through the sliced array to show only items for the current page
+      rows.slice(pageStart, pageEnd).forEach(row => {
+        if (row[12] === "TRUE") {
+          let ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
+          const price = row[2]; // Assuming price comes correctly formatted from your sheet
+          const profileCodeHTML = row[1]; // Assuming this is the HTML code for Sirv image
+          const productHTML = `
+            <div class="product-item">
+              ${ribbonHTML}
+              <div class="product-profile">${profileCodeHTML}</div> <!-- Sirv Code -->
+              <h3 class="product-name">${row[0]}</h3> <!-- Name -->
+              <p class="product-price">${price}</p> <!-- Price -->
+            </div>
+          `;
+          container.innerHTML += productHTML;
+        }
+      });
+      // Reinitialize Sirv for new elements
+      if (window.Sirv) Sirv.start();
     })
     .catch(error => {
       console.error('Error fetching products:', error);
     });
 }
 
+function moveSlide(direction) {
+  const maxIndex = Math.ceil((rows.length - 1) / itemsPerPage) - 1; // -1 to account for header
+  currentIndex += direction;
+  if (currentIndex < 0) {
+    currentIndex = 0; // Prevent going below 0
+  } else if (currentIndex > maxIndex) {
+    currentIndex = maxIndex; // Prevent going above the maximum index
+  }
+  fetchAndDisplayProducts(); // Fetch and display products at the new index
+}
 
 // Initial fetch and display
 fetchAndDisplayProducts();
