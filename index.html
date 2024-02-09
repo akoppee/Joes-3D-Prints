@@ -385,7 +385,7 @@
 <script>
 let currentIndex = 0; // Tracks the current index for pagination
 const itemsPerPage = 3; // Number of items to show per page
-const apiURL = process.env.API_URL; // This would be set in your server-side code, not exposed to the frontend
+const apiURL = process.env.APIURL; // This would be set in your server-side code, not exposed to the frontend
 
 function fetchAndDisplayProducts() {
   fetch(apiURL)
