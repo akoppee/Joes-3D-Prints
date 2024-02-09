@@ -119,11 +119,6 @@
 	  line-height: 1.3; /* Slightly tighter line spacing for headers */
 	}
 
-.Sirv {
-  width: auto; /* This will make the image responsive, taking the width of its parent */
-  height: auto; /* This will keep the image's aspect ratio intact */
-}
-
     /* Hero image styles */
     .hero-image {
       background-image: url("https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Home-screen-title-bg.jpg");
@@ -405,25 +400,30 @@ function fetchAndDisplayProducts() {
       const container = document.getElementById('products-container');
       container.innerHTML = ''; // Clear previous content
 
-      rows.slice(1).forEach(row => {
+	rows.slice(1).forEach(row => {
 	  if (row[12] === "TRUE") {
 	    let ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
-	    // Strip dollar sign and parse the price
-	    const price = row[2].replace("$", "").trim(); 
-	    const formattedPrice = `$${parseFloat(price).toFixed(2)}`;
+	    const price = row[2]; // Assuming price comes correctly formatted from your sheet
+	    const profileCodeHTML = row[1]; // Assuming this is the HTML code for Sirv image
 	
 	    const productHTML = `
 	      <div class="product-item">
 	        ${ribbonHTML}
-	        <div class="product-profile">${row[1]}</div> <!-- Profile Code -->
+	        <div class="product-profile">${profileCodeHTML}</div> <!-- Sirv Code -->
 	        <h3 class="product-name">${row[0]}</h3> <!-- Name -->
-	        <p class="product-price">${formattedPrice}</p> <!-- Price -->
+	        <p class="product-price">${price}</p> <!-- Price -->
 	      </div>
 	    `; 
 	    
-	    container.innerHTML += productHTML; // Append new product HTML
+	    container.innerHTML += productHTML;
 	  }
 	});
+	
+	// After adding all products to the DOM, reinitialize Sirv to process new spin images
+	if (window.Sirv) {
+	  Sirv.start(); // This line of code will start Sirv on the newly added elements
+	}
+
 
 // After updating the DOM, reinitialize Sirv to apply to new elements
 Sirv.start(); // This is an assumption of the Sirv API call, check the actual API for the correct function
