@@ -385,7 +385,7 @@
 <script>
 let currentIndex = 0; // Tracks the current index for pagination
 const itemsPerPage = 3; // Number of items to show per page
-const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:M?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU'
+const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:M?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU'; // Replace with your actual API endpoint
 
 function fetchAndDisplayProducts() {
   fetch(apiURL)
@@ -399,43 +399,35 @@ function fetchAndDisplayProducts() {
       const rows = data.values;
       const container = document.getElementById('products-container');
       container.innerHTML = ''; // Clear previous content
-      // Calculate the index for slicing the array to get the current page
-      const pageStart = currentIndex * itemsPerPage + 1; // +1 to skip header row
-      const pageEnd = pageStart + itemsPerPage;
-      // Loop through the sliced array to show only items for the current page
-      rows.slice(pageStart, pageEnd).forEach(row => {
-        if (row[12] === "TRUE") {
+
+      // Skipping the header row with slice(1)
+      rows.slice(1).forEach(row => {
+        if (row[12] === "TRUE") { // Assuming "Completed" is in the last column
           let ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
-          const price = row[2]; // Assuming price comes correctly formatted from your sheet
-          const profileCodeHTML = row[1]; // Assuming this is the HTML code for Sirv image
+          const formattedPrice = `$${parseFloat(row[2]).toFixed(2)}`;
+
           const productHTML = `
             <div class="product-item">
               ${ribbonHTML}
-              <div class="product-profile">${profileCodeHTML}</div> <!-- Sirv Code -->
+              <div class="product-profile">${row[1]}</div> <!-- Profile Code -->
               <h3 class="product-name">${row[0]}</h3> <!-- Name -->
-              <p class="product-price">${price}</p> <!-- Price -->
+              <p class="product-price">${formattedPrice}</p> <!-- Price -->
             </div>
-          `;
-          container.innerHTML += productHTML;
+          `; // Construct product HTML here
+          
+          container.innerHTML += productHTML; // Append new product HTML
         }
       });
-      // Reinitialize Sirv for new elements
-      if (window.Sirv) Sirv.start();
     })
     .catch(error => {
       console.error('Error fetching products:', error);
     });
 }
 
+// Navigation function to move through products
 function moveSlide(direction) {
-  const maxIndex = Math.ceil((rows.length - 1) / itemsPerPage) - 1; // -1 to account for header
-  currentIndex += direction;
-  if (currentIndex < 0) {
-    currentIndex = 0; // Prevent going below 0
-  } else if (currentIndex > maxIndex) {
-    currentIndex = maxIndex; // Prevent going above the maximum index
-  }
-  fetchAndDisplayProducts(); // Fetch and display products at the new index
+  currentIndex += direction * itemsPerPage;
+  fetchAndDisplayProducts(); // Refetch and display products at new index
 }
 
 // Initial fetch and display
