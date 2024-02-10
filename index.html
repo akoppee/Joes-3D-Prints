@@ -382,55 +382,59 @@
 </div>
 
 
+
 <script>
 let currentIndex = 0; // Tracks the current index for pagination
 const itemsPerPage = 3; // Number of items to show per page
-const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:M?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU'; // Replace with your actual API endpoint
 
+// Function to fetch and display products
 function fetchAndDisplayProducts() {
+  const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:M?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU'; // Place your API URL here
+
   fetch(apiURL)
     .then(response => {
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error('Network response was not ok');
       }
       return response.json();
     })
     .then(data => {
-      const rows = data.values;
-      const container = document.getElementById('products-container');
-      container.innerHTML = ''; // Clear previous content
-
-      // Skipping the header row with slice(1)
-      rows.slice(1).forEach(row => {
-        if (row[12] === "TRUE") { // Assuming "Completed" is in the last column
-          let ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
-          const formattedPrice = `$${parseFloat(row[2]).toFixed(2)}`;
-
-          const productHTML = `
-            <div class="product-item">
-              ${ribbonHTML}
-              <div class="product-profile">${row[1]}</div> <!-- Profile Code -->
-              <h3 class="product-name">${row[0]}</h3> <!-- Name -->
-              <p class="product-price">${formattedPrice}</p> <!-- Price -->
-            </div>
-          `; // Construct product HTML here
-          
-          container.innerHTML += productHTML; // Append new product HTML
-        }
-      });
+      displayProducts(data);
     })
     .catch(error => {
-      console.error('Error fetching products:', error);
+      console.error('There has been a problem with your fetch operation:', error);
+      // Display a user-friendly error message
+      document.getElementById('products-container').innerHTML = '<p>Failed to load products. Please try again later.</p>';
     });
 }
 
-// Navigation function to move through products
-function moveSlide(direction) {
-  currentIndex += direction * itemsPerPage;
-  fetchAndDisplayProducts(); // Refetch and display products at new index
+// Function to process and display products
+function displayProducts(data) {
+  const rows = data.values;
+  const container = document.getElementById('products-container');
+  container.innerHTML = ''; // Clear previous content
+
+  const pageStart = currentIndex * itemsPerPage + 1;
+  const pageEnd = pageStart + itemsPerPage;
+
+  rows.slice(pageStart, pageEnd).forEach(row => {
+    if (row[12] === "TRUE") {
+      const productHTML = `
+        <div class="product-item">
+          <div class="ribbon">${row[5]}</div>
+          <div class="product-profile">${row[1]}</div>
+          <h3 class="product-name">${row[0]}</h3>
+          <p class="product-price">${row[2]}</p>
+        </div>
+      `;
+      container.innerHTML += productHTML;
+    }
+  });
+
+  // Reinitialize any necessary JavaScript components here, such as sliders or image viewers
 }
 
-// Initial fetch and display
+// Call the function on script load
 fetchAndDisplayProducts();
 </script>
 
