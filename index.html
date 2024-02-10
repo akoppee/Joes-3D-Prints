@@ -394,11 +394,15 @@ function fetchAndDisplayProducts() {
   fetch(apiURL)
     .then(response => response.json())
     .then(data => {
-      products = data.values.slice(1); // Assuming data starts from the second row, adjust as necessary
+      // Assuming data.values is an array of arrays, where each sub-array represents a product row
+      // Filter out products where column N (index 13) is equal to "false"
+      products = data.values.slice(1).filter(row => row[13] !== 'false'); // Adjust the index if your data structure is different
+
       updateDisplayedProducts();
     })
     .catch(error => console.error('Error fetching products:', error));
 }
+
 
 // Update the displayed products based on currentIndex
 function updateDisplayedProducts() {
