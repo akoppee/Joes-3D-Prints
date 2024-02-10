@@ -389,70 +389,63 @@ let products = [];
 let currentIndex = 0; // Tracks the current index for pagination
 const itemsPerPage = 3; // Number of items to show per page
 
-// Fetch products from the API and store them
 function fetchAndDisplayProducts() {
   fetch(apiURL)
     .then(response => response.json())
     .then(data => {
-      // Assuming data.values is an array of arrays, where each sub-array represents a product row
-      // Filter out products where column N (index 13) is equal to "false"
-      products = data.values.slice(1).filter(row => row[13] !== 'false'); // Adjust the index if your data structure is different
-
+      // Filter out products where the "N" column (assuming index 13) explicitly equals 'FALSE'
+      products = data.values.slice(1).filter(row => row[13].toLowerCase() !== 'false');
       updateDisplayedProducts();
     })
     .catch(error => console.error('Error fetching products:', error));
 }
 
-
-// Update the displayed products based on currentIndex
 function updateDisplayedProducts() {
   const container = document.getElementById('products-container');
   container.innerHTML = ''; // Clear current items
 
   // Calculate slice indices for the current set of items to display
-  const start = currentIndex; //* itemsPerPage;
-  const end = Math.min(start + itemsPerPage, products.length);
-  const currentItems = products.slice(start, end);
+  let start = currentIndex * itemsPerPage;
+  let end = start + itemsPerPage;
+  let currentItems = products.slice(start, end);
 
   // Loop through the current items and append their HTML to the container
   currentItems.forEach((row) => {
     const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
-    const productHTML = ` 
-	    <div class="product-item"> 
-	    ${ribbonHTML} 
-	    ${row[1]} 
-	    <h3 class="product-name">${row[0]}</h3> 
-	    <p class="product-price">${row[2]}</p> 
-	    </div> 
+    const productHTML = `
+      <div class="product-item">
+        ${ribbonHTML}
+        ${row[1]} 
+        <h3 class="product-name">${row[0]}</h3>
+        <p class="product-price">${row[2]}</p>
+      </div>
     `;
     container.innerHTML += productHTML;
   });
 }
 
-// Handle slide movement and ensure currentIndex updates within bounds
 function moveSlide(direction) {
-  const totalItems = products.length;
-  const maxIndex = Math.ceil(totalItems / itemsPerPage) - 1;
+  const totalProducts = products.length;
+  const maxIndex = Math.ceil(totalProducts / itemsPerPage) - 1;
   currentIndex += direction;
 
   // Implement wrap-around logic
   if (currentIndex < 0) {
-    currentIndex = maxIndex; // Move to the last page if we go back from the first page
+    currentIndex = maxIndex; // Wrap to last page if moving left from the first page
   } else if (currentIndex > maxIndex) {
-    currentIndex = 0; // Move to the first page if we advance past the last page
+    currentIndex = 0; // Wrap to first page if moving right from the last page
   }
 
-  updateDisplayedProducts(); // Refresh the products display
+  updateDisplayedProducts();
 }
 
-
-// Set up the event listeners once the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-  fetchAndDisplayProducts(); // Initial fetch and display of products
-  document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-2)); // Move left
-  document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(2)); // Move right
+  fetchAndDisplayProducts();
+  document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-1));
+  document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(1));
 });
 </script>
+
 
 
 
