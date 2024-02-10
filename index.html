@@ -307,36 +307,46 @@
 }
 
 
-    /* Carousel Navigation Button Styles */
-    .carousel-btn {
-        position: absolute;
-        top: 210%;
-        transform: translateY(-50%);
-        background-color: rgba(0,0,0,0.5);
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        z-index: 100;
-    }
+/* Carousel Container Styling */
+.carousel-container {
+  overflow: hidden; /* Ensure this container hides overflow content */
+  position: relative; /* Needed for absolute positioning of the gradient/shadow */
+  max-width: 100%; /* Adjust based on your layout */
+}
 
-    .carousel-btn.left {
-      left: 10px; /* Adjust as needed */
-    }
+.carousel {
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  scroll-behavior: smooth; /* Smooth scrolling */
+  -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
 
-    .carousel-btn.right {
-      right: 10px; /* Adjust as needed */
-    }
+.carousel::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, Opera */
+}
 
-    /* Hide scrollbar for carousel */
-    .carousel::-webkit-scrollbar {
-      display: none;
-    }
+/* Optional: Gradient or Shadow to indicate more content */
+.carousel-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50px; /* Adjust based on your design */
+  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1)); /* Adjust colors based on your design */
+}
 
-    .carousel {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+/* Ensure product items have some space between them */
+.product-item {
+  margin-right: 20px; /* Space between items */
+}
+
+/* Last product item margin fix */
+.product-item:last-child {
+  margin-right: 0;
+}
+
 
   </style>
 </head>
