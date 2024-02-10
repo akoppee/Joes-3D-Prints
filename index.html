@@ -437,8 +437,8 @@ function moveSlide(direction) {
 // Set up the event listeners once the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
   fetchAndDisplayProducts(); // Initial fetch and display of products
-  document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-1)); // Move left
-  document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(1)); // Move right
+  document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-3)); // Move left
+  document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(3)); // Move right
 });
 </script>
 
