@@ -384,77 +384,62 @@
 
 
 <script>
+const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:M?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
+let products = [];
 let currentIndex = 0; // Tracks the current index for pagination
 const itemsPerPage = 3; // Number of items to show per page
 
-function moveSlide(direction) {
-  const container = document.getElementById('products-container');
-  // Ensure there's a product item to calculate width from
-  if (container.children.length > 0) {
-    const itemWidth = container.children[0].offsetWidth + 20; // Assuming 20px gap between items
-    // Adjust the currentIndex based on the direction
-    currentIndex += direction;
-    // Prevent the index from moving out of bounds
-    currentIndex = Math.max(0, Math.min(currentIndex, container.children.length - itemsPerPage));
-    // Calculate new scroll position
-    const newScrollPosition = itemWidth * currentIndex;
-    // Smooth scroll to new position
-    container.scrollTo({
-      top: 0,
-      left: newScrollPosition,
-      behavior: 'smooth'
-    });
-  }
-}
-
-document.addEventListener('DOMContentLoaded', (event) => {
-  // Fetch and display products initially or any other setup required
-  fetchAndDisplayProducts();
-  
-  // Setup button event listeners (if not already done in the HTML)
-  document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-1));
-  document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(1));
-});
-const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:M?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU'; // Replace with your actual API endpoint
-
+// Fetch products from the API and store them
 function fetchAndDisplayProducts() {
   fetch(apiURL)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-      const rows = data.values;
-      const container = document.getElementById('products-container');
-      container.innerHTML = '';
-
-      rows.slice(1).forEach((row, index) => {
-        if (index < itemsPerPage) {
-          const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
-          const productHTML = `
-            <div class="product-item">
-              ${ribbonHTML}
-              ${row[1]}
-              <h3 class="product-name">${row[0]}</h3>
-              <p class="product-price">${row[2]}</p>
-            </div>
-          `;
-          container.innerHTML += productHTML;
-        }
-      });
-
-      // After adding new elements to the DOM, reinitialize Sirv
-      Sirv.start(); // Make sure Sirv JS is loaded and executed on your page
+      products = data.values.slice(1); // Assuming data starts from the second row, adjust as necessary
+      updateDisplayedProducts();
     })
-    .catch(error => {
-      console.error('Error fetching products:', error);
-    });
+    .catch(error => console.error('Error fetching products:', error));
 }
 
-// Initial fetch and display
-fetchAndDisplayProducts();
+// Update the displayed products based on currentIndex
+function updateDisplayedProducts() {
+  const container = document.getElementById('products-container');
+  container.innerHTML = ''; // Clear current items
+
+  // Calculate slice indices for the current set of items to display
+  const start = currentIndex * itemsPerPage;
+  const end = Math.min(start + itemsPerPage, products.length);
+  const currentItems = products.slice(start, end);
+
+  // Loop through the current items and append their HTML to the container
+  currentItems.forEach((row) => {
+    const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
+    const productHTML = `
+      <div class="product-item">
+        ${ribbonHTML} <!-- Assuming the ribbon HTML is correctly placed as per your design -->
+        <img src="${row[3]}" alt="Product Image" style="width:100%;"> <!-- Adjust if your data structure differs -->
+        <h3>${row[0]}</h3> <!-- Product Name -->
+        <p>${row[2]}</p> <!-- Product Price -->
+      </div>
+    `;
+    container.innerHTML += productHTML;
+  });
+}
+
+// Handle slide movement and ensure currentIndex updates within bounds
+function moveSlide(direction) {
+  const maxIndex = Math.ceil(products.length / itemsPerPage) - 1;
+  currentIndex += direction;
+  // Prevent currentIndex from going out of bounds
+  currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
+  updateDisplayedProducts(); // Refresh the products display
+}
+
+// Set up the event listeners once the DOM content is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  fetchAndDisplayProducts(); // Initial fetch and display of products
+  document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-1)); // Move left
+  document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(1)); // Move right
+});
 </script>
 
 
