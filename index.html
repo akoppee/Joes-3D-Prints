@@ -428,29 +428,18 @@ function fetchAndDisplayProducts() {
 
 function moveSlide(direction) {
   const container = document.getElementById('products-container');
-  const totalWidth = container.scrollWidth; // Total scrollable width
-  const viewWidth = container.offsetWidth; // Visible width of the carousel
-  const maxScrollPosition = totalWidth - viewWidth; // Maximum scroll position
+  const itemWidth = container.querySelector('.product-item').offsetWidth + 20; // Assuming 20px gap between items
+  const scrollAmount = itemWidth * 3; // Scroll by 3 items at a time
 
-  // Calculate the current scroll position and the amount to scroll, 
-  // which could be adjusted based on the visible width or a set amount.
-  let currentScrollPosition = container.scrollLeft;
-  const scrollAmount = viewWidth * 0.8; // Scroll 80% of the visible width for a smooth scroll
+  // Calculate new scroll position
+  let newScrollPosition = container.scrollLeft + (direction * scrollAmount);
 
-  if (direction === 1) { // Move right
-    currentScrollPosition += scrollAmount;
-    if (currentScrollPosition > maxScrollPosition) {
-      currentScrollPosition = 0; // Loop back to start if we hit the end
-    }
-  } else { // Move left
-    currentScrollPosition -= scrollAmount;
-    if (currentScrollPosition < 0) {
-      currentScrollPosition = maxScrollPosition; // Loop back to end if we go too far left
-    }
-  }
-
-  // Apply the new scroll position
-  container.scrollLeft = currentScrollPosition;
+  // Smooth scroll to new position
+  container.scrollTo({
+    top: 0,
+    left: newScrollPosition,
+    behavior: 'smooth'
+  });
 }
 
 // Initial fetch and display
