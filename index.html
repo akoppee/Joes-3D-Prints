@@ -413,13 +413,13 @@ function updateDisplayedProducts() {
   // Loop through the current items and append their HTML to the container
   currentItems.forEach((row) => {
     const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
-    const productHTML = `
-      <div class="product-item">
-        ${ribbonHTML} <!-- Assuming the ribbon HTML is correctly placed as per your design -->
-        <img src="${row[3]}" alt="Product Image" style="width:100%;"> <!-- Adjust if your data structure differs -->
-        <h3>${row[0]}</h3> <!-- Product Name -->
-        <p>${row[2]}</p> <!-- Product Price -->
-      </div>
+    const productHTML = ` 
+	    <div class="product-item"> 
+	    ${ribbonHTML} 
+	    ${row[1]} 
+	    <h3 class="product-name">${row[0]}</h3> 
+	    <p class="product-price">${row[2]}</p> 
+	    </div> 
     `;
     container.innerHTML += productHTML;
   });
