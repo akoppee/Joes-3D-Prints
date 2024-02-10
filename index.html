@@ -429,7 +429,7 @@ function updateDisplayedProducts() {
 
 // Handle slide movement and ensure currentIndex updates within bounds
 function moveSlide(direction) {
-  const maxIndex = Math.ceil(products.length / itemsPerPage)+1;
+  const maxIndex = Math.ceil(products.length / itemsPerPage);
   currentIndex += direction;
   // Prevent currentIndex from going out of bounds
   currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
