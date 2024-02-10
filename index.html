@@ -399,33 +399,31 @@ function fetchAndDisplayProducts() {
     .then(data => {
       const rows = data.values;
       const container = document.getElementById('products-container');
-      container.innerHTML = ''; // Clear previous content
+      container.innerHTML = '';
 
-      // Start from the second row, index 1, skipping the header row
-      let displayedCount = 0;
-      rows.forEach((row, index) => {
-        if (index >= 1 && displayedCount < itemsPerPage) {
+      rows.slice(1).forEach((row, index) => {
+        if (index < itemsPerPage) {
           const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
-          const formattedPrice = `$${(row[2]).toFixed(2)}`;
-          
           const productHTML = `
             <div class="product-item">
               ${ribbonHTML}
-              <div class="product-profile">${row[1]}</div> <!-- Profile Code -->
-              <h3 class="product-name">${row[0]}</h3> <!-- Name -->
-              <p class="product-price">${formattedPrice}</p> <!-- Price -->
+              <div class="product-profile">${row[1]}</div>
+              <h3 class="product-name">${row[0]}</h3>
+              <p class="product-price">${row[2]}</p>
             </div>
-          `; // Construct product HTML here
-          
+          `;
           container.innerHTML += productHTML;
-          displayedCount++;
         }
       });
+
+      // After adding new elements to the DOM, reinitialize Sirv
+      Sirv.start(); // Make sure Sirv JS is loaded and executed on your page
     })
     .catch(error => {
       console.error('Error fetching products:', error);
     });
 }
+
 
 
 // Navigation function to move through products
