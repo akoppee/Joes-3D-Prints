@@ -426,30 +426,31 @@ function fetchAndDisplayProducts() {
 
 
 
-  let slideIndex = 0;
-const itemsToShow = 3; // Number of items to show at a time
-
 function moveSlide(direction) {
   const container = document.getElementById('products-container');
-  const items = document.getElementsByClassName('product-item');
-  const itemWidth = items[0].offsetWidth; // Assume all items have the same width
+  const totalWidth = container.scrollWidth; // Total scrollable width
+  const viewWidth = container.offsetWidth; // Visible width of the carousel
+  const maxScrollPosition = totalWidth - viewWidth; // Maximum scroll position
 
-  // Calculate the total width to scroll
-  const scrollWidth = itemWidth * itemsToShow;
+  // Calculate the current scroll position and the amount to scroll, 
+  // which could be adjusted based on the visible width or a set amount.
+  let currentScrollPosition = container.scrollLeft;
+  const scrollAmount = viewWidth * 0.8; // Scroll 80% of the visible width for a smooth scroll
 
-  // Update the slideIndex based on direction
-  slideIndex += direction * itemsToShow;
-
-  // Wrap the slideIndex when reaching the end or beginning
-  if (slideIndex >= items.length) {
-    slideIndex = 0; // Go back to the first item
-  } else if (slideIndex < 0) {
-    slideIndex = items.length - itemsToShow; // Go to the last set of items
-    slideIndex = slideIndex < 0 ? 0 : slideIndex; // Make sure it's not negative
+  if (direction === 1) { // Move right
+    currentScrollPosition += scrollAmount;
+    if (currentScrollPosition > maxScrollPosition) {
+      currentScrollPosition = 0; // Loop back to start if we hit the end
+    }
+  } else { // Move left
+    currentScrollPosition -= scrollAmount;
+    if (currentScrollPosition < 0) {
+      currentScrollPosition = maxScrollPosition; // Loop back to end if we go too far left
+    }
   }
 
-  // Scroll to the new slide position
-  container.scrollLeft = scrollWidth * slideIndex / itemsToShow;
+  // Apply the new scroll position
+  container.scrollLeft = currentScrollPosition;
 }
 
 // Initial fetch and display
