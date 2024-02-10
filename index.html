@@ -406,7 +406,7 @@ function fetchAndDisplayProducts() {
       rows.forEach((row, index) => {
         if (index >= 1 && displayedCount < itemsPerPage) {
           const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
-          const formattedPrice = `$${parseFloat(row[2]).toFixed(2)}`;
+          const formattedPrice = `$${(row[2]).toFixed(2)}`;
           
           const productHTML = `
             <div class="product-item">
