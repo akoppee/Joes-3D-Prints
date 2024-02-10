@@ -371,7 +371,7 @@
 <!-- Products Section -->
 <div class="products-section">
     <h2>Our Products</h2>
-    <div class="carousel-container"> <!-- Wrap the carousel and buttons in a new div -->
+    <div class="carousel-container">
       <!-- Carousel buttons -->
       <button onclick="moveSlide(-1)" class="carousel-btn left">&#10094;</button>
       <div id="products-container" class="carousel">
@@ -428,11 +428,10 @@ function fetchAndDisplayProducts() {
 
 function moveSlide(direction) {
   const container = document.getElementById('products-container');
-  const itemWidth = container.querySelector('.product-item').offsetWidth + 20; // Assuming 20px gap between items
-  const scrollAmount = itemWidth * 3; // Scroll by 3 items at a time
+  const itemWidth = container.querySelector('.product-item') ? container.querySelector('.product-item').offsetWidth + 20 : 0; // Ensure it finds a product item, add guard for null
 
   // Calculate new scroll position
-  let newScrollPosition = container.scrollLeft + (direction * scrollAmount);
+  let newScrollPosition = container.scrollLeft + (direction * itemWidth * itemsPerPage); // Adjusted to scroll by 'itemsPerPage' width
 
   // Smooth scroll to new position
   container.scrollTo({
