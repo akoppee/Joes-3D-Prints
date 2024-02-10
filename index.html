@@ -426,24 +426,24 @@ function updateDisplayedProducts() {
 }
 
 function moveSlide(direction) {
-  const totalProducts = products.length;
-  const maxIndex = Math.ceil(totalProducts / itemsPerPage) - 1;
-  currentIndex += direction;
+    const totalProducts = products.length;
+    const maxIndex = Math.ceil(totalProducts / itemsPerPage) - 1;
+    currentIndex += direction;
 
-  // Implement wrap-around logic
-  if (currentIndex < 0) {
-    currentIndex = maxIndex; // Wrap to last page if moving left from the first page
-  } else if (currentIndex > maxIndex) {
-    currentIndex = 0; // Wrap to first page if moving right from the last page
-  }
+    // Wrap-around logic
+    if (currentIndex < 0) {
+        currentIndex = maxIndex; // Wrap to last if moving left from the first
+    } else if (currentIndex > maxIndex) {
+        currentIndex = 0; // Wrap to first if moving right from the last
+    }
 
-  updateDisplayedProducts();
+    updateDisplayedProducts();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  fetchAndDisplayProducts();
-  document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-1));
-  document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(1));
+    fetchAndDisplayProducts(); // Initial fetch and display of products
+    document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-1)); // Move left by one
+    document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(1)); // Move right by one
 });
 </script>
 
