@@ -432,7 +432,7 @@ function moveSlide(direction) {
   const maxIndex = Math.ceil(products.length / itemsPerPage)+1;
   currentIndex += direction;
   // Prevent currentIndex from going out of bounds
-  currentIndex = Math.max(0, Math.min(currentIndex, maxIndex+1));
+  currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
   updateDisplayedProducts(); // Refresh the products display
 }
 
