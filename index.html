@@ -406,7 +406,7 @@ function updateDisplayedProducts() {
   container.innerHTML = ''; // Clear current items
 
   // Calculate slice indices for the current set of items to display
-  const start = currentIndex * itemsPerPage;
+  const start = currentIndex; //* itemsPerPage;
   const end = Math.min(start + itemsPerPage, products.length);
   const currentItems = products.slice(start, end);
 
