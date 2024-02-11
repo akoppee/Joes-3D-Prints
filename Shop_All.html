@@ -183,15 +183,21 @@
   </style>
 </head>
 <body>
-  <div class="fixed-header">
-    <!-- Your fixed header content -->
+<div class="fixed-header">
+  <a href="/">
+    <img src="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" alt="Company Logo" class="logo">
+  </a>
+  <a href="https://forms.gle/SgnbDATWK7QjRpfYA" class="header-btn" target="_blank">Order Now</a>
+  <a href="https://akoppee.github.io/Kopes-3D-Prints/Shop_All.html#" class="header-btn">Shop All</a>
+</div>
+	
+<!-- Existing hero-image section -->
+<div class="hero-image">
+  <div class="hero-text">
+    <h1>Welcome to Kope's 3D Prints</h1>
+    <p>Your Satisfaction Is Our Priority</p>
   </div>
-
-  <div class="hero-image">
-    <div class="hero-text">
-      <!-- Your hero text content -->
-    </div>
-  </div>
+</div>
 
   <div class="clearfix">
     <aside class="sidebar">
@@ -238,14 +244,14 @@
 
       currentItems.forEach((row) => {
         const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
-        const productHTML = `
-          <div class="product-item">
-            ${ribbonHTML}
-            <img src="${row[3]}" alt="${row[0]}">
-            <h3>${row[0]}</h3>
-            <p>${row[2]}</p>
-          </div>
-        `;
+	    const productHTML = ` 
+		    <div class="product-item"> 
+		    ${ribbonHTML} 
+		    ${row[1]} 
+		    <h3 class="product-name">${row[0]}</h3> 
+		    <p class="product-price">${row[2]}</p> 
+		    </div> 
+	    `;
         container.innerHTML += productHTML;
       });
     }
