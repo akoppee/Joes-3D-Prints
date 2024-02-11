@@ -429,21 +429,22 @@ function updateDisplayedProducts() {
 
 // Handle slide movement and ensure currentIndex updates within bounds
 function moveSlide(direction) {
-    // Calculate maxPages considering each "move" advances by 2 items, but ensure all items are shown
-    const totalMoves = Math.ceil(products.length / itemsPerPage);
-    const maxPages = Math.ceil(totalMoves / 2) - 1;
+    // Calculate the maximum index (maxPages) based on the total number of products and itemsPerPage
+    const maxPages = Math.ceil(products.length / itemsPerPage) - 1;
     
-    currentIndex += direction; // Since moving by 2 works, keep this logic
-    
-    // Implement wrap-around navigation
+    // Update currentIndex by 2 units as required for your navigation logic
+    currentIndex += direction; // Here, direction should be either 2 for next or -2 for previous to move by one "page"
+
+    // Wrap-around logic: Adjust currentIndex to stay within bounds
     if (currentIndex < 0) {
-        currentIndex = maxPages * 2; // Adjust for wrap-around, considering each move is 2 units
-    } else if (currentIndex > maxPages * 2) {
-        currentIndex = 0; // Wrap to first if moving right from the last
+        currentIndex = maxPages * 2; // Corrected to ensure wrap-around takes into account the step of 2
+    } else if (currentIndex / 2 > maxPages) { // Use currentIndex / 2 to determine the page number
+        currentIndex = 0;
     }
-    
-    updateDisplayedProducts(); // Refresh the products display
+
+    updateDisplayedProducts(); // Refresh the display with the new set of products
 }
+
 
 
 // Set up the event listeners once the DOM content is fully loaded
