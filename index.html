@@ -360,23 +360,34 @@
 
     /* Footer styles */
     footer {
-      background-color: #162b6f; /* Dark blue background to match your color scheme */
-      color: white; /* White text for contrast */
-      padding: 2em; /* Ample padding for spacing */
+      background-color: #162b6f; /* Dark blue background to keep consistent with the header */
+      color: #ffffff; /* White text for contrast */
+      padding: 1em; /* Adjust padding to reduce size */
+      font-family: 'Oswald', sans-serif; /* Match the font style of the header */
       text-align: center; /* Center the text */
+      line-height: 1.5; /* Improve line spacing for readability */
     }
 
     footer p {
-      margin: 0.5em 0; /* Spacing between paragraphs */
+      margin: 0.5em 0; /* Maintain spacing between paragraphs */
+      font-size: 0.9em; /* Adjust the font size to fit the design */
     }
 
     footer a {
-      color: #FFD700; /* A gold color for links to stand out */
-      text-decoration: none; /* Removes underline from links */
+      color: #FFD700; /* Use a gold color for links to make them stand out */
+      text-decoration: none; /* No underline */
+      margin: 0 5px; /* Spacing between links */
     }
 
     footer a:hover {
-      text-decoration: underline; /* Underline on hover for interaction feedback */
+      text-decoration: underline; /* Underline on hover */
+    }
+
+    /* Make the footer responsive */
+    @media (max-width: 768px) {
+      footer p {
+        font-size: 0.8em; /* Smaller font size on smaller screens */
+      }
     }
 
   </style>
