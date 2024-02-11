@@ -435,12 +435,7 @@ function moveSlide(direction) {
     // Update currentIndex by 2 units as required for your navigation logic
     currentIndex += direction; // Here, direction should be either 2 for next or -2 for previous to move by one "page"
 
-    // Wrap-around logic: Adjust currentIndex to stay within bounds
-    if (currentIndex < 0) {
-        currentIndex = (maxPages*2)+1; // Corrected to ensure wrap-around takes into account the step of 2
-    } else if (currentIndex / 2 > maxPages) { // Use currentIndex / 2 to determine the page number
-        currentIndex = 0;
-    }
+
 
     updateDisplayedProducts(); // Refresh the display with the new set of products
 }
