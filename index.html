@@ -436,7 +436,11 @@ function moveSlide(direction) {
     currentIndex += direction; // Here, direction should be either 2 for next or -2 for previous to move by one "page"
 
 
-
+  if (currentIndex < 0) {
+    currentIndex = maxPages * 2;  // If moving left from the first page, go to the last page
+  } else if (currentIndex >= maxPages * 2) {
+    currentIndex = 0;  // If moving right past the last page, wrap to the first page
+  }
     updateDisplayedProducts(); // Refresh the display with the new set of products
 }
 
