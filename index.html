@@ -390,16 +390,21 @@ let currentIndex = 0; // Tracks the current index for pagination
 const itemsPerPage = 3; // Number of items to show per page
 
 // Fetch products from the API and store them
-function fetchAndDisplayProducts() {
-  fetch(apiURL)
-    .then(response => response.json())
-    .then(data => {
-      // Filter out products where the "N" column explicitly equals 'FALSE'
-      // Assuming 'FALSE' values are in the 14th column (index 13)
-      products = data.values.slice(1).filter(row => row[13].toString().trim().toUpperCase() !== 'FALSE');
-      updateDisplayedProducts();
-    })
-    .catch(error => console.error('Error fetching products:', error));
+function moveSlide(direction) {
+    // Calculate maxPages considering each "move" advances by 2 items, but ensure all items are shown
+    const totalMoves = Math.ceil(products.length / itemsPerPage);
+    const maxPages = Math.ceil(totalMoves / 2) - 1;
+    
+    currentIndex += direction; // Since moving by 2 works, keep this logic
+    
+    // Implement wrap-around navigation
+    if (currentIndex < 0) {
+        currentIndex = maxPages * 2; // Adjust for wrap-around, considering each move is 2 units
+    } else if (currentIndex > maxPages * 2) {
+        currentIndex = 0; // Wrap to first if moving right from the last
+    }
+    
+    updateDisplayedProducts(); // Refresh the products display
 }
 
 // Update the displayed products based on currentIndex
