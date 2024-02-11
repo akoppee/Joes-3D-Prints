@@ -309,19 +309,23 @@
 
 
     /* Carousel Navigation Button Styles */
-    .carousel-btn {
-        position: absolute;
-        top: 210%;
-        transform: translateY(-50%);
-	background: rgba(200, 200, 200, 0.5);
-	box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* white with 50% opacity */
-        color: black;
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        z-index: 100;
-        border-radius: 5px; /* Adjust as necessary for desired roundness */
-    }
+	.carousel-btn {
+	  background-color: #1C3E8C; /* A lighter shade of the primary blue */
+	  color: white;
+	  border: none;
+	  padding: 10px 20px;
+	  cursor: pointer;
+	  font-family: 'Oswald', sans-serif;
+	  border-radius: 25px; /* Rounded edges to match the "Order Now" button */
+	  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Soft shadow for depth */
+	  transition: all 0.3s ease;
+	}
+	
+	.carousel-btn:hover {
+	  background-color: #162b6f; /* Darker blue on hover for interaction feedback */
+	  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Slightly deeper shadow on hover */
+	}
+
 
     .carousel-btn.left {
       left: 35px; /* Adjust as needed */
