@@ -266,13 +266,11 @@
     }
 
     /* Carousel Container Styles */
-    .carousel {
-      display: flex;
-      justify-content: center;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      padding: 20px 0;
-    }
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center rows */
+}
 
     /* Individual Product Item Styles */
  .product-item {
@@ -486,25 +484,29 @@ function displayProductsInRows() {
   const container = document.getElementById('products-container');
   container.innerHTML = ''; // Clear current items
 
-  let row;
+  let row = document.createElement('div');
+  row.className = 'product-row';
+
   products.forEach((product, index) => {
-    // Create a new row for every 'itemsPerRow' products
-    if (index % itemsPerRow === 0) {
-      row = document.createElement('div');
+    if (index % itemsPerRow === 0 && index !== 0) { // Start a new row after every 'itemsPerRow' items, except for the first row
+      container.appendChild(row); // Append the current row before creating a new one
+      row = document.createElement('div'); // Create a new row
       row.className = 'product-row';
-      container.appendChild(row);
     }
-    
-    const ribbonHTML = product[5] && product[5].trim() !== '' ? `<div class="ribbon">${product[5]}</div>` : '';
-    const productHTML = `
-      <div class="product-item">
-        ${ribbonHTML}
-        <img src="${product[1]}" alt="${product[0]}">
-        <h3 class="product-name">${product[0]}</h3>
-        <p class="product-price">${product[2]}</p>
-      </div>
+
+    const productHTML = ` 
+	    <div class="product-item"> 
+	    ${ribbonHTML} 
+	    ${row[1]} 
+	    <h3 class="product-name">${row[0]}</h3> 
+	    <p class="product-price">${row[2]}</p> 
+	    </div> 
     `;
     row.innerHTML += productHTML;
+
+    if (index === products.length - 1) { // Append the last row
+      container.appendChild(row);
+    }
   });
 }
 
