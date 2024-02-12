@@ -70,7 +70,7 @@
 
 /* Target only the last button for the additional margin */
 .nav-links a.header-btn:last-child {
-  margin-right: 85px; /* Extra space to the left of the last button */
+  margin-right: 90px; /* Extra space to the left of the last button */
 }
 
 
@@ -409,6 +409,11 @@
         font-size: 0.8em; /* Smaller font size on smaller screens */
       }
     }
+html {
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: rgba(135, 206, 250, 0.5) transparent; /* For Firefox */
+}
+	  
 /* Hide scrollbar arrows */
 ::-webkit-scrollbar-button {
   display: none;
@@ -416,18 +421,16 @@
 
 /* Handle the scrollbar track */
 ::-webkit-scrollbar-track {
-  background: transparent; /* Starting off with a transparent track */
+  background: transparent !important; /* Transparent track will show the page behind the scrollbar */
 }
 
-/* Handle the scrollbar thumb */
 ::-webkit-scrollbar-thumb {
-  background: rgba(135, 206, 250, 0.5); /* Light blue with some transparency */
-  border-radius: 10px; /* Rounded corners for a softer look */
+  background: rgba(135, 206, 250, 0.5) !important; /* Semi-transparent light blue thumb */
+  border-radius: 10px !important; /* Rounded corners for the thumb */
 }
 
-/* Handle hover and active states for the scrollbar thumb */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(135, 206, 250, 0.8); /* A bit less transparent on hover */
+  background: rgba(135, 206, 250, 0.8) !important; /* Less transparent light blue thumb when hovered */
 }
 
   </style>
