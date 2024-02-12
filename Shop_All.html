@@ -463,64 +463,53 @@ html {
 <script>
 const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
 let products = [];
-let currentIndex = 0; // Tracks the current index for pagination
-const itemsPerRow = 3; // Number of items to show per page
+const itemsPerRow = 3; // Number of items to show per row
 
-// Fetch products from the API and store them
 function fetchAndDisplayProducts() {
   fetch(apiURL)
     .then(response => response.json())
     .then(data => {
-      // Filter out products where the "N" column explicitly equals 'FALSE'
-      // Assuming 'FALSE' values are in the 14th column (index 13)
       products = data.values.slice(1).filter(row => row[13].toString().trim().toUpperCase() !== 'FALSE');
-      displayProductsInRows();
+      displayProductsInRows(products);
     })
     .catch(error => console.error('Error fetching products:', error));
 }
 
-// Update the displayed products based on currentIndex
-function displayProductsInRows() {
+function displayProductsInRows(products) {
   const container = document.getElementById('products-container');
   container.innerHTML = ''; // Clear current items
-
   let row = document.createElement('div');
-  row.className = 'product-row';
+  row.className = 'product-row'; // Use this class to style your rows
 
   products.forEach((product, index) => {
-    if (index % itemsPerRow === 0 && index !== 0) { // Start a new row after every 'itemsPerRow' items, except for the first row
-      container.appendChild(row); // Append the current row before creating a new one
-      row = document.createElement('div'); // Create a new row
+    if (index % itemsPerRow === 0) {
+      if (index !== 0) {
+        container.appendChild(row); // Append the filled row to the container
+      }
+      row = document.createElement('div'); // Create a new row for the next set of items
       row.className = 'product-row';
     }
 
-    const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
+    const ribbonHTML = product[5] && product[5].trim() !== '' ? `<div class="ribbon">${product[5]}</div>` : '';
     const productHTML = ` 
-	    <div class="product-item"> 
-	    ${ribbonHTML} 
-	    ${row[1]} 
-	    <h3 class="product-name">${row[0]}</h3> 
-	    <p class="product-price">${row[2]}</p> 
-	    </div> 
+      <div class="product-item"> 
+        ${ribbonHTML} 
+        <img src="${product[1]}" alt="${product[0]}">
+        <h3 class="product-name">${product[0]}</h3> 
+        <p class="product-price">${product[2]}</p> 
+      </div>
     `;
-    row.innerHTML += productHTML;
+    row.innerHTML += productHTML; // Add the product to the current row
 
-    if (index === products.length - 1) { // Append the last row
-      container.appendChild(row);
+    if (index === products.length - 1) {
+      container.appendChild(row); // Append the last row if it's not yet appended
     }
   });
 }
 
-// You would call this function after fetching your products
-
-
-// Set up the event listeners once the DOM content is fully loaded
-// Set up the event listeners once the DOM content is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-  fetchAndDisplayProducts(); // Initial fetch and display of products
-  // No more button event listeners for sliding
-});
+document.addEventListener('DOMContentLoaded', fetchAndDisplayProducts);
 </script>
+
 
 
 
