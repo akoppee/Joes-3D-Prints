@@ -411,33 +411,34 @@
     }
 /* Global scrollbar styles */
 html {
-  scrollbar-width: thin; /* For Firefox */
-  scrollbar-color: rgba(135, 206, 250, 0.5) transparent; /* For Firefox */
+  scrollbar-width: thin !important; /* For Firefox */
+  scrollbar-color: rgba(0, 78, 215, 0.5) transparent !important; /* For Firefox, with transparent track */
 }
 
 /* For Chrome, Safari, and newer versions of Edge */
 ::-webkit-scrollbar {
   width: 10px !important; /* Adjust the width of the scrollbar */
-  height: 10px !important; /* Adjust the height of the scrollbar for horizontal scroll */
+  height: 10px !important; /* Adjust the height of the scrollbar for horizontal scrolls */
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent !important; /* Transparent track will show the page behind the scrollbar */
+  background: rgba(255, 255, 255, 0.2) !important; /* Mostly transparent track */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(135, 206, 250, 0.5) !important; /* Semi-transparent light blue thumb */
+  background: rgba(0, 78, 215, 0.5) !important; /* Blue thumb with 0.5 transparency */
   border-radius: 10px !important; /* Rounded corners for the thumb */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(135, 206, 250, 0.8) !important; /* Less transparent light blue thumb when hovered */
+  background: rgba(0, 78, 215, 0.8) !important; /* Blue thumb with less transparency when hovered */
 }
-	  
-/* Hide scrollbar arrows */
+
+/* Remove scrollbar arrows */
 ::-webkit-scrollbar-button {
   display: none !important;
 }
+
 
 
   </style>
