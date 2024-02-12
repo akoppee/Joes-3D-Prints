@@ -500,73 +500,53 @@ html {
 <script>
 const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
 let products = [];
-let currentIndex = 0; // Tracks the current index for pagination
-const itemsPerPage = 3; // Number of items to show per page
+const itemsPerRow = 3; // Number of items to show per row
 
-// Fetch products from the API and store them
 function fetchAndDisplayProducts() {
   fetch(apiURL)
     .then(response => response.json())
     .then(data => {
-      // Filter out products where the "N" column explicitly equals 'FALSE'
-      // Assuming 'FALSE' values are in the 14th column (index 13)
       products = data.values.slice(1).filter(row => row[13].toString().trim().toUpperCase() !== 'FALSE');
-      updateDisplayedProducts();
+      displayProductsInRows(products);
     })
     .catch(error => console.error('Error fetching products:', error));
 }
 
-// Update the displayed products based on currentIndex
-function updateDisplayedProducts() {
+function displayProductsInRows(products) {
   const container = document.getElementById('products-container');
   container.innerHTML = ''; // Clear current items
+  let row = document.createElement('div');
+  row.className = 'product-row'; // Use this class to style your rows
 
-  // Calculate slice indices for the current set of items to display
-  const start = currentIndex; //* itemsPerPage;
-  const end = Math.min(start + itemsPerPage, products.length);
-  const currentItems = products.slice(start, end);
+  products.forEach((product, index) => {
+    if (index % itemsPerRow === 0) {
+      if (index !== 0) {
+        container.appendChild(row); // Append the filled row to the container
+      }
+      row = document.createElement('div'); // Create a new row for the next set of items
+      row.className = 'product-row';
+    }
 
-  // Loop through the current items and append their HTML to the container
-  currentItems.forEach((row) => {
-    const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
+    const ribbonHTML = product[5] && product[5].trim() !== '' ? `<div class="ribbon">${product[5]}</div>` : '';
     const productHTML = ` 
-	    <div class="product-item"> 
-	    ${ribbonHTML} 
-	    ${row[1]} 
-	    <h3 class="product-name">${row[0]}</h3> 
-	    <p class="product-price">${row[2]}</p> 
-	    </div> 
+      <div class="product-item"> 
+        ${ribbonHTML} 
+        <img src="${product[1]}" alt="${product[0]}">
+        <h3 class="product-name">${product[0]}</h3> 
+        <p class="product-price">${product[2]}</p> 
+      </div>
     `;
-    container.innerHTML += productHTML;
+    row.innerHTML += productHTML; // Add the product to the current row
+
+    if (index === products.length - 1) {
+      container.appendChild(row); // Append the last row if it's not yet appended
+    }
   });
 }
 
-// Handle slide movement and ensure currentIndex updates within bounds
-function moveSlide(direction) {
-    // Calculate the maximum index (maxPages) based on the total number of products and itemsPerPage
-    const maxPages = Math.ceil(products.length / itemsPerPage)+1;
-    
-    // Update currentIndex by 2 units as required for your navigation logic
-    currentIndex += direction; // Here, direction should be either 2 for next or -2 for previous to move by one "page"
-
-
-  if (currentIndex < 0) {
-    currentIndex = maxPages * 2;  // If moving left from the first page, go to the last page
-  } else if (currentIndex >= maxPages * 2) {
-    currentIndex = 0;  // If moving right past the last page, wrap to the first page
-  }
-    updateDisplayedProducts(); // Refresh the display with the new set of products
-}
-
-
-
-// Set up the event listeners once the DOM content is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-  fetchAndDisplayProducts(); // Initial fetch and display of products
-  document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-2)); // Move left
-  document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(2)); // Move right
-});
+document.addEventListener('DOMContentLoaded', fetchAndDisplayProducts);
 </script>
+
 
 
 
