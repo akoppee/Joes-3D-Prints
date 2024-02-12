@@ -68,9 +68,11 @@
     justify-content: flex-end; /* Pushes all children to the right */
   }
 
-.nav-links a.header-btn:first-child {
-  margin-right: 30px; /* Add a bit more space to account for the scrollbar */
+/* Target only the last button for the additional margin */
+.nav-links a.header-btn:last-child {
+  margin-right: 10px; /* Extra space to the left of the last button */
 }
+
 
   /* Adjust the logo class if necessary */
   .logo {
