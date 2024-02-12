@@ -409,17 +409,18 @@
         font-size: 0.8em; /* Smaller font size on smaller screens */
       }
     }
+/* Global scrollbar styles */
 html {
   scrollbar-width: thin; /* For Firefox */
   scrollbar-color: rgba(135, 206, 250, 0.5) transparent; /* For Firefox */
 }
-	  
-/* Hide scrollbar arrows */
-::-webkit-scrollbar-button {
-  display: none;
+
+/* For Chrome, Safari, and newer versions of Edge */
+::-webkit-scrollbar {
+  width: 10px !important; /* Adjust the width of the scrollbar */
+  height: 10px !important; /* Adjust the height of the scrollbar for horizontal scroll */
 }
 
-/* Handle the scrollbar track */
 ::-webkit-scrollbar-track {
   background: transparent !important; /* Transparent track will show the page behind the scrollbar */
 }
@@ -432,6 +433,12 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(135, 206, 250, 0.8) !important; /* Less transparent light blue thumb when hovered */
 }
+	  
+/* Hide scrollbar arrows */
+::-webkit-scrollbar-button {
+  display: none !important;
+}
+
 
   </style>
 </head>
