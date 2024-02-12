@@ -325,6 +325,13 @@
   width: 200px;
   text-align: center;
 }
+	  
+.product-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* This sets spacing between the product items */
+}
 
     /* Hide scrollbar for carousel */
     .carousel::-webkit-scrollbar {
@@ -440,11 +447,9 @@ html {
     <h2>Our Products</h2>
     <div class="carousel-container">
       <!-- Carousel buttons -->
-      <button onclick="moveSlide(-1)" class="carousel-btn left">&#10094;</button>
       <div id="products-container" class="carousel">
         <!-- Products will be loaded here by the script -->
       </div>
-      <button onclick="moveSlide(1)" class="carousel-btn right">&#10095;</button>
     </div>
 </div>
   <footer>
@@ -461,7 +466,7 @@ html {
 const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
 let products = [];
 let currentIndex = 0; // Tracks the current index for pagination
-const itemsPerPage = 3; // Number of items to show per page
+const itemsPerRow = 3; // Number of items to show per page
 
 // Fetch products from the API and store them
 function fetchAndDisplayProducts() {
@@ -477,43 +482,41 @@ function fetchAndDisplayProducts() {
 }
 
 // Update the displayed products based on currentIndex
-function updateDisplayedProducts() {
+ffunction updateDisplayedProducts() {
   const container = document.getElementById('products-container');
   container.innerHTML = ''; // Clear current items
+  let row = document.createElement('div'); // Create a new row
+  row.className = 'product-row'; // Assign a class for styling if needed
 
-  // Loop through all products and append their HTML to the container
-  products.forEach((row) => {
-    const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
-    const productHTML = ` 
-      <div class="product-item"> 
-        ${ribbonHTML} 
-        ${row[1]} 
-        <h3 class="product-name">${row[0]}</h3> 
-        <p class="product-price">${row[2]}</p> 
-      </div> 
+  // Loop through all products
+  products.forEach((product, index) => {
+    // Add product to the current row
+    const ribbonHTML = product[5] && product[5].trim() !== '' ? `<div class="ribbon">${product[5]}</div>` : '';
+    const productHTML = `
+      <div class="product-item">
+        ${ribbonHTML}
+        ${product[1]}
+        <h3 class="product-name">${product[0]}</h3>
+        <p class="product-price">${product[2]}</p>
+      </div>
     `;
-    container.innerHTML += productHTML;
+    row.innerHTML += productHTML;
+
+    // If the row is filled, append it to the container and start a new row
+    if ((index + 1) % itemsPerRow === 0) {
+      container.appendChild(row);
+      row = document.createElement('div');
+      row.className = 'product-row';
+    }
   });
-}
 
-
-// Handle slide movement and ensure currentIndex updates within bounds
-function moveSlide(direction) {
-    // Calculate the maximum index (maxPages) based on the total number of products and itemsPerPage
-    const maxPages = Math.ceil(products.length / itemsPerPage)+1;
-    
-    // Update currentIndex by 2 units as required for your navigation logic
-    currentIndex += direction; // Here, direction should be either 2 for next or -2 for previous to move by one "page"
-
-
-  if (currentIndex < 0) {
-    currentIndex = maxPages * 2;  // If moving left from the first page, go to the last page
-  } else if (currentIndex >= maxPages * 2) {
-    currentIndex = 0;  // If moving right past the last page, wrap to the first page
+  // Append the last row if it has products
+  if (row.innerHTML !== '') {
+    container.appendChild(row);
   }
-    updateDisplayedProducts(); // Refresh the display with the new set of products
 }
 
+// You would call this function after fetching your products
 
 
 // Set up the event listeners once the DOM content is fully loaded
