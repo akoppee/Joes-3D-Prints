@@ -329,8 +329,8 @@
 .product-row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px; /* This sets spacing between the product items */
+  justify-content: center; /* or 'flex-start' if you want them aligned to the left */
+  gap: 20px; /* Adjust the gap as needed */
 }
 
     /* Hide scrollbar for carousel */
@@ -476,44 +476,36 @@ function fetchAndDisplayProducts() {
       // Filter out products where the "N" column explicitly equals 'FALSE'
       // Assuming 'FALSE' values are in the 14th column (index 13)
       products = data.values.slice(1).filter(row => row[13].toString().trim().toUpperCase() !== 'FALSE');
-      updateDisplayedProducts();
+      displayProductsInRows();
     })
     .catch(error => console.error('Error fetching products:', error));
 }
 
 // Update the displayed products based on currentIndex
-function updateDisplayedProducts() {
+function displayProductsInRows() {
   const container = document.getElementById('products-container');
   container.innerHTML = ''; // Clear current items
-  let row = document.createElement('div'); // Create a new row
-  row.className = 'product-row'; // Assign a class for styling if needed
 
-  // Loop through all products
+  let row;
   products.forEach((product, index) => {
-    // Add product to the current row
+    // Create a new row for every 'itemsPerRow' products
+    if (index % itemsPerRow === 0) {
+      row = document.createElement('div');
+      row.className = 'product-row';
+      container.appendChild(row);
+    }
+    
     const ribbonHTML = product[5] && product[5].trim() !== '' ? `<div class="ribbon">${product[5]}</div>` : '';
     const productHTML = `
       <div class="product-item">
         ${ribbonHTML}
-        ${product[1]}
+        <img src="${product[1]}" alt="${product[0]}">
         <h3 class="product-name">${product[0]}</h3>
         <p class="product-price">${product[2]}</p>
       </div>
     `;
     row.innerHTML += productHTML;
-
-    // If the row is filled, append it to the container and start a new row
-    if ((index + 1) % itemsPerRow === 0) {
-      container.appendChild(row);
-      row = document.createElement('div');
-      row.className = 'product-row';
-    }
   });
-
-  // Append the last row if it has products
-  if (row.innerHTML !== '') {
-    container.appendChild(row);
-  }
 }
 
 // You would call this function after fetching your products
