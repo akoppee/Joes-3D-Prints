@@ -494,6 +494,7 @@ function displayProductsInRows() {
       row.className = 'product-row';
     }
 
+    const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
     const productHTML = ` 
 	    <div class="product-item"> 
 	    ${ribbonHTML} 
