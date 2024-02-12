@@ -106,6 +106,28 @@
   }
 }
 
+/* Hide scrollbar arrows */
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Handle the scrollbar track */
+::-webkit-scrollbar-track {
+  background: transparent; /* Starting off with a transparent track */
+}
+
+/* Handle the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background: rgba(135, 206, 250, 0.5); /* Light blue with some transparency */
+  border-radius: 10px; /* Rounded corners for a softer look */
+}
+
+/* Handle hover and active states for the scrollbar thumb */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(135, 206, 250, 0.8); /* A bit less transparent on hover */
+}
+
+
 
     /* Rest of your CSS */
   </style>
