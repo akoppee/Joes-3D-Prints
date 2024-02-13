@@ -272,38 +272,45 @@
   align-items: center; /* Center rows */
 }
 
-    /* Individual Product Item Styles */
+/* Individual Product Item Styles */
 .product-row {
   display: flex;
-  justify-content: space-evenly; /* This will space out the products evenly across the available space */
-  align-items: flex-start; /* This aligns items to the start of the flex container */
-  flex-wrap: wrap; /* This allows items to wrap onto multiple lines */
-  margin-bottom: 20px; /* Adds space between rows of products */
+  flex-wrap: wrap;
+  justify-content: space-around; /* This will keep the space distribution even */
+  align-items: flex-start; /* Align items to the top of the container */
+  margin: 0 auto; /* Center the row within its container */
 }
+
 
 .product-item {
   position: relative;
-  width: calc(33.333% - 40px); /* Divide the row into 3, subtracting the margin */
-  margin: 20px; /* This margin creates space around each product item */
+  width: 300px; /* Reduce the width to fit the increased margin */
+  height: 300px; /* Adjust the height as needed to maintain the aspect ratio */
+  margin: 40px; /* Increase the margin to space out the items */
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   text-align: center;
+  padding: 16px;
   background-color: white;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow: hidden;
-  padding: 16px;
-  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
 }
+
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
   .product-item {
-    width: calc(50% - 40px); /* Adjust to 50% for smaller screens so it shows 2 items per row */
+    width: calc(50% - 80px); /* Adjust the width for 2 items per row with the increased margin */
+    margin: 40px; /* Keep the increased margin */
   }
 }
 
 @media (max-width: 480px) {
   .product-item {
-    width: calc(100% - 40px); /* Adjust to 100% for very small screens so it shows 1 item per row */
+    width: calc(100% - 80px); /* Full width for very small screens, minus the margin */
+    margin: 40px auto; /* Center the product on small screens */
   }
 }
 
