@@ -273,7 +273,16 @@
 }
 
     /* Individual Product Item Styles */
- .product-item {
+.product-row {
+  display: flex;
+  justify-content: space-around; /* This will space out the products evenly */
+  flex-wrap: wrap;
+}
+
+.product-item {
+  flex-basis: calc(33.333% - 20px); /* Adjust this value to control the size of the product items */
+  box-sizing: border-box; /* Makes sure padding and borders are included in the total width and height */
+  margin: 10px; /* Adjust the margin as needed */
     position: relative;
     width: 375px; /* Adjust width as needed */
     height: 375px; /* Set height to 375 to maintain aspect ratio */
@@ -324,13 +333,6 @@
   text-align: center;
 }
 	  
-.product-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* or 'flex-start' if you want them aligned to the left */
-  gap: 20px; /* Adjust the gap as needed */
-}
-
     /* Hide scrollbar for carousel */
     .carousel::-webkit-scrollbar {
       display: none;
@@ -475,9 +477,10 @@ function fetchAndDisplayProducts() {
     .catch(error => console.error('Error fetching products:', error));
 }
 
-function displayProductsInRows(products) {
+function displayProductsInRows() {
   const container = document.getElementById('products-container');
   container.innerHTML = ''; // Clear current items
+
   let row = document.createElement('div');
   row.className = 'product-row'; // Use this class to style your rows
 
@@ -493,7 +496,7 @@ function displayProductsInRows(products) {
     const ribbonHTML = product[5] && product[5].trim() !== '' ? `<div class="ribbon">${product[5]}</div>` : '';
     const productHTML = ` 
       <div class="product-item"> 
-        ${ribbonHTML} 
+        ${ribbonHTML}
         <img src="${product[1]}" alt="${product[0]}">
         <h3 class="product-name">${product[0]}</h3> 
         <p class="product-price">${product[2]}</p> 
@@ -501,7 +504,7 @@ function displayProductsInRows(products) {
     `;
     row.innerHTML += productHTML; // Add the product to the current row
 
-    if (index === products.length - 1) {
+    if ((index + 1) % itemsPerRow === 0 || index === products.length - 1) {
       container.appendChild(row); // Append the last row if it's not yet appended
     }
   });
