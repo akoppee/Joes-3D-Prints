@@ -470,65 +470,69 @@ html {
 
 <script>
 const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
+let products = [];
+let currentIndex = 0; // Tracks the current index for pagination
+const itemsPerRow = 3; // Number of items to show per page
 
+// Fetch products from the API and store them
 function fetchAndDisplayProducts() {
   fetch(apiURL)
     .then(response => response.json())
     .then(data => {
-      // Debugging: Log the raw data to see its structure
-      console.log('Raw data:', data);
-
-      // Assuming the relevant product details start from the second row (index 1) and the first row contains headers
-      const products = data.values.slice(1).filter(row => row[13].toString().trim().toUpperCase() !== 'FALSE');
-      displayProductsInRows(products);
+      // Filter out products where the "N" column explicitly equals 'FALSE'
+      // Assuming 'FALSE' values are in the 14th column (index 13)
+      products = data.values.slice(1).filter(row => row[13].toString().trim().toUpperCase() !== 'FALSE');
+      updateDisplayedProducts();
     })
     .catch(error => console.error('Error fetching products:', error));
 }
 
-function displayProductsInRows(products) {
+// Update the displayed products based on currentIndex
+function updateDisplayedProducts() {
   const container = document.getElementById('products-container');
   container.innerHTML = ''; // Clear current items
+  let row = document.createElement('div'); // Create a new row
+  row.className = 'product-row'; // Assign a class for styling if needed
 
-  // Creating a variable to hold a row. This will be reused.
-  let row = document.createElement('div');
-  row.className = 'product-row';
-
+  // Loop through all products
   products.forEach((product, index) => {
-    // Debugging: Log each product to see its structure
-    console.log('Product data:', product);
+    // Add product to the current row
+    const ribbonHTML = product[5] && product[5].trim() !== '' ? `<div class="ribbon">${product[5]}</div>` : '';
+    const productHTML = `
+      <div class="product-item">
+        ${ribbonHTML}
+        ${product[1]}
+        <h3 class="product-name">${product[0]}</h3>
+        <p class="product-price">${product[2]}</p>
+      </div>
+    `;
+    row.innerHTML += productHTML;
 
-    // Check if it's time to start a new row
-    if (index % 3 === 0 && index !== 0) {
+    // If the row is filled, append it to the container and start a new row
+    if ((index + 1) % itemsPerRow === 0) {
       container.appendChild(row);
       row = document.createElement('div');
       row.className = 'product-row';
     }
-
-    const ribbonHTML = product[5] && product[5].trim() !== '' ? `<div class="ribbon">${product[5]}</div>` : '';
-    const imageSrc = product[1] ? product[1] : 'placeholder-image-url'; // Add a placeholder or correct path
-    const name = product[0] || 'No name'; // Fallback to 'No name' if undefined
-    const price = product[2] || 'No price'; // Fallback to 'No price' if undefined
-
-    const productHTML = `
-      <div class="product-item">
-        ${ribbonHTML}
-        ${imageSrc}
-        <h3 class="product-name">${name}</h3>
-        <p class="product-price">${price}</p>
-      </div>
-    `;
-
-    row.innerHTML += productHTML;
-
-    // Append the last row after adding the last product
-    if (index === products.length - 1) {
-      container.appendChild(row);
-    }
   });
+
+  // Append the last row if it has products
+  if (row.innerHTML !== '') {
+    container.appendChild(row);
+  }
 }
 
-document.addEventListener('DOMContentLoaded', fetchAndDisplayProducts);
+// You would call this function after fetching your products
+
+
+// Set up the event listeners once the DOM content is fully loaded
+// Set up the event listeners once the DOM content is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  fetchAndDisplayProducts(); // Initial fetch and display of products
+  // No more button event listeners for sliding
+});
 </script>
+
 
 
 
