@@ -470,7 +470,7 @@ function fetchAndDisplayProducts() {
     .then(response => response.json())
     .then(data => {
       products = data.values.slice(1).filter(row => row[13].toString().trim().toUpperCase() !== 'FALSE');
-      displayProductsInRows(products);
+      displayProductsInRows();
     })
     .catch(error => console.error('Error fetching products:', error));
 }
@@ -479,37 +479,42 @@ function displayProductsInRows() {
   const container = document.getElementById('products-container');
   container.innerHTML = ''; // Clear current items
 
-  let row = document.createElement('div');
-  row.className = 'product-row'; // Use this class to style your rows
+  // Creating a variable to hold a row. This will be reused.
+  let row;
 
   products.forEach((product, index) => {
+    // Start a new row for every 'itemsPerRow' products
     if (index % itemsPerRow === 0) {
-      if (index !== 0) {
-        container.appendChild(row); // Append the filled row to the container
+      // Append the previous row before starting a new one if it exists
+      if (row) {
+        container.appendChild(row);
       }
-      row = document.createElement('div'); // Create a new row for the next set of items
+      row = document.createElement('div');
       row.className = 'product-row';
     }
 
+    // Construct the product HTML
     const ribbonHTML = product[5] && product[5].trim() !== '' ? `<div class="ribbon">${product[5]}</div>` : '';
     const productHTML = ` 
-      <div class="product-item"> 
-        ${ribbonHTML}
-        <img src="${product[1]}" alt="${product[0]}">
-        <h3 class="product-name">${product[0]}</h3> 
-        <p class="product-price">${product[2]}</p> 
-      </div>
+	    <div class="product-item"> 
+	    ${ribbonHTML} 
+	    ${row[1]} 
+	    <h3 class="product-name">${row[0]}</h3> 
+	    <p class="product-price">${row[2]}</p> 
+	    </div> 
     `;
-    row.innerHTML += productHTML; // Add the product to the current row
 
-    if ((index + 1) % itemsPerRow === 0 || index === products.length - 1) {
-      container.appendChild(row); // Append the last row if it's not yet appended
+    // Add the product HTML to the current row
+    row.innerHTML += productHTML;
+
+    // Append the last row after adding the last product
+    if ((index + 1) === products.length) {
+      container.appendChild(row);
     }
   });
 }
 
-// Call this function to display products
-displayProductsInRows();
+document.addEventListener('DOMContentLoaded', fetchAndDisplayProducts);
 </script>
 
 
