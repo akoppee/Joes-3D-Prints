@@ -279,10 +279,7 @@
   flex-wrap: wrap;
 }
 
-.product-item {
-  flex-basis: calc(33.333% - 20px); /* Adjust this value to control the size of the product items */
-  box-sizing: border-box; /* Makes sure padding and borders are included in the total width and height */
-  margin: 10px; /* Adjust the margin as needed */
+ .product-item {
     position: relative;
     width: 375px; /* Adjust width as needed */
     height: 375px; /* Set height to 375 to maintain aspect ratio */
@@ -297,6 +294,7 @@
     align-items: center;
     overflow: hidden;
   }
+
 
 .product-item h3, .product-item p {
   width: 100%; /* Ensure text spans the full width of the card */
@@ -510,7 +508,8 @@ function displayProductsInRows() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', fetchAndDisplayProducts);
+// Call this function to display products
+displayProductsInRows();
 </script>
 
 
