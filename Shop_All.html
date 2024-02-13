@@ -144,7 +144,7 @@
       background-size: cover;
       background-position: center;
       width: 100%;
-      height: 50%;
+      height: 50vh;
       display: flex;
       align-items: center;
       position: relative;
@@ -154,7 +154,7 @@
       color: #162b6f;
       background-color: rgba(255, 255, 255, 0.4);
       max-width: 100%;
-      height: 50%;
+      height: 50vh;
       position: absolute;
       left: 5%;
       top: 50%;
@@ -354,7 +354,6 @@ html {
 
 <!-- Products Section -->
 <div class="products-section">
-    <h2>Our Products</h2>
     <div class="carousel-container">
       <!-- Carousel buttons -->
       <div id="products-container" class="carousel">
@@ -376,7 +375,27 @@ html {
 const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
 let products = [];
 let currentIndex = 0; // Tracks the current index for pagination
-const itemsPerRow = 4; // Number of items to show per page
+let itemsPerRow = 4; // Default number of items per row for larger screens
+
+// Function to update the number of items per row based on screen width
+function updateItemsPerRow() {
+  if (window.innerWidth <= 768) {
+    itemsPerRow = 3; // For medium screens, we show 2 items per row
+  } else if (window.innerWidth <= 480) {
+    itemsPerRow = 2; // For small screens, just 1 item per row to keep it comfy
+  } else {
+    itemsPerRow = 4; // Back to 3 items per row for larger screens
+  }
+  updateDisplayedProducts(); // Call the function to update the display
+}
+
+// Attach an event listener to the window to detect when the screen size changes
+window.addEventListener('resize', updateItemsPerRow);
+
+// Call the function once to set the initial state based on the current screen size
+updateItemsPerRow();
+
+// Don't forget to call updateItemsPerRow within your fetchAndDisplayProducts function or wherever you initially set your product display to ensure it loads correctly on page load.
 
 // Fetch products from the API and store them
 function fetchAndDisplayProducts() {
