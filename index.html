@@ -497,7 +497,7 @@ html {
 
 
 
-<script>
+<script> //
 const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
 let products = [];
 let currentIndex = 0; // Tracks the current index for pagination
@@ -568,7 +568,76 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<script> //Cart Management
+	storeUUID()
+	
+	function updateCart(sku, amount) {
+	    // Retrieve the cart from localStorage or set it to an empty string if none exists
+	    let cartStr = localStorage.getItem('cart') || '';
+	    
+	    // Convert the cart string to an array of objects for easier manipulation
+	    let cartItems = cartStr.split(';').filter(item => item).map(item => {
+	        const parts = item.split(',');
+	        return { sku: parts[0], amount: parseInt(parts[1], 10) };
+	    });
+	
+	    // Check if the SKU already exists in the cart
+	    let itemIndex = cartItems.findIndex(item => item.sku === sku);
+	
+	    if (itemIndex > -1) {
+	        // If the SKU exists, update the amount
+	        cartItems[itemIndex].amount = amount;
+	    } else {
+	        // If the SKU does not exist, add a new item
+	        cartItems.push({ sku, amount });
+	    }
+	
+	    // Convert the cart items back into the string format
+	    cartStr = cartItems.map(item => `${item.sku},${item.amount}`).join(';') + ';';
+	
+	    // Update the cart in localStorage
+	    localStorage.setItem('cart', cartStr);
+	
+	saveCartToSheet(getUserUUID, cartStr);
+	}
 
+	function saveCartToSheet(userIdentifier, cartData) {
+	    var data = {
+	        'userIdentifier': userIdentifier,
+	        'cartData': JSON.stringify(cartData) // Assuming cartData is an object/array
+	    };
+	
+	    fetch('<https://script.google.com/macros/s/AKfycbz5PMxwDMQGa3SvYPOsHZGhA0yhV9xttIpLX-2eyugFUaxaRKDkYcMbXIW9fjtSL0UNMw/exec>', {
+	        method: 'POST',
+	        mode: 'no-cors', // Note: no-cors mode doesn't allow reading the response from the fetch
+	        body: JSON.stringify(data),
+	        headers: {
+	            'Content-Type': 'application/json'
+	        }
+	    })
+	    .then(response => console.log('Cart data saved'))
+	    .catch(error => console.error('Error:', error));
+	}
+
+	// Example: Generating and storing a UUID
+	function generateUUID() {
+	  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+	    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+	    return v.toString(16);
+	  });
+	}
+	
+	function storeUUID() {
+	  if (!localStorage.getItem('userUUID')) {
+	    localStorage.setItem('userUUID', generateUUID());
+	  }
+	}
+	
+	function getUserUUID() {
+	  return localStorage.getItem('userUUID');
+	}
+
+</script>
 
 
 
