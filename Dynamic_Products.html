@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kope's 3D Prints</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" type="image/x-icon">
+  <script src="https://scripts.sirv.com/sirvjs/v3/sirv.js"></script>
+  <style>
+      /* Apply Oswald to headers */
+    h1, h2, h3 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 500; /* Oswald medium weight */
+      color: #162b6f;
+    }
+
+    /* Apply Mulish to paragraphs */
+    p {
+      font-family: 'Mulish', sans-serif;
+      font-weight: 300; /*Mulish Medium weight */
+      color: #162b6f;
+    }
+
+    /* Apply Mulish to buttons */
+    button, 
+    input[type="button"], 
+    input[type="submit"], 
+    a.learn-more-btn {
+      font-family: 'Mulish', sans-serif;
+      font-weight: 300; /*Mulish Medium weight */
+      color: #162b6f;
+    }
+
+    /* Product Section Header Styles */
+	.products-section h2 {
+	  text-align: center; /* Center the heading text */
+	  font-size: 2.5em; /* Make the font size larger */
+	  margin-top: 0; /* Adjust top margin as needed */
+	  margin-bottom: 1em; /* Add some space below the heading */
+	  color: #162b6f; /* Match the color with your design scheme */
+	  font-weight: normal; /* Adjust the font weight as needed */
+	  padding: 0.5em; /* Add padding to increase tap/click area if needed */
+	}
+
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 10000;
+    display: flex;
+    justify-content: space-between; /* This stays the same, it's our magic line */
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  /* Adding a new class for the navigation links container */
+  .nav-links {
+    display: flex;
+    justify-content: flex-end; /* Pushes all children to the right */
+  }
+
+/* Target only the last button for the additional margin */
+.nav-links a.header-btn:last-child {
+  margin-right: 90px; /* Extra space to the left of the last button */
+}
+
+
+  /* Adjust the logo class if necessary */
+  .logo {
+    height: 80px;
+    width: auto;
+    margin-right: 20px; /* Make sure there's some space */
+  }
+
+
+.header-btn {
+  font-family: 'Oswald', sans-serif; /* Oswald font for consistency */
+  font-weight: 500;
+  color: #fff; /* White text for contrast */
+  background-color: #162b6f; /* Dark blue background */
+  margin-right: 75px; /* Adjusted spacing to the left */
+  text-decoration: none;
+  padding: 10px 25px;
+  border-radius: 12.5px;
+  transition: background-color 0.3s;
+  border: 2px solid #fff; /* White border for contrast */
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.header-btn:hover {
+  background-color: #1573C8;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .fixed-header {
+    flex-direction: column;
+  }
+}
+    /* Product Section Styles */
+    .products-section {
+      text-align: left;
+      margin: 40px auto;
+      position: relative;
+    }
+
+    /* Carousel Container Styles */
+.carousel-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center rows */
+}
+
+  .product-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    .product-image {
+      flex-basis: 50%;
+      text-align: center;
+    }
+    .product-image img {
+      max-width: 100%;
+      height: auto;
+    }
+    .product-details {
+      flex-basis: 50%;
+      padding-left: 50px;
+    }
+    .product-title {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    .product-sku {
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+    .product-price {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+    .quantity-selector {
+      margin-bottom: 20px;
+    }
+    .add-to-cart-btn {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .add-to-cart-btn:hover {
+      background-color: #0056b3;
+    }
+    .product-description {
+      margin-top: 20px;
+      font-size: 1em;
+    }
+
+/* Ribbon base */
+.ribbon {
+  position: absolute;
+  top: 140px;
+  right: 80px;
+  z-index: 10;
+  background-color: #FF4136; /* Ribbon color */
+  padding: 5px 10px; /* Adjust padding as needed */
+  transform: translate(50%, -50%) rotate(45deg);
+  transform-origin: top right;
+  color: white;
+  font: bold 1em 'Oswald', sans-serif;
+  /* Set a high enough width for the ribbon to look good on the corner */
+  width: 200px;
+  text-align: center;
+}
+	  
+    /* Hide scrollbar for carousel */
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Footer styles */
+  footer {
+    background-color: #162b6f; /* Keep the dark blue background */
+    color: #ffffff; /* Keep text color white for contrast */
+    padding: 2em 1em; /* Generous padding inside the footer */
+    margin-top: 50px; /* This ensures space above the footer */
+    font-family: 'Oswald', sans-serif; /* Keep the consistent font style */
+    text-align: center; /* Centralize the text */
+    line-height: 1.5; /* Good line spacing for readability */
+  }
+
+    footer p {
+      margin: 0.5em 0; /* Maintain spacing between paragraphs */
+      font-size: 0.9em; /* Adjust the font size to fit the design */
+      color: white;
+    }
+
+    footer a {
+      color: #85E2FF; /* Use a light blue color for links to make them stand out */
+      text-decoration: none; /* No underline */
+      margin: 0 5px; /* Spacing between links */
+    }
+
+    footer a:hover {
+      text-decoration: underline; /* Underline on hover */
+    }
+
+    /* Make the footer responsive */
+    @media (max-width: 768px) {
+      footer p {
+        font-size: 0.8em; /* Smaller font size on smaller screens */
+      }
+    }
+/* Global scrollbar styles */
+html {
+  scrollbar-width: thin !important; /* For Firefox */
+  scrollbar-color: rgba(0, 78, 215, 0.5) transparent !important; /* For Firefox, with transparent track */
+}
+
+/* For Chrome, Safari, and newer versions of Edge */
+::-webkit-scrollbar {
+  width: 10px !important; /* Adjust the width of the scrollbar */
+  height: 10px !important; /* Adjust the height of the scrollbar for horizontal scrolls */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.2) !important; /* Mostly transparent track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 78, 215, 0.5) !important; /* Blue thumb with 0.5 transparency */
+  border-radius: 10px !important; /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 78, 215, 0.8) !important; /* Blue thumb with less transparency when hovered */
+}
+
+/* Remove scrollbar arrows */
+::-webkit-scrollbar-button {
+  display: none !important;
+}
+
+  </style>
+</head>
+<body>
+
+<div class="fixed-header">
+  <a href="/">
+    <img src="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" alt="Company Logo" class="logo">
+  </a>
+  <div class="nav-links">
+    <a href="https://forms.gle/SgnbDATWK7QjRpfYA" class="header-btn" target="_blank">Order Now</a>
+    <a href="https://akoppee.github.io/Kopes-3D-Prints/Shop_All.html#" class="header-btn">Shop All</a>
+  </div>
+</div>
+
+<!-- The rest of your HTML content -->
+
+<div class="product-container">
+  <div class="product-image" id="product-image">
+    <!-- Sirv 3D spin will be loaded dynamically -->
+  </div>
+  <div class="product-details">
+    <h2 class="product-title" id="product-title"><!-- Title will be loaded dynamically --></h2>
+    <p class="product-sku" id="product-sku"><!-- SKU will be loaded dynamically --></p>
+    <div class="quantity-selector">
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" name="quantity" value="1">
+    </div>
+    <button class="add-to-cart-btn">Add to Cart</button>
+    <p class="product-description" id="product-description"><!-- Description will be loaded dynamically --></p>
+    <!-- Include social media share buttons here -->
+  </div>
+</div>
+
+  <footer>
+    <p>About Kope's 3D Prints</p>
+    <p>Kope's 3D Prints is dedicated to providing high-quality 3D printed products.</p>
+    <p>For inquiries, email us at: <a href="mailto:Kope3DPrints@gmail.com" target="_blank">Kope3DPrints@gmail.com</a></p>
+    <p>Follow us on social media: <a href="https://twitter.com/kopes3dprints" target="_blank">Twitter,</a><a href="https://instagram.com/kope3dprints" target="_blank">Instagram</a></p>
+    <p>&copy; 2024 Kope's 3D Prints. All rights reserved.</p>
+  </footer>
+
+<script>
+const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=YOUR_API_KEY';
+
+function fetchAndDisplayProduct() {
+  const params = new URLSearchParams(window.location.search);
+  const productSKU = params.get('sku');
+
+  fetch(apiURL)
+    .then(response => response.json())
+    .then(data => {
+      const product = data.values.find(row => row[12] === productSKU); // SKU code 'M' is in the 13th column, index 12
+      if (product) {
+        displayProduct(product);
+      } else {
+        document.getElementById('product-container').innerHTML = '<p>Product not found.</p>';
+      }
+    })
+    .catch(error => console.error('Error fetching product:', error));
+}
+
+function displayProduct(product) {
+  document.getElementById('product-image').innerHTML = $(product[1]); // Sirv 3D spin HTML code
+  document.getElementById('product-title').textContent = product[0]; // Assuming the product name is in the first column
+  document.getElementById('product-sku').textContent = `SKU: ${product[12]}`; // SKU code 'M'
+  document.getElementById('product-description').textContent = product[6]; // Description 'G'
+}
+
+document.addEventListener('DOMContentLoaded', fetchAndDisplayProduct);
+</script>
+
+</body>
+</html>
