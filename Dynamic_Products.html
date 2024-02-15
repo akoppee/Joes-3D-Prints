@@ -119,55 +119,65 @@
   align-items: center; /* Center rows */
 }
 
-  .product-container {
+    .product-container {
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: column;
+      align-items: center;
       max-width: 1200px;
       margin: 50px auto;
       padding: 20px;
     }
     .product-image {
-      flex-basis: 50%;
       text-align: center;
-    }
-    .product-image img {
-      max-width: 100%;
-      height: auto;
+      margin-bottom: 20px; /* Adds space below the image */
     }
     .product-details {
-      flex-basis: 50%;
-      padding-left: 50px;
-    }
-    .product-title {
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
-    .product-sku {
-      font-size: 1em;
+      width: 100%; /* Full width for smaller screens */
+      max-width: 500px; /* Maximum width for larger screens */
       margin-bottom: 20px;
-    }
-    .product-price {
-      font-size: 1.5em;
-      margin-bottom: 10px;
     }
     .quantity-selector {
-      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px; /* Adds vertical space around the selector */
     }
-    .add-to-cart-btn {
-      background-color: #007bff;
+    .quantity-selector input[type="number"] {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 80px;
+      font-family: 'Oswald', sans-serif; /* Assuming Oswald is the font you're using for buttons */
+      font-size: 1em;
+      margin-right: 10px; /* Adds space between the input and the button */
+    }
+    .add-to-cart-btn, .header-btn {
+      background-color: #162b6f; /* Matching the color with other buttons */
       color: white;
-      padding: 10px 20px;
+      padding: 10px 25px;
       border: none;
-      border-radius: 5px;
+      border-radius: 12.5px;
       cursor: pointer;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1em;
+      text-decoration: none;
+      display: inline-block;
+      margin: 0 10px;
+      transition: background-color 0.3s;
+      border: 2px solid #fff; /* White border for contrast */
     }
     .add-to-cart-btn:hover {
-      background-color: #0056b3;
+      background-color: #1573C8;
+      color: #fff;
     }
     .product-description {
       margin-top: 20px;
       font-size: 1em;
+    }
+    /* Additional responsive adjustments if needed */
+    @media (max-width: 768px) {
+      .product-details {
+        text-align: center;
+      }
     }
 
 /* Ribbon base */
@@ -280,15 +290,15 @@ html {
   <div class="product-image" id="product-image">
     <!-- Sirv 3D spin will be loaded dynamically -->
   </div>
+  <!-- Product description moved under the product image -->
+  <p class="product-description" id="product-description"><!-- Description will be loaded dynamically --></p>
   <div class="product-details">
     <h2 class="product-title" id="product-title"><!-- Title will be loaded dynamically --></h2>
     <p class="product-sku" id="product-sku"><!-- SKU will be loaded dynamically --></p>
     <div class="quantity-selector">
-      <label for="quantity">Quantity</label>
       <input type="number" id="quantity" name="quantity" value="1">
+      <button class="add-to-cart-btn">Add to Cart</button>
     </div>
-    <button class="add-to-cart-btn">Add to Cart</button>
-    <p class="product-description" id="product-description"><!-- Description will be loaded dynamically --></p>
     <!-- Include social media share buttons here -->
   </div>
 </div>
