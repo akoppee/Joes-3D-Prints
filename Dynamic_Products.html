@@ -322,7 +322,7 @@ function fetchAndDisplayProduct() {
 }
 
 function displayProduct(product) {
-  document.getElementById('product-image').innerHTML = $(product[1]); // Sirv 3D spin HTML code
+  document.getElementById('product-image').innerHTML = ${product[1]}; // Sirv 3D spin HTML code
   document.getElementById('product-title').textContent = product[0]; // Assuming the product name is in the first column
   document.getElementById('product-sku').textContent = `SKU: ${product[12]}`; // SKU code 'M'
   document.getElementById('product-description').textContent = product[6]; // Description 'G'
