@@ -240,46 +240,46 @@ function loadCartItems() {
   const cartItemsContainer = document.getElementById('cart-container');
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+  // Clear existing cart items
+  cartItemsContainer.innerHTML = '';
+
   if (cart.length === 0) {
     cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
     return;
   }
 
-  cartItemsContainer.innerHTML = ''; // Clear existing cart items
-
   cart.forEach(cartItem => {
     const productDetails = products.find(product => product[12] === cartItem.sku);
     if (productDetails) {
-      // Use the Sirv spin HTML directly from productDetails[1]
-      const sirvSpinHtml = productDetails[1];
+      // Ribbon HTML is directly integrated into the cart item's HTML
+      const ribbonHTML = productDetails[5] && productDetails[5].trim() !== '' ? `<div class="ribbon">${productDetails[5]}</div>` : '';
 
-      // Construct the ribbon HTML if applicable
-      const ribbonHTML = productDetails[5] && productDetails[5].trim() !== '' ? 
-        `<div class="ribbon">${productDetails[5]}</div>` : '';
-
-      // Create the container for the cart item
+      // Create the cart item element
       const cartItemEl = document.createElement('div');
       cartItemEl.className = 'cart-item';
       cartItemEl.innerHTML = `
         ${ribbonHTML}
-        <div class="cart-item-sirv-spin">
-          ${sirvSpinHtml} <!-- Sirv spin HTML is used directly -->
-        </div>
-        <div class="cart-item-info">
-          <h3 class="cart-item-title">${productDetails[0]}</h3> <!-- Product name -->
-          <p class="cart-item-price">${productDetails[2]}</p> <!-- Product price -->
-          <p class="cart-item-quantity">Quantity: ${cartItem.quantity}</p>
+        ${productDetails[1]} <!-- Directly use Sirv spin HTML from product details -->
+        <div class="product-details">
+          <h3 class="product-title">${productDetails[0]}</h3> <!-- Product name -->
+          <p class="product-price">${productDetails[2]}</p> <!-- Product price -->
+          <p class="product-quantity">Quantity: ${cartItem.quantity}</p>
         </div>
       `;
 
+      // Append the cart item to the container
       cartItemsContainer.appendChild(cartItemEl);
+    } else {
+      console.error('Product details not found for SKU:', cartItem.sku);
     }
   });
 }
 
+// Fetch products and then load cart items
 document.addEventListener('DOMContentLoaded', function() {
-  fetchProducts(); // Fetch products as soon as the DOM is fully loaded
+  fetchProducts();
 });
+
 
 </script>
 
