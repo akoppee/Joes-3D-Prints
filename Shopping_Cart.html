@@ -202,34 +202,48 @@ html {
   </footer>
 
 <script>
+// Declare 'products' in the global scope
+let products = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+  fetchProducts(); // Fetch products as soon as the DOM is fully loaded
+});
+
+function fetchProducts() {
+  fetch(apiURL)
+    .then(response => response.json())
+    .then(data => {
+      // Assuming 'FALSE' values are in the 14th column (index 13)
+      products = data.values.slice(1).filter(row => row[13].toString().trim().toUpperCase() !== 'FALSE');
+      loadCartItems(); // Load cart items after the products have been fetched
+    })
+    .catch(error => {
+      console.error('Error fetching products:', error);
+      loadCartItems(); // Even if there's an error, try to load cart items
+    });
+}
+
 function loadCartItems() {
   const cartItemsContainer = document.getElementById('cart-items-container');
+  // Retrieve the cart from localStorage
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   if (cart.length === 0) {
     cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
-    return;
+  } else {
+    // Use the products data to find details for items in the cart
+    cart.forEach(cartItem => {
+      const productDetails = products.find(product => product[12] === cartItem.sku);
+      if (productDetails) {
+        // Insert your item HTML here, including the Sirv 3D spin and ribbon if applicable
+      }
+    });
   }
 
-  cart.forEach(cartItem => {
-    const productDetails = products.find(product => product[12] === cartItem.sku);
-
-    if (productDetails) {
-      const cartItemEl = document.createElement('div');
-      cartItemEl.className = 'cart-item';
-      let ribbonHTML = productDetails[5] && productDetails[5].trim() !== '' ? 
-      `<div class="ribbon">${productDetails[5]}</div>` : '';
-      cartItemEl.innerHTML = `
-        ${ribbonHTML}
-        ${productDetails[1]} <!-- Injected Sirv HTML -->
-        <h3 class="cart-item-title">${productDetails[0]}</h3> <!-- Product name -->
-        <p class="cart-item-price">${productDetails[2]}</p> <!-- Product price -->
-        <p class="cart-item-quantity">Quantity: ${cartItem.quantity}</p>
-      `;
-      cartItemsContainer.appendChild(cartItemEl);
-    }
-  });
+  // Initialize Sirv spins
+  Sirv.start();
 }
+
 
 document.addEventListener('DOMContentLoaded', loadCartItems);
 </script>
