@@ -119,26 +119,37 @@
   align-items: center; /* Center rows */
 }
 
-    .product-container {
+  .product-container {
       display: flex;
+      justify-content: center;
+      align-items: flex-start;
       max-width: 1200px;
       margin: 50px auto;
       padding: 20px;
     }
     .product-image {
-      flex: 1;
-      text-align: center; /* Center the Sirv image */
+      flex-basis: 50%;
+      text-align: center;
     }
-    .product-info {
-      flex: 1;
-      padding-left: 20px; /* Add space between the image and the product info */
-      display: flex;
-      flex-direction: column;
-      justify-content: center; /* Vertically center the product info */
+    .product-image img {
+      max-width: 100%;
+      height: auto;
     }
-    .product-description {
-      margin-top: 20px; /* Add space above the description */
-      text-align: justify;
+    .product-details {
+      flex-basis: 50%;
+      padding-left: 50px;
+    }
+    .product-title {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    .product-sku {
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+    .product-price {
+      font-size: 1.5em;
+      margin-bottom: 10px;
     }
     .quantity-selector {
       display: flex;
@@ -162,15 +173,9 @@
     .add-to-cart-btn:hover {
       background-color: #0d2455; /* Darker shade on hover */
     }
-    /* Responsive design adjustments */
-    @media (max-width: 768px) {
-      .product-container {
-        flex-direction: column;
-      }
-      .product-info {
-        padding-left: 0;
-        padding-top: 20px;
-      }
+    .product-description {
+      margin-top: 20px;
+      font-size: 1em;
     }
 
 /* Ribbon base */
