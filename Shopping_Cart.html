@@ -204,6 +204,7 @@ html {
 <script>
 // Declare 'products' in the global scope
 let products = [];
+const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
 
 document.addEventListener('DOMContentLoaded', function() {
   fetchProducts(); // Fetch products as soon as the DOM is fully loaded
@@ -235,13 +236,20 @@ function loadCartItems() {
     cart.forEach(cartItem => {
       const productDetails = products.find(product => product[12] === cartItem.sku);
       if (productDetails) {
-        // Insert your item HTML here, including the Sirv 3D spin and ribbon if applicable
+          const cartItemEl = document.createElement('div');
+          cartItemEl.className = 'cart-item';
+          let ribbonHTML = productDetails[5] && productDetails[5].trim() !== '' ? 
+          `<div class="ribbon">${productDetails[5]}</div>` : '';
+          cartItemEl.innerHTML = `
+            ${ribbonHTML}
+            ${productDetails[1]} <!-- Injected Sirv HTML -->
+            <h3 class="cart-item-title">${productDetails[0]}</h3> <!-- Product name -->
+            <p class="cart-item-price">${productDetails[2]}</p> <!-- Product price -->
+            <p class="cart-item-quantity">Quantity: ${cartItem.quantity}</p>
+          `;
       }
     });
   }
-
-  // Initialize Sirv spins
-  Sirv.start();
 }
 
 
