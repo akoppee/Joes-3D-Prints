@@ -219,12 +219,12 @@ function fetchProducts() {
 }
 
 function loadCartItems() {
-  const cartItemsContainer = document.getElementById('cart-container'); // Updated to match your HTML
+  const cartItemsContainer = document.getElementById('cart-container');
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   if (cart.length === 0) {
     cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
-    return; // Exit if the cart is empty
+    return;
   }
 
   // Clear the container before adding new items
@@ -233,21 +233,35 @@ function loadCartItems() {
   cart.forEach(cartItem => {
     const productDetails = products.find(product => product[12] === cartItem.sku);
     if (productDetails) {
-      const cartItemEl = document.createElement('div');
-      cartItemEl.className = 'cart-item';
+      // Construct the Sirv 3D spin HTML
+      const sirvSpinHtml = `<div class="Sirv" data-options="spin.autospin.enable:true; spin.autospin.resume:0; spin.zoom.enable:false; fullscreen.enable:false">
+        <div data-src="${productDetails[1]}"></div>
+      </div>`;
+
+      // Construct the ribbon HTML if applicable
       let ribbonHTML = productDetails[5] && productDetails[5].trim() !== '' ? 
       `<div class="ribbon">${productDetails[5]}</div>` : '';
+
+      // Create the container for the cart item
+      const cartItemEl = document.createElement('div');
+      cartItemEl.className = 'cart-item';
       cartItemEl.innerHTML = `
-        ${ribbonHTML}
-        ${productDetails[1]} <!-- Injected Sirv HTML -->
-        <h3 class="cart-item-title">${productDetails[0]}</h3> <!-- Product name -->
-        <p class="cart-item-price">${productDetails[2]}</p> <!-- Product price -->
-        <p class="cart-item-quantity">Quantity: ${cartItem.quantity}</p>
+        <div class="cart-item-inner">
+          ${ribbonHTML}
+          ${sirvSpinHtml}
+          <div class="cart-item-info">
+            <h3 class="cart-item-title">${productDetails[0]}</h3> <!-- Product name -->
+            <p class="cart-item-price">${productDetails[2]}</p> <!-- Product price -->
+            <p class="cart-item-quantity">Quantity: ${cartItem.quantity}</p>
+          </div>
+        </div>
       `;
+
       cartItemsContainer.appendChild(cartItemEl);
     }
-  });
+  })
 }
+
 
 document.addEventListener('DOMContentLoaded', fetchProducts);
 </script>
