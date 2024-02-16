@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Kope's 3D Prints</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400&display=swap">
+    <link rel="icon" href="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" type="image/x-icon">
+    <style>
+        /* Apply Oswald to headers */
+        h1, h2, h3 {
+          font-family: 'Oswald', sans-serif;
+          font-weight: 500; /* Oswald medium weight */
+          color: #162b6f;
+        }
+    
+        /* Apply Mulish to paragraphs */
+        p {
+          font-family: 'Mulish', sans-serif;
+          font-weight: 300; /*Mulish Medium weight */
+          color: #162b6f;
+        }
+    
+        /* Apply Mulish to buttons */
+        button, 
+        input[type="button"], 
+        input[type="submit"], 
+        a.learn-more-btn {
+          font-family: 'Mulish', sans-serif;
+          font-weight: 300; /*Mulish Medium weight */
+          color: #162b6f;
+        }
+        .fixed-header {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 70px;
+          background: rgba(255, 255, 255, 0.5);
+          box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+          z-index: 10000;
+          display: flex;
+          justify-content: space-between; /* This stays the same, it's our magic line */
+          align-items: center;
+          padding: 10px 20px;
+        }
+        
+        /* Adding a new class for the navigation links container */
+        .nav-links {
+          display: flex;
+          justify-content: flex-end; /* Pushes all children to the right */
+        }
+      
+      /* Target only the last button for the additional margin */
+      .nav-links a.header-btn:last-child {
+        margin-right: 90px; /* Extra space to the left of the last button */
+      }
+      
+      
+        /* Adjust the logo class if necessary */
+        .logo {
+          height: 80px;
+          width: auto;
+          margin-right: 20px; /* Make sure there's some space */
+        }
+      
+      
+      .header-btn {
+        font-family: 'Oswald', sans-serif; /* Oswald font for consistency */
+        font-weight: 500;
+        color: #fff; /* White text for contrast */
+        background-color: #162b6f; /* Dark blue background */
+        margin-right: 75px; /* Adjusted spacing to the left */
+        text-decoration: none;
+        padding: 10px 25px;
+        border-radius: 12.5px;
+        transition: background-color 0.3s;
+        border: 2px solid #fff; /* White border for contrast */
+        cursor: pointer;
+        font-size: 1em;
+      }
+      
+      .header-btn:hover {
+        background-color: #1573C8;
+        color: #fff;
+      }
+      
+      @media (max-width: 768px) {
+        .fixed-header {
+          flex-direction: column;
+        }
+      }
+        .container {
+            margin-top: 80px;
+            padding: 20px;
+        }
+        .cart-item {
+            background: #fff;
+            margin-bottom: 10px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2, .product-name, .product-sku, .product-quantity {
+            font-family: 'Oswald', sans-serif;
+            color: #162b6f;
+        }
+        .product-name {
+            font-size: 20px;
+        }
+        .product-sku, .product-quantity {
+            font-size: 16px;
+        }
+    /* Footer styles */
+  footer {
+    background-color: #162b6f; /* Keep the dark blue background */
+    color: #ffffff; /* Keep text color white for contrast */
+    padding: 2em 1em; /* Generous padding inside the footer */
+    margin-top: 50px; /* This ensures space above the footer */
+    font-family: 'Oswald', sans-serif; /* Keep the consistent font style */
+    text-align: center; /* Centralize the text */
+    line-height: 1.5; /* Good line spacing for readability */
+  }
+
+    footer p {
+      margin: 0.5em 0; /* Maintain spacing between paragraphs */
+      font-size: 0.9em; /* Adjust the font size to fit the design */
+      color: white;
+    }
+
+    footer a {
+      color: #85E2FF; /* Use a light blue color for links to make them stand out */
+      text-decoration: none; /* No underline */
+      margin: 0 5px; /* Spacing between links */
+    }
+
+    footer a:hover {
+      text-decoration: underline; /* Underline on hover */
+    }
+
+    /* Make the footer responsive */
+    @media (max-width: 768px) {
+      footer p {
+        font-size: 0.8em; /* Smaller font size on smaller screens */
+      }
+    }
+/* Global scrollbar styles */
+html {
+  scrollbar-width: thin !important; /* For Firefox */
+  scrollbar-color: rgba(0, 78, 215, 0.5) transparent !important; /* For Firefox, with transparent track */
+}
+
+/* For Chrome, Safari, and newer versions of Edge */
+::-webkit-scrollbar {
+  width: 10px !important; /* Adjust the width of the scrollbar */
+  height: 10px !important; /* Adjust the height of the scrollbar for horizontal scrolls */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.2) !important; /* Mostly transparent track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 78, 215, 0.5) !important; /* Blue thumb with 0.5 transparency */
+  border-radius: 10px !important; /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 78, 215, 0.8) !important; /* Blue thumb with less transparency when hovered */
+}
+
+/* Remove scrollbar arrows */
+::-webkit-scrollbar-button {
+  display: none !important;
+}
+    </style>
+</head>
+<body>
+
+<div class="fixed-header">
+  <a href="/">
+    <img src="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" alt="Company Logo" class="logo">
+  </a>
+  <div class="nav-links"> <!-- Here's our pack of buttons, ready for their trip to the right -->
+    <a href="https://forms.gle/SgnbDATWK7QjRpfYA" class="header-btn" target="_blank">Order Now</a>
+    <a href="https://akoppee.github.io/Kopes-3D-Prints/Shop_All.html#" class="header-btn">Shop All</a>
+  </div>
+</div>
+
+<div class="container" id="cart-container">
+    <h2>Your Shopping Cart</h2>
+    <!-- Cart items will be dynamically inserted here -->
+</div>
+
+  <footer>
+    <p>About Kope's 3D Prints</p>
+    <p>Kope's 3D Prints is dedicated to providing high-quality 3D printed products.</p>
+    <p>For inquiries, email us at: <a href="mailto:Kope3DPrints@gmail.com" target="_blank">Kope3DPrints@gmail.com</a></p>
+    <p>Follow us on social media: <a href="https://twitter.com/kopes3dprints" target="_blank">Twitter,</a><a href="https://instagram.com/kope3dprints" target="_blank">Instagram</a></p>
+    <p>&copy; 2024 Kope's 3D Prints. All rights reserved.</p>
+  </footer>
+
+<script>
+function loadCartItems() {
+    const cartContainer = document.getElementById('cart-container');
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.forEach(item => {
+        const cartItemEl = document.createElement('div');
+        cartItemEl.classList.add('cart-item');
+        cartItemEl.innerHTML = `
+            <h3 class="product-name">Product SKU: ${item.sku}</h3>
+            <p class="product-sku">SKU: ${item.sku}</p>
+            <p class="product-quantity">Quantity: ${item.amount}</p>
+        `;
+        cartContainer.appendChild(cartItemEl);
+    });
+
+    if (cart.length === 0) {
+        cartContainer.innerHTML += '<p>Your cart is empty.</p>';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadCartItems);
+</script>
+
+</body>
+</html>
