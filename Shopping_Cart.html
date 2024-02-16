@@ -112,7 +112,25 @@
         .product-sku, .product-quantity {
             font-size: 16px;
         }
-    /* Footer styles */
+
+/* Ribbon base */
+.ribbon {
+  position: absolute;
+  top: 140px;
+  right: 80px;
+  z-index: 10;
+  background-color: #FF4136; /* Ribbon color */
+  padding: 5px 10px; /* Adjust padding as needed */
+  transform: translate(50%, -50%) rotate(45deg);
+  transform-origin: top right;
+  color: white;
+  font: bold 1em 'Oswald', sans-serif;
+  /* Set a high enough width for the ribbon to look good on the corner */
+  width: 200px;
+  text-align: center;
+}
+        
+  /* Footer styles */
   footer {
     background-color: #162b6f; /* Keep the dark blue background */
     color: #ffffff; /* Keep text color white for contrast */
@@ -233,11 +251,6 @@ function loadCartItems() {
   cart.forEach(cartItem => {
     const productDetails = products.find(product => product[12] === cartItem.sku);
     if (productDetails) {
-      // Construct the Sirv 3D spin HTML
-      const sirvSpinHtml = `<div class="Sirv" data-options="spin.autospin.enable:true; spin.autospin.resume:0; spin.zoom.enable:false; fullscreen.enable:false">
-        <div data-src="${productDetails[1]}"></div>
-      </div>`;
-
       // Construct the ribbon HTML if applicable
       let ribbonHTML = productDetails[5] && productDetails[5].trim() !== '' ? 
       `<div class="ribbon">${productDetails[5]}</div>` : '';
@@ -248,7 +261,7 @@ function loadCartItems() {
       cartItemEl.innerHTML = `
         <div class="cart-item-inner">
           ${ribbonHTML}
-          ${sirvSpinHtml}
+          ${productDetails[1]}
           <div class="cart-item-info">
             <h3 class="cart-item-title">${productDetails[0]}</h3> <!-- Product name -->
             <p class="cart-item-price">${productDetails[2]}</p> <!-- Product price -->
