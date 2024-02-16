@@ -172,36 +172,46 @@
   width: 60px; /* You can adjust the width as you see fit */
 }
 
-/* Styling for the increment and decrement buttons */
-.quantity-selector input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.quantity-selector input[type="number"]:focus {
-  outline: none;
-  border-color: #1573C8;
-}
-tn {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  color: #fff;
-  background-color: #162b6f;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 12.5px;
-  cursor: pointer;
+/* Quantity Selector Styles */
+.quantity-selector input[type="number"] {
+  font-family: 'Oswald', sans-serif; /* Correcting the font family */
   font-size: 1em;
-  transition: background-color 0.3s, color 0.3s;
-  text-transform: uppercase; /* A touch of elegance with uppercase letters */
-  display: inline-block; /* To enable the use of margin and padding */
-  text-decoration: none; /* No underlines, please */
-  margin-right: 10px; /* Consistent with other button spacings */
+  padding: 10px;
+  border: 2px solid #162b6f; /* Border color to match your theme */
+  border-radius: 12.5px; /* Match the border-radius of the header buttons */
+  background-color: #fff; /* White background */
+  color: #162b6f; /* Text color to match your theme */
+  width: 60px; /* Adjust the width if needed */
+  margin-bottom: 10px; /* Adding some space below the input */
+  transition: border-color 0.3s; /* Smooth transition for the border color */
 }
 
+/* Quantity Selector Focus Styles */
+.quantity-selector input[type="number"]:focus {
+  border-color: #1573C8; /* A different border color on focus */
+}
+
+/* Add to Cart Button Styles */
+.add-to-cart-btn {
+  font-family: 'Oswald', sans-serif; /* Ensuring font family matches the header */
+  color: #fff; /* Text color */
+  background-color: #162b6f; /* Background color */
+  padding: 10px 25px; /* Padding to match the header buttons */
+  border: none; /* No border */
+  border-radius: 12.5px; /* Border radius to match the header buttons */
+  cursor: pointer; /* Cursor to indicate it's clickable */
+  transition: background-color 0.3s, color 0.3s; /* Transition for smooth color change */
+  text-decoration: none; /* No text decoration */
+  display: block; /* Change to block to allow margin application */
+  width: 100%; /* Full width to match the selector above */
+  box-sizing: border-box; /* Ensures padding doesn't affect the final size */
+  margin-top: 10px; /* Space between the input and the button */
+}
+
+/* Add to Cart Button Hover Styles */
 .add-to-cart-btn:hover {
-  background-color: #1573C8;
-  color: #fff;
+  background-color: #1573C8; /* Color change on hover */
+  color: #fff; /* Maintain white text color */
 }
 
     .product-description {
