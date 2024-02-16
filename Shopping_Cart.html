@@ -245,38 +245,42 @@ function loadCartItems() {
     return;
   }
 
-  // Clear the container before adding new items
-  cartItemsContainer.innerHTML = '';
+  cartItemsContainer.innerHTML = ''; // Clear existing cart items
 
   cart.forEach(cartItem => {
     const productDetails = products.find(product => product[12] === cartItem.sku);
     if (productDetails) {
+      // Use the Sirv spin HTML directly from productDetails[1]
+      const sirvSpinHtml = productDetails[1];
+
       // Construct the ribbon HTML if applicable
-      let ribbonHTML = productDetails[5] && productDetails[5].trim() !== '' ? 
-      `<div class="ribbon">${productDetails[5]}</div>` : '';
+      const ribbonHTML = productDetails[5] && productDetails[5].trim() !== '' ? 
+        `<div class="ribbon">${productDetails[5]}</div>` : '';
 
       // Create the container for the cart item
       const cartItemEl = document.createElement('div');
       cartItemEl.className = 'cart-item';
       cartItemEl.innerHTML = `
-        <div class="cart-item-inner">
-          ${ribbonHTML}
-          ${productDetails[1]}
-          <div class="cart-item-info">
-            <h3 class="cart-item-title">${productDetails[0]}</h3> <!-- Product name -->
-            <p class="cart-item-price">${productDetails[2]}</p> <!-- Product price -->
-            <p class="cart-item-quantity">Quantity: ${cartItem.quantity}</p>
-          </div>
+        ${ribbonHTML}
+        <div class="cart-item-sirv-spin">
+          ${sirvSpinHtml} <!-- Sirv spin HTML is used directly -->
+        </div>
+        <div class="cart-item-info">
+          <h3 class="cart-item-title">${productDetails[0]}</h3> <!-- Product name -->
+          <p class="cart-item-price">${productDetails[2]}</p> <!-- Product price -->
+          <p class="cart-item-quantity">Quantity: ${cartItem.quantity}</p>
         </div>
       `;
 
       cartItemsContainer.appendChild(cartItemEl);
     }
-  })
+  });
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+  fetchProducts(); // Fetch products as soon as the DOM is fully loaded
+});
 
-document.addEventListener('DOMContentLoaded', fetchProducts);
 </script>
 
 
