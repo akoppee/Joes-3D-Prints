@@ -203,22 +203,32 @@ html {
 
 <script>
 function loadCartItems() {
-    const cartContainer = document.getElementById('cart-container');
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.forEach(item => {
-        const cartItemEl = document.createElement('div');
-        cartItemEl.classList.add('cart-item');
-        cartItemEl.innerHTML = `
-            <h3 class="product-name">Product SKU: ${item.sku}</h3>
-            <p class="product-sku">SKU: ${item.sku}</p>
-            <p class="product-quantity">Quantity: ${item.amount}</p>
-        `;
-        cartContainer.appendChild(cartItemEl);
-    });
+  const cartItemsContainer = document.getElementById('cart-items-container');
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    if (cart.length === 0) {
-        cartContainer.innerHTML += '<p>Your cart is empty.</p>';
+  if (cart.length === 0) {
+    cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+    return;
+  }
+
+  cart.forEach(cartItem => {
+    const productDetails = products.find(product => product[12] === cartItem.sku);
+
+    if (productDetails) {
+      const cartItemEl = document.createElement('div');
+      cartItemEl.className = 'cart-item';
+      let ribbonHTML = productDetails[5] && productDetails[5].trim() !== '' ? 
+      `<div class="ribbon">${productDetails[5]}</div>` : '';
+      cartItemEl.innerHTML = `
+        ${ribbonHTML}
+        ${productDetails[1]} <!-- Injected Sirv HTML -->
+        <h3 class="cart-item-title">${productDetails[0]}</h3> <!-- Product name -->
+        <p class="cart-item-price">${productDetails[2]}</p> <!-- Product price -->
+        <p class="cart-item-quantity">Quantity: ${cartItem.quantity}</p>
+      `;
+      cartItemsContainer.appendChild(cartItemEl);
     }
+  });
 }
 
 document.addEventListener('DOMContentLoaded', loadCartItems);
