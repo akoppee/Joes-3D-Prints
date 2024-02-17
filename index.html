@@ -585,11 +585,10 @@ function updateDisplayedProducts() {
 
 // Handle slide movement and ensure currentIndex updates within bounds
 function moveSlide(direction) {
-  const itemsPerPage = 3;
   const maxPages = Math.ceil(products.length / itemsPerPage);
   
   // Move to the next or previous set of items
-  currentIndex += direction * itemsPerPage;
+  currentIndex += direction;
   
   // Correct the index if we are moving past the beginning or the end
   if (currentIndex < 0) {
@@ -607,8 +606,8 @@ function moveSlide(direction) {
 // Set up event listeners for navigation buttons
 document.addEventListener('DOMContentLoaded', () => {
   fetchAndDisplayProducts(); // Initial fetch and display of products
-  document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-1)); // Move left
-  document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(1)); // Move right
+  document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-2)); // Move left
+  document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(2)); // Move right
 });
 
 
