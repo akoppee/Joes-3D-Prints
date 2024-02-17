@@ -585,39 +585,37 @@ function updateDisplayedProducts() {
 
 // Handle slide movement and ensure currentIndex updates within bounds
 function moveSlide(direction) {
-    // Calculate the total number of pages
-    const maxPages = Math.ceil(products.length / itemsPerPage);
-    
-    // Update currentIndex based on the direction (-2 for previous, +2 for next)
-    currentIndex += direction;
-    
-    // Wrap around logic for moving backwards
-    if (direction === -2 && currentIndex < 0) {
-        // Adjust currentIndex to the last "page" if moving left from the first page
-        // This is where we handle the case for an odd number of products on the last page
-        currentIndex = (maxPages - 1) * 2;
-    }
-    else if (direction === 2 && currentIndex >= maxPages * 2) {
-        // Wrap to the first "page" if moving right past the last page
-        currentIndex = 0;
-    }
+  // Assuming itemsPerPage is always 3 for this example
+  const itemsPerPage = 3;
+  const maxPages = Math.ceil(products.length / itemsPerPage);
 
-    // Ensure currentIndex adjustments wrap around correctly in both directions
-    if (currentIndex < 0) {
-        currentIndex = maxPages * 2 - 2; // Wrap to the last page if moving left past the first page
-    } else if (currentIndex >= maxPages * 2) {
-        currentIndex = 0; // Wrap to the first page if moving right past the last page
+  // Adjust currentIndex based on the direction (1 for next, -1 for previous)
+  if (direction === 1) { // Moving forward
+    currentIndex += itemsPerPage;
+    if (currentIndex >= products.length) { // Wrap around to the first page
+      currentIndex = 0;
     }
+  } else if (direction === -1) { // Moving backward
+    if (currentIndex === 0) { // If at the beginning, jump to the end
+      currentIndex = (maxPages - 1) * itemsPerPage;
+      if (products.length % itemsPerPage !== 0) { // Adjust if the last page has less than 'itemsPerPage' products
+        currentIndex = products.length - (products.length % itemsPerPage);
+      }
+    } else {
+      currentIndex -= itemsPerPage;
+    }
+  }
 
-    updateDisplayedProducts(); // Refresh the display with the new set of products
+  updateDisplayedProducts(); // Refresh the display with the new set of products
 }
 
 // Set up event listeners for navigation buttons
 document.addEventListener('DOMContentLoaded', () => {
-    fetchAndDisplayProducts(); // Initial fetch and display of products
-    document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-2)); // Move left
-    document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(2)); // Move right
+  fetchAndDisplayProducts(); // Initial fetch and display of products
+  document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-1)); // Move left
+  document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(1)); // Move right
 });
+
 
 </script>
 
