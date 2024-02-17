@@ -585,27 +585,22 @@ function updateDisplayedProducts() {
 
 // Handle slide movement and ensure currentIndex updates within bounds
 function moveSlide(direction) {
-  // Assuming itemsPerPage is always 3 for this example
   const itemsPerPage = 3;
   const maxPages = Math.ceil(products.length / itemsPerPage);
-
-  // Adjust currentIndex based on the direction (1 for next, -1 for previous)
-  if (direction === 1) { // Moving forward
-    currentIndex += itemsPerPage;
-    if (currentIndex >= products.length) { // Wrap around to the first page
-      currentIndex = 0;
-    }
-  } else if (direction === -1) { // Moving backward
-    if (currentIndex === 0) { // If at the beginning, jump to the end
-      currentIndex = (maxPages - 1) * itemsPerPage;
-      if (products.length % itemsPerPage !== 0) { // Adjust if the last page has less than 'itemsPerPage' products
-        currentIndex = products.length - (products.length % itemsPerPage);
-      }
-    } else {
-      currentIndex -= itemsPerPage;
-    }
+  
+  // Move to the next or previous set of items
+  currentIndex += direction * itemsPerPage;
+  
+  // Correct the index if we are moving past the beginning or the end
+  if (currentIndex < 0) {
+    currentIndex = products.length - (products.length % itemsPerPage || itemsPerPage);
+  } else if (currentIndex >= products.length) {
+    currentIndex = 0;
+  } else if (direction === 1 && currentIndex + itemsPerPage > products.length) {
+    // When moving forward, if we're approaching the end, ensure we show the last set
+    currentIndex = products.length - (products.length % itemsPerPage || itemsPerPage);
   }
-
+  
   updateDisplayedProducts(); // Refresh the display with the new set of products
 }
 
@@ -615,6 +610,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-1)); // Move left
   document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(1)); // Move right
 });
+
 
 
 </script>
