@@ -573,12 +573,15 @@ function updateDisplayedProducts() {
     `;
     container.innerHTML += productHTML;
   });
-
-  // Add click event listeners to each product-item
-  document.querySelectorAll('.product-item').forEach(item => {
-    item.addEventListener('click', function() {
-      const sku = this.getAttribute('data-sku');
-      window.location.href = `https://akoppee.github.io/Kopes-3D-Prints/Dynamic_Products.html?sku=${sku}`;
+	
+  // Add click event listeners to each product image
+  document.querySelectorAll('.product-image-container').forEach(container => {
+    container.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent the default link action
+      const sku = this.closest('.product-item').getAttribute('data-sku');
+      
+      // Perform your intended action here, e.g., open a modal with product details
+      console.log('Product image clicked for SKU:', sku);
     });
   });
 }
