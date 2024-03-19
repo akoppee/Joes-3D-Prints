@@ -509,6 +509,7 @@ function fetchAndDisplayProducts() {
     .then(response => response.json())
     .then(data => {
       // Filter out products where the "N" column explicitly equals 'FALSE'
+      // Assuming 'FALSE' values are in the 14th column (index 13)
       products = data.values.slice(1).filter(row => row[13].toString().trim().toUpperCase() !== 'FALSE');
       updateDisplayedProducts();
     })
@@ -520,27 +521,26 @@ function updateDisplayedProducts() {
   const container = document.getElementById('products-container');
   container.innerHTML = ''; // Clear current items
 
-  const start = currentIndex; // Starting index for current items
-  const end = Math.min(start + itemsPerPage, products.length); // End index
+  // Calculate slice indices for the current set of items to display
+  const start = currentIndex; //* itemsPerPage;
+  const end = Math.min(start + itemsPerPage, products.length);
   const currentItems = products.slice(start, end);
 
+  // Loop through the current items and append their HTML to the container
   currentItems.forEach((row) => {
-    const sku = row[12]; // Assuming SKU is in the 13th column
-    const productName = row[0]; // Assuming product name is in the 1st column
-    const productImage = `Images/Product-Images/${productName.replace(/\s+/g, '-')}.jpg`; // Path pattern
-
+    const sku = row[12]; // Assuming SKU is in the 13th column (index 12)
     const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
     const productHTML = `
       <div class="product-item" data-sku="${sku}">
-        ${ribbonHTML}
-        <img src="${productImage}" alt="${productName}" class="product-image">
-        <h3 class="product-name">${productName}</h3>
-        <p class="product-price">${row[2]}</p>
+      ${ribbonHTML}
+      ${row[1]}
+      <h3 class="product-name">${row[0]}</h3>
+      <p class="product-price">${row[2]}</p>
       </div>
     `;
     container.innerHTML += productHTML;
   });
-	
+
   // Add click event listeners to each product-item
   document.querySelectorAll('.product-item').forEach(item => {
     item.addEventListener('click', function() {
