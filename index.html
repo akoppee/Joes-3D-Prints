@@ -527,7 +527,7 @@ function updateDisplayedProducts() {
   currentItems.forEach((row) => {
     const sku = row[12]; // Assuming SKU is in the 13th column
     const productName = row[0]; // Assuming product name is in the 1st column
-    const productImage = `Images/Product-Images/${productName.replace(/\s+/g, '-')}.png`; // Path pattern
+    const productImage = `Images/Product-Images/${productName.replace(/\s+/g, '-')}.jpg`; // Path pattern
 
     const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
     const productHTML = `
