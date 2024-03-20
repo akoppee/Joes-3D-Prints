@@ -532,7 +532,7 @@ function updateDisplayedProducts() {
     const productHTML = `
       <div class="product-item" data-sku="${sku}">
       ${ribbonHTML}
-      ${row[1]}
+      <img src="${productImage}" alt="${productName}" class="product-image">
       <h3 class="product-name">${row[0]}</h3>
       <p class="product-price">${row[2]}</p>
       </div>
