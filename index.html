@@ -564,6 +564,7 @@ function updateDisplayedProducts() {
     const sku = row[12]; // Assuming SKU is in the 13th column (index 12)
     const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
     const productImage = `/Kopes-3D-Prints/Images/Product-Images/${row[0].replace(/\s+/g, '-')}.jpg`;
+    console.log(productImage);
     const productName = row[0]; // Assuming product name is in the 1st column (index 0)
     const productPrice = row[2]; // Assuming product price is in the 3rd column (index 2)
     const productHTML = `
