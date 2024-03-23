@@ -549,74 +549,73 @@ function fetchAndDisplayProducts() {
       products = data.values.slice(1).filter(row => (row[13]?.toString().trim().toUpperCase() || 'TRUE') !== 'FALSE');
       updateDisplayedProducts();
     })
-    .catch(error => console.error('Error fetching products:', error));
+    .catch(error => {
+      console.error('Error fetching products:', error);
+      // Handle loading errors (e.g., display a message to the user)
+    });
 }
 
 // Update the displayed products based on currentIndex
 function updateDisplayedProducts() {
   const container = document.getElementById('products-container');
   container.innerHTML = ''; // Clear current items
-  
-  // Example product data loading loop
-  products.forEach((product) => {
-    const productName = product[0]; // Adjust according to your actual data structure
-    const productPrice = product[2]; // Adjust according to your actual data structure
-    const productImageURL = `/Images/Product-Images/${productName.replace(/\s/g, '-')}.jpg`; // Assuming product images follow this naming convention
 
-    // Construct product item HTML
+  // Calculate slice indices for the current set of items to display
+  const start = currentIndex * itemsPerPage;
+  const end = Math.min(start + itemsPerPage, products.length);
+  const currentItems = products.slice(start, end);
+
+  // Loop through the current items and append their HTML to the container
+  currentItems.forEach((row) => {
+    const sku = row[12]; // Assuming SKU is in the 13th column (index 12)
+    const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
+    const productImage = `/Images/Product-Images/${row[0].replace(/\s+/g, '-')}.jpg`;
+    const productName = row[0]; // Assuming product name is in the 1st column (index 0)
+    const productPrice = row[2]; // Assuming product price is in the 3rd column (index 2)
     const productHTML = `
-      <div class="product-item">
-        <div class="product-image-container">
-          <img src="${productImageURL}" alt="${productName}" class="product-image">
-        </div>
-        <h3 class="product-name">${productName}</h3>
-        <p class="product-price">${productPrice}</p>
+      <div class="product-item" data-sku="${sku}">
+      ${ribbonHTML}
+      <img src="${productImage}" alt="${productName}" class="product-image">
+      <h3 class="product-name">${productName}</h3>
+      <p class="product-price">$${productPrice}</p>
       </div>
     `;
-
     container.innerHTML += productHTML;
-  });
-	
-  // Add click event listeners to each product image
-  document.querySelectorAll('.product-image-container').forEach(container => {
-    container.addEventListener('click', function(event) {
-      event.preventDefault(); // Prevent the default link action
-      const sku = this.closest('.product-item').getAttribute('data-sku');
-      
-      // Perform your intended action here, e.g., open a modal with product details
-      console.log('Product image clicked for SKU:', sku);
-    });
   });
 }
 
 // Handle slide movement and ensure currentIndex updates within bounds
 function moveSlide(direction) {
+  // Calculate the total number of pages
   const maxPages = Math.ceil(products.length / itemsPerPage);
-  
-  // Move to the next or previous set of items
+
+  // Update the current index
   currentIndex += direction;
-  
-  // Correct the index if we are moving past the beginning or the end
+
+  // Ensure the currentIndex wraps around from the last page to the first and vice versa
   if (currentIndex < 0) {
-    currentIndex = products.length - (products.length % itemsPerPage || itemsPerPage);
-  } else if (currentIndex >= products.length) {
+    currentIndex = maxPages - 1;
+  } else if (currentIndex >= maxPages) {
     currentIndex = 0;
-  } else if (direction === 1 && currentIndex + itemsPerPage > products.length) {
-    // When moving forward, if we're approaching the end, ensure we show the last set
-    currentIndex = products.length - (products.length % itemsPerPage || itemsPerPage);
   }
-  
-  updateDisplayedProducts(); // Refresh the display with the new set of products
+
+  // Update the display
+  updateDisplayedProducts();
 }
 
 // Set up event listeners for navigation buttons
 document.addEventListener('DOMContentLoaded', () => {
   fetchAndDisplayProducts(); // Initial fetch and display of products
-  document.querySelector('.carousel-btn.left').addEventListener('click', () => moveSlide(-2)); // Move left
-  document.querySelector('.carousel-btn.right').addEventListener('click', () => moveSlide(2)); // Move right
+
+  const leftButton = document.querySelector('.carousel-btn.left');
+  const rightButton = document.querySelector('.carousel-btn.right');
+
+  // Move left
+  leftButton.addEventListener('click', () => moveSlide(-1));
+
+  // Move right
+  rightButton.addEventListener('click', () => moveSlide(1));
 });
-
-
 
 </script>
 
