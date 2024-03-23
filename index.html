@@ -260,63 +260,146 @@
 </div>
     /* Product Section Styles */
     .products-section {
-      text-align: center;
+      text-align: left;
       margin: 40px auto;
       position: relative;
     }
 
-    .product-item {
-      position: relative;
-      width: 300px; /* Adjust width as needed */
-      margin: 0 15px; /* Spacing between items */
-      display: inline-block;
-      vertical-align: top;
+    /* Carousel Container Styles */
+    .carousel {
+      display: flex;
+      justify-content: center;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 20px 0;
     }
 
-    .product-image-container {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-    }
+    /* Individual Product Item Styles */
+ .product-item {
+    position: relative;
+    width: 375px; /* Adjust width as needed */
+    height: 375px; /* Set height to 375 to maintain aspect ratio */
+    margin: 20px auto; /* Center the card with automatic horizontal margins */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    text-align: center;
+    padding: 16px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+  }
 
-    .product-image {
-      width: 100%;
-      height: 75%;
-      transition: transform 0.3s ease;
-    }
+.product-item h3, .product-item p {
+  width: 100%; /* Ensure text spans the full width of the card */
+  margin-top: 10px; /* Add space above the text */
+  text-align: left; /* Center the text */
+}
 
-    .product-item:hover .product-image {
-      transform: scale(1.1);
-    }
+.product-item h3 {
+  font-size: 2em; /* Larger font size for the product title */
+  margin-top: 10px; /* Space below the product title */
+  color: #162b6f; /* Dark blue color for the text */
+}
 
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: #1C3E8C; /* A lighter shade of the primary blue */
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-family: 'Oswald', sans-serif;
-      border-radius: 25px; /* Rounded edges */
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      transition: background-color 0.3s ease;
-    }
+.product-item p {
+  font-size: 1.5em; /* Larger font size for the price */
+  margin-top: 10px; /* Space above the price */
+  color: #162b6f; /* Dark blue color for the price */
+}
+
+.product-image {
+  width: 100%; /* Adjust the width as necessary */
+  height: 75%; /* This ensures the aspect ratio is maintained */
+}
+
+	  
+/* Ribbon base */
+.ribbon {
+  position: absolute;
+  top: 140px;
+  right: 80px;
+  z-index: 10;
+  background-color: #FF4136; /* Ribbon color */
+  padding: 5px 10px; /* Adjust padding as needed */
+  transform: translate(50%, -50%) rotate(45deg);
+  transform-origin: top right;
+  color: white;
+  font: bold 1em 'Oswald', sans-serif;
+  /* Set a high enough width for the ribbon to look good on the corner */
+  width: 200px;
+  text-align: center;
+}
+
+/* Styles for the product image container */
+.product-image-container {
+  width: 100%; /* Full width of the product item */
+  height: 200px; /* Adjust based on your preference */
+  overflow: hidden; /* Hide parts of the image that exceed the container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.product-image {
+  width: auto; /* Maintain aspect ratio */
+  height: 100%; /* Fill the container height */
+  transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.product-image-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+
+.product-item:hover .product-image {
+  transform: scale(1.1); /* Zoom effect on hover */
+}
+
+
+    /* Carousel Navigation Button Styles */
+	.carousel-btn {
+	  background-color: #1C3E8C; /* A lighter shade of the primary blue */
+	  color: white;
+	  border: none;
+	  padding: 10px 20px;
+	  cursor: pointer;
+	  font-family: 'Oswald', sans-serif;
+	  border-radius: 25px; /* Rounded edges to match the "Order Now" button */
+	  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Soft shadow for depth */
+	  transition: all 0.3s ease;
+	  position: absolute;
+	  top: 210%;
+	  transform: translateY(-50%);
+	  z-index: 10;
+	}
+	
+	.carousel-btn:hover {
+	  background-color: #162b6f; /* Darker blue on hover for interaction feedback */
+	  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Slightly deeper shadow on hover */
+	}
+
 
     .carousel-btn.left {
-      left: 10px;
+      left: 10px; /* Adjust for spacing */
     }
 
     .carousel-btn.right {
-      right: 10px;
+      right: 10px; /* Adjust for spacing */
     }
 
-    /* Adjustments for smaller screens */
+    /* Responsive adjustments if needed */
     @media (max-width: 768px) {
       .carousel-btn.left, .carousel-btn.right {
-        padding: 5px 10px;
-        font-size: 0.8em;
+        left: 10px;
+        right: 10px;
       }
     }
 
