@@ -311,7 +311,7 @@
 
 .product-image {
   width: 100%; /* Adjust the width as necessary */
-  height: auto; /* This ensures the aspect ratio is maintained */
+  height: 75%; /* This ensures the aspect ratio is maintained */
 }
 
 	  
@@ -330,6 +330,37 @@
   /* Set a high enough width for the ribbon to look good on the corner */
   width: 200px;
   text-align: center;
+}
+
+/* Styles for the product image container */
+.product-image-container {
+  width: 100%; /* Full width of the product item */
+  height: 200px; /* Adjust based on your preference */
+  overflow: hidden; /* Hide parts of the image that exceed the container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.product-image {
+  width: auto; /* Maintain aspect ratio */
+  height: 100%; /* Fill the container height */
+  transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.product-image-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+
+.product-item:hover .product-image {
+  transform: scale(1.1); /* Zoom effect on hover */
 }
 
 
@@ -526,26 +557,18 @@ function updateDisplayedProducts() {
   const container = document.getElementById('products-container');
   container.innerHTML = ''; // Clear current items
 
-  // Calculate slice indices for the current set of items to display
-  const start = currentIndex; //* itemsPerPage;
-  const end = Math.min(start + itemsPerPage, products.length);
-  const currentItems = products.slice(start, end);
-
-  // Loop through the current items and append their HTML to the container
-  currentItems.forEach((row) => {
-    const sku = row[12]; // Assuming SKU is in the 13th column (index 12)
-    const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
-    const productImage = `/Kopes-3D-Prints/Images/Product-Images/${row[0].replace(/\s+/g, '-')}.jpg`;
-	const productHTML = `
-	  <div class="product-item" data-sku="${sku}">
-	    ${ribbonHTML}
-	    <img src="${productImage}" alt="${row[0]}" class="product-image">
-	    <h3 class="product-name">${row[0]}</h3>
-	    <p class="product-price">${row[2]}</p>
-	  </div>
-	`;
-
-
+  // Loop through the products and dynamically create HTML for each
+  products.forEach((product) => {
+    const productImage = `/Images/Product-Images/${product.name.replace(/\s+/g, '-')}.jpg`; // Adjust based on your actual path and naming convention
+    const productHTML = `
+      <div class="product-item" data-sku="${sku}">
+        <div class="product-image-container">
+          <img src="${productImage}" alt="${row[0]}" class="product-image">
+        </div>
+        <h3 class="product-name">${row[0]}</h3>
+        <p class="product-price">${row[2]}</p>
+      </div>
+    `;
     container.innerHTML += productHTML;
   });
 	
