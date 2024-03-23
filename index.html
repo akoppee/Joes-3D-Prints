@@ -556,19 +556,24 @@ function fetchAndDisplayProducts() {
 function updateDisplayedProducts() {
   const container = document.getElementById('products-container');
   container.innerHTML = ''; // Clear current items
-
-  // Loop through the products and dynamically create HTML for each
+  
+  // Example product data loading loop
   products.forEach((product) => {
-    const productImage = `/Images/Product-Images/${product.name.replace(/\s+/g, '-')}.jpg`; // Adjust based on your actual path and naming convention
+    const productName = product[0]; // Adjust according to your actual data structure
+    const productPrice = product[2]; // Adjust according to your actual data structure
+    const productImageURL = `/Images/Product-Images/${productName.replace(/\s/g, '-')}.jpg`; // Assuming product images follow this naming convention
+
+    // Construct product item HTML
     const productHTML = `
-      <div class="product-item" data-sku="${sku}">
+      <div class="product-item">
         <div class="product-image-container">
-          <img src="${productImage}" alt="${row[0]}" class="product-image">
+          <img src="${productImageURL}" alt="${productName}" class="product-image">
         </div>
-        <h3 class="product-name">${row[0]}</h3>
-        <p class="product-price">${row[2]}</p>
+        <h3 class="product-name">${productName}</h3>
+        <p class="product-price">${productPrice}</p>
       </div>
     `;
+
     container.innerHTML += productHTML;
   });
 	
