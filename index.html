@@ -580,20 +580,19 @@ function updateDisplayedProducts() {
 }
 
 // Handle slide movement and ensure currentIndex updates within bounds
+// Handle slide movement and ensure currentIndex updates within bounds
 function moveSlide(direction) {
-  // Calculate the total number of pages (taking into account items per page)
+  // Calculate the total number of pages
   const maxPages = Math.ceil(products.length / itemsPerPage);
 
-  // Update the current index with direction adjusted for itemsPerPage
-  currentIndex += direction * itemsPerPage;
+  // Update the current index with direction and ensure it wraps around
+  currentIndex += direction;
 
-  // Ensure the currentIndex doesn't overflow or underflow
+  // Wraparound logic
   if (currentIndex < 0) {
-    currentIndex = 0; // If we're trying to go back from the first set, stay on the first set
-  } else if (currentIndex >= products.length) {
-    currentIndex = products.length - itemsPerPage; // Stay within bounds if we exceed the product list
-    // This adjustment prevents an overflow where the last page would be empty or partially filled
-    if (currentIndex < 0) currentIndex = 0; // Handle case for very few products
+    currentIndex = maxPages - 1; // Wrap to last page if moving back from first
+  } else if (currentIndex >= maxPages) {
+    currentIndex = 0; // Wrap to first page if moving forward from last
   }
 
   // Update the display
