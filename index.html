@@ -583,7 +583,7 @@ function updateDisplayedProducts() {
 // Handle slide movement and ensure currentIndex updates within bounds
 function moveSlide(direction) {
   // Calculate the total number of pages
-  const maxPages = Math.ceil(products.length / (itemsPerPage/2));
+  const maxPages = Math.ceil(products.length / itemsPerPage);
 
   // Update the current index with direction and ensure it wraps around
   currentIndex += direction;
@@ -608,10 +608,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const rightButton = document.querySelector('.carousel-btn.right');
 
   // Move left
-  leftButton.addEventListener('click', () => moveSlide(-1));
+  leftButton.addEventListener('click', () => moveSlide(-0.5);
 
   // Move right
-  rightButton.addEventListener('click', () => moveSlide(1));
+  rightButton.addEventListener('click', () => moveSlide(0.5));
 });
 
 </script>
