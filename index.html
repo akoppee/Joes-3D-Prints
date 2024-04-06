@@ -4,141 +4,100 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kope's 3D Prints</title>
-  <logo url(https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png)></logo>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400&display=swap" rel="stylesheet">
   <link rel="icon" href="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" type="image/x-icon">
   <script src="https://scripts.sirv.com/sirvjs/v3/sirv.js"></script>
   <style>
-    /* Your existing CSS */
-
-    /* Apply Oswald to headers */
-    h1, h2, h3 {
-      font-family: 'Oswald', sans-serif;
-      font-weight: 500; /* Oswald medium weight */
-      color: #162b6f;
-    }
-
-    /* Apply Mulish to paragraphs */
-    p {
-      font-family: 'Mulish', sans-serif;
-      font-weight: 300; /*Mulish Medium weight */
-      color: #162b6f;
-    }
-
-    /* Apply Mulish to buttons */
-    button, 
-    input[type="button"], 
-    input[type="submit"], 
-    a.learn-more-btn {
-      font-family: 'Mulish', sans-serif;
-      font-weight: 300; /*Mulish Medium weight */
-      color: #162b6f;
-    }
-
-    /* Product Section Header Styles */
-	.products-section h2 {
-	  text-align: center; /* Center the heading text */
-	  font-size: 2.5em; /* Make the font size larger */
-	  margin-top: 0; /* Adjust top margin as needed */
-	  margin-bottom: 1em; /* Add some space below the heading */
-	  color: #162b6f; /* Match the color with your design scheme */
-	  font-weight: normal; /* Adjust the font weight as needed */
-	  padding: 0.5em; /* Add padding to increase tap/click area if needed */
-	}
-
-  .fixed-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    z-index: 10000;
-    display: flex;
-    justify-content: space-between; /* This stays the same, it's our magic line */
-    align-items: center;
-    padding: 10px 20px;
-  }
-  
-  /* Adding a new class for the navigation links container */
-  .nav-links {
-    display: flex;
-    justify-content: flex-end; /* Pushes all children to the right */
-  }
-
-/* Target only the last button for the additional margin */
-.nav-links a.header-btn:last-child {
-  margin-right: 90px; /* Extra space to the left of the last button */
-}
-
-
-  /* Adjust the logo class if necessary */
-  .logo {
-    height: 80px;
-    width: auto;
-    margin-right: 20px; /* Make sure there's some space */
-  }
-
-
-.header-btn {
-  font-family: 'Oswald', sans-serif; /* Oswald font for consistency */
-  font-weight: 500;
-  color: #fff; /* White text for contrast */
-  background-color: #162b6f; /* Dark blue background */
-  margin-right: 75px; /* Adjusted spacing to the left */
-  text-decoration: none;
-  padding: 10px 25px;
-  border-radius: 12.5px;
-  transition: background-color 0.3s;
-  border: 2px solid #fff; /* White border for contrast */
-  cursor: pointer;
-  font-size: 1em;
-}
-
-.header-btn:hover {
-  background-color: #1573C8;
-  color: #fff;
-}
-
-@media (max-width: 768px) {
-  .fixed-header {
-    flex-direction: column;
-  }
-}
-
-
-
-
-
-    /* Rest of your CSS */
-  </style>
-</head>
-<body>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kope's 3D Prints</title>
-  <style>
     /* Reset margins and padding for consistency */
-    html, body, h1, p {
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed, 
+    figure, figcaption, footer, header, hgroup, 
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure, 
+    footer, header, hgroup, menu, nav, section {
+      display: block;
+    }
+    body {
+      line-height: 1;
+    }
+    ol, ul {
+      list-style: none;
+    }
+    blockquote, q {
+      quotes: none;
+    }
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+      content: '';
+      content: none;
+    }
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
     }
 
+    /* Global Styles */
     body, html {
-  	width: 100%;
-  	display: block; /* Change from flex to block */
-	line-height: 1.6; /* Adjusts line spacing; 1.6 is generally a good value for readability */
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-	}
-	
-    h1, h2, h3 {
-	  line-height: 1.3; /* Slightly tighter line spacing for headers */
-	}
+      width: 100%;
+      height: 100%;
+      font-family: 'Mulish', sans-serif;
+      line-height: 1.6;
+      text-align: center;
+      background-color: #f5f5f5;
+      color: #162b6f;
+    }
 
-    /* Hero image styles */
+    /* Header Styles */
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background: rgba(255, 255, 255, 0.9);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Logo Styles */
+    .logo {
+      height: 60px; /* Logo height */
+      width: auto; /* Adjust width automatically */
+      margin-right: 20px; /* Space from the next element */
+    }
+
+    /* Navigation Links Styles */
+    .nav-links a {
+      text-decoration: none;
+      color: #162b6f;
+      margin: 0 15px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1em;
+    }
+
+    /* Hero Section Styles */
     .hero-image {
       background-image: url("https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Home-screen-title-bg.jpg");
       background-size: cover;
@@ -147,346 +106,125 @@
       height: 80vh;
       display: flex;
       align-items: center;
+      justify-content: center;
       position: relative;
     }
 
     .hero-text {
       color: #162b6f;
-      background-color: rgba(255, 255, 255, 0.6);
+      background-color: rgba(255, 255, 255, 0.8);
       border-radius: 10px;
-      max-width: 40%;
-      min-height: 60vh; /* 0.6 times the viewport height */
-      height: auto;
+      max-width: 600px;
+      padding: 20px;
       position: absolute;
-      left: 5%;
-      top: 50%;
-      transform: translateY(-50%);
-      box-sizing: border-box;
+    }
+
+    .hero-text h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 4em;
+      margin-bottom: 0.5em;
+    }
+
+    .hero-text p {
+      font-size: 1.5em;
+    }
+
+    /* About Section Styles */
+    .about-section {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 2em;
+      padding: 50px 20px;
+      background-color: #eaeaea;
+      color: #162b6f;
     }
 
-    h1 {
-      text-align: center;
-      width: 60%;
-      font-size: 4.5em;
+    .about-section h2 {
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
     }
 
-    p {
+    .about-section p {
       font-size: 1.2em;
     }
 
-    /* New about section styles */
-    .about-section {
-  	display: flex;
-  	width: 90%; /* Reduce width to create spacing around */
-  	height: 80vh; /* Make it taller */
-  	margin: 50px auto; /* Add space above and below */
-  	box-shadow: 20px 20px 15px rgba(0,0,0,0.5); /* Optional: Add a shadow for a "card" effect */
-	}
-
-
-    .about-image {
-      flex: 1; /* Make the image and text box the same size */
-      background: url("https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Home-screen-about-us-pic.jpg") no-repeat center center;
-      background-size: cover;
-    }
-
-    .about-text {
-	    flex: 1; /* Make the image and text box the same size */
-    	background-color: #162b6f;
-    	color: white;
-    	display: flex;
-    	flex-direction: column;
-    	justify-content: center; /* Ensure vertical center alignment */
-    	align-items: center; /* Center the text horizontally */
-    	padding: 2em;
-    	width: 50%; /* Limit the width to 50% */
-        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-    }
-
-    .about-text h2 {
-      font-size: 3em;
-      margin-bottom: 20px;
-      text-align: center; /* Center the heading */
-      color: white;
-      text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-    }
-
-    .about-text p {
-  	font-size: 1.1em;
-  	margin-bottom: 20px;
-  	text-align: center; /* Center the paragraph */
-  	max-width: 60%; /* Limit the paragraph width to 50% of .about-text */
-    color: white;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-	}
-
-
-    .about-text .learn-more-btn {
-	    padding: 15px 30px; /* Increase padding to make the button larger */
-	    background-color: transparent; /* Make the button transparent */
-	    color: #ffffff;
-	    text-decoration: none;
-	    border-radius: 100px;
-	    transition: background-color 0.3s ease;
-	    font-size: 1em; /* Increase font size */
-	    border: 1px solid #ffffff; /* Add a border to the button */
-	    margin-top: 20px; /* Adjust margin as needed */
-        text-shadow: 2px 2px 2px rgba(0,0,2,0.2);
-	}
-
-    .about-text .learn-more-btn:hover {
-        background-color: #1460A0;
-        color: #fff;
-        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .about-section {
-        flex-direction: column;
-        height: auto;
-      }
-
-      .about-image,
-      .about-text {
-        width: 100%;
-      }
-    }
-</div>
-    /* Product Section Styles */
-    .products-section {
-      text-align: left;
-      margin: 40px auto;
-      position: relative;
-    }
-
     /* Carousel Container Styles */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      cursor: grab;
+    }
+
+    .carousel-container:active {
+      cursor: grabbing;
+    }
+
+    /* Carousel Styles */
     .carousel {
       display: flex;
-      justify-content: center;
+      will-change: transform;
+      scroll-snap-type: x mandatory;
       overflow-x: auto;
-      scroll-behavior: smooth;
-      padding: 20px 0;
     }
 
-    /* Individual Product Item Styles */
- .product-item {
-    position: relative;
-    width: 375px; /* Adjust width as needed */
-    height: 375px; /* Set height to 375 to maintain aspect ratio */
-    margin: 20px auto; /* Center the card with automatic horizontal margins */
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    text-align: center;
-    padding: 16px;
-    background-color: white;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-  }
-
-.product-item h3, .product-item p {
-  width: 100%; /* Ensure text spans the full width of the card */
-  margin-top: 10px; /* Add space above the text */
-  text-align: left; /* Center the text */
-}
-
-.product-item h3 {
-  font-size: 2em; /* Larger font size for the product title */
-  margin-top: 10px; /* Space below the product title */
-  color: #162b6f; /* Dark blue color for the text */
-}
-
-.product-item p {
-  font-size: 1.5em; /* Larger font size for the price */
-  margin-top: 10px; /* Space above the price */
-  color: #162b6f; /* Dark blue color for the price */
-}
-	  
-/* Ribbon base */
-.ribbon {
-  position: absolute;
-  top: 140px;
-  right: 80px;
-  z-index: 10;
-  background-color: #FF4136; /* Ribbon color */
-  padding: 5px 10px; /* Adjust padding as needed */
-  transform: translate(50%, -50%) rotate(45deg);
-  transform-origin: top right;
-  color: white;
-  font: bold 1em 'Oswald', sans-serif;
-  /* Set a high enough width for the ribbon to look good on the corner */
-  width: 200px;
-  text-align: center;
-}
-
-/* Styles for the product image container */
-.product-image-container {
-  width: 100%; /* Full width of the product item */
-  height: 200px; /* Adjust based on your preference */
-  overflow: hidden; /* Hide parts of the image that exceed the container */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-.product-image {
-  width: 100%; /* Maintain aspect ratio */
-  height: 75%; /* Fill the container height */
-  transition: transform 0.3s ease; /* Smooth transition for hover effect */
-}
-
-.product-image-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-}
-
-.product-item:hover .product-image {
-  transform: scale(1.1); /* Zoom effect on hover */
-}
-
-
-    /* Carousel Navigation Button Styles */
-	.carousel-btn {
-	  background-color: #1C3E8C; /* A lighter shade of the primary blue */
-	  color: white;
-	  border: none;
-	  padding: 10px 20px;
-	  cursor: pointer;
-	  font-family: 'Oswald', sans-serif;
-	  border-radius: 25px; /* Rounded edges to match the "Order Now" button */
-	  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Soft shadow for depth */
-	  transition: all 0.3s ease;
-	  position: absolute;
-	  top: 210%;
-	  transform: translateY(-50%);
-	  z-index: 10;
-	}
-	
-	.carousel-btn:hover {
-	  background-color: #162b6f; /* Darker blue on hover for interaction feedback */
-	  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Slightly deeper shadow on hover */
-	}
-
-
-    .carousel-btn.left {
-      left: 10px; /* Adjust for spacing */
+    /* Product Item Styles */
+    .product-item {
+      min-width: 375px;
+      margin: 10px;
+      padding: 15px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+      scroll-snap-align: center;
     }
 
-    .carousel-btn.right {
-      right: 10px; /* Adjust for spacing */
+    .product-item:hover {
+      transform: scale(1.03);
     }
 
-    /* Responsive adjustments if needed */
-    @media (max-width: 768px) {
-      .carousel-btn.left, .carousel-btn.right {
-        left: 10px;
-        right: 10px;
-      }
+    /* Ghost Product Item Styles for Infinite Loop */
+    .product-item.ghost {
+      visibility: hidden;
     }
 
-    /* Hide scrollbar for carousel */
-    .carousel::-webkit-scrollbar {
-      display: none;
+    /* Footer Styles */
+    footer {
+      background-color: #162b6f;
+      color: #ffffff;
+      padding: 20px;
+      font-family: 'Oswald', sans-serif;
     }
-
-    .carousel {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    /* Footer styles */
-  footer {
-    background-color: #162b6f; /* Keep the dark blue background */
-    color: #ffffff; /* Keep text color white for contrast */
-    padding: 2em 1em; /* Generous padding inside the footer */
-    margin-top: 50px; /* This ensures space above the footer */
-    font-family: 'Oswald', sans-serif; /* Keep the consistent font style */
-    text-align: center; /* Centralize the text */
-    line-height: 1.5; /* Good line spacing for readability */
-  }
 
     footer p {
-      margin: 0.5em 0; /* Maintain spacing between paragraphs */
-      font-size: 0.9em; /* Adjust the font size to fit the design */
-      color: white;
+      font-size: 1em;
+      margin: 0.5em 0;
     }
 
     footer a {
-      color: #85E2FF; /* Use a light blue color for links to make them stand out */
-      text-decoration: none; /* No underline */
-      margin: 0 5px; /* Spacing between links */
+      color: #85E2FF;
+      text-decoration: none;
     }
 
     footer a:hover {
-      text-decoration: underline; /* Underline on hover */
+      text-decoration: underline;
     }
-
-    /* Make the footer responsive */
-    @media (max-width: 768px) {
-      footer p {
-        font-size: 0.8em; /* Smaller font size on smaller screens */
-      }
-    }
-/* Global scrollbar styles */
-html {
-  scrollbar-width: thin !important; /* For Firefox */
-  scrollbar-color: rgba(0, 78, 215, 0.5) transparent !important; /* For Firefox, with transparent track */
-}
-
-/* For Chrome, Safari, and newer versions of Edge */
-::-webkit-scrollbar {
-  width: 10px !important; /* Adjust the width of the scrollbar */
-  height: 10px !important; /* Adjust the height of the scrollbar for horizontal scrolls */
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.2) !important; /* Mostly transparent track */
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 78, 215, 0.5) !important; /* Blue thumb with 0.5 transparency */
-  border-radius: 10px !important; /* Rounded corners for the thumb */
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 78, 215, 0.8) !important; /* Blue thumb with less transparency when hovered */
-}
-
-/* Remove scrollbar arrows */
-::-webkit-scrollbar-button {
-  display: none !important;
-}
-
-
-
   </style>
 </head>
 <body>
+
 <div class="fixed-header">
   <a href="/">
-    <img src="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" alt="Company Logo" class="logo">
+    <img src="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" alt="Kope's 3D Prints Logo" class="logo">
   </a>
-  <div class="nav-links"> <!-- Here's our pack of buttons, ready for their trip to the right -->
-    <a href="https://forms.gle/SgnbDATWK7QjRpfYA" class="header-btn" target="_blank">Order Now</a>
-    <a href="https://akoppee.github.io/Kopes-3D-Prints/Shop_All.html#" class="header-btn">Shop All</a>
-  </div>
+  <nav class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Products</a>
+    <a href="#">Contact</a>
+  </nav>
 </div>
 
-	
-<!-- Existing hero-image section -->
 <div class="hero-image">
   <div class="hero-text">
     <h1>Welcome to Kope's 3D Prints</h1>
@@ -494,201 +232,105 @@ html {
   </div>
 </div>
 
-
-<!-- New about section -->
 <div class="about-section">
-    <div class="about-image">
-      <!-- Background image is set via CSS -->
+  <h2>About Us</h2>
+  <p>Fast, efficient, and honest, Kope's 3D Prints has become a reputable and well-known 3D Printing Service Provider.</p>
+</div>
+
+<div class="products-section">
+  <h2>Our Products</h2>
+  <div class="carousel-container">
+    <div id="products-container" class="carousel">
+      <!-- Products will be dynamically injected here -->
     </div>
-    <div class="about-text">
-      <h2>About Us</h2>
-      <p>Fast, efficient, and honest, Kope's 3D Prints is an up-and-coming and great 3D Printing Service. We want our customers to be satisfied with our work, which is why we provide open communication channels throughout the duration of each project.</p>
-      <a href="#" class="learn-more-btn">Learn More</a>
   </div>
 </div>
-<!-- Products Section -->
-<div class="products-section">
-    <h2>Our Products</h2>
-    <div class="carousel-container">
-      <!-- Carousel buttons -->
-      <button onclick="moveSlide(-1)" class="carousel-btn left">&#10094;</button>
-      <div id="products-container" class="carousel">
-        <!-- Products will be loaded here by the script -->
-      </div>
-      <button onclick="moveSlide(1)" class="carousel-btn right">&#10095;</button>
-    </div>
-</div>
-  <footer>
-    <p>About Kope's 3D Prints</p>
-    <p>Kope's 3D Prints is dedicated to providing high-quality 3D printed products.</p>
-    <p>For inquiries, email us at: <a href="mailto:Kope3DPrints@gmail.com" target="_blank">Kope3DPrints@gmail.com</a></p>
-    <p>Follow us on social media: <a href="https://twitter.com/kopes3dprints" target="_blank">Twitter,</a><a href="https://instagram.com/kope3dprints" target="_blank">Instagram</a></p>
-    <p>&copy; 2024 Kope's 3D Prints. All rights reserved.</p>
-  </footer>
 
+<footer>
+  <p>About Kope's 3D Prints</p>
+  <p>Follow us on social media: <a href="#">Instagram</a>, <a href="#">Twitter</a></p>
+</footer>
 
+<script>
+  // Define the API URL
+  const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
 
-<script> //
-const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
-let products = [];
-let currentIndex = 0; // Tracks the current index for pagination
-const itemsPerPage = 3; // Number of items to show per page
+  // Function to fetch products from Google Sheets and display in the carousel
+  function fetchAndDisplayProducts() {
+    fetch(apiURL)
+      .then(response => response.json())
+      .then(data => {
+        const products = data.values;
+        const container = document.getElementById('products-container');
+        
+        // Clear the container
+        container.innerHTML = '';
 
-// Fetch products from the API and store them
-function fetchAndDisplayProducts() {
-  fetch(apiURL)
-    .then(response => response.json())
-    .then(data => {
-      // Filter out products where the "N" column explicitly equals 'FALSE'
-      products = data.values.slice(1).filter(row => (row[13]?.toString().trim().toUpperCase() || 'TRUE') !== 'FALSE');
-      updateDisplayedProducts();
-    })
-    .catch(error => {
-      console.error('Error fetching products:', error);
-      // Handle loading errors (e.g., display a message to the user)
-    });
-}
+        // Add products to the carousel
+	  // Loop through the current items and append their HTML to the container
+	  currentItems.forEach((row) => {
+	    const sku = row[12]; // Assuming SKU is in the 13th column (index 12)
+	    const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
+	    const productImage = `/Kopes-3D-Prints/Images/Product-Images/${row[0].replace(/\s+/g, '-')}.jpg`;
+	    console.log(productImage);
+	    const productName = row[0]; // Assuming product name is in the 1st column (index 0)
+	    const productPrice = row[2]; // Assuming product price is in the 3rd column (index 2)
+	    const productHTML = `
+	      <div class="product-item" data-sku="${sku}">
+	      ${ribbonHTML}
+	      <img src="${productImage}" alt="${productName}" class="product-image">
+	      <h3 class="product-name">${productName}</h3>
+	      <p class="product-price">${productPrice}</p>
+	      </div>
+	    `;
+	    container.innerHTML += productHTML;
+	  });
 
-// Update the displayed products based on currentIndex
-function updateDisplayedProducts() {
-  const container = document.getElementById('products-container');
-  container.innerHTML = ''; // Clear current items
+        // Add 'ghost' elements for the infinite loop
+        const firstClone = container.firstElementChild.cloneNode(true);
+        const lastClone = container.lastElementChild.cloneNode(true);
+        firstClone.classList.add('ghost');
+        lastClone.classList.add('ghost');
+        container.appendChild(firstClone);
+        container.insertBefore(lastClone, container.firstElementChild);
 
-  // Calculate slice indices for the current set of items to display
-  const start = currentIndex * itemsPerPage;
-  const end = Math.min(start + itemsPerPage, products.length);
-  const currentItems = products.slice(start, end);
-
-  // Loop through the current items and append their HTML to the container
-  currentItems.forEach((row) => {
-    const sku = row[12]; // Assuming SKU is in the 13th column (index 12)
-    const ribbonHTML = row[5] && row[5].trim() !== '' ? `<div class="ribbon">${row[5]}</div>` : '';
-    const productImage = `/Kopes-3D-Prints/Images/Product-Images/${row[0].replace(/\s+/g, '-')}.jpg`;
-    console.log(productImage);
-    const productName = row[0]; // Assuming product name is in the 1st column (index 0)
-    const productPrice = row[2]; // Assuming product price is in the 3rd column (index 2)
-    const productHTML = `
-      <div class="product-item" data-sku="${sku}">
-      ${ribbonHTML}
-      <img src="${productImage}" alt="${productName}" class="product-image">
-      <h3 class="product-name">${productName}</h3>
-      <p class="product-price">${productPrice}</p>
-      </div>
-    `;
-    container.innerHTML += productHTML;
-  });
-}
-
-// Handle slide movement and ensure currentIndex updates within bounds
-// Handle slide movement and ensure currentIndex updates within bounds
-function moveSlide(direction) {
-  // Calculate the total number of pages
-  const maxPages = Math.ceil(products.length / itemsPerPage);
-
-  // Update the current index with direction and ensure it wraps around
-  currentIndex += direction;
-
-  // Wraparound logic
-  if (currentIndex < 0) {
-    currentIndex = maxPages - 1; // Wrap to last page if moving back from first
-  } else if (currentIndex >= maxPages) {
-    currentIndex = 0; // Wrap to first page if moving forward from last
+        // Call function to make the carousel draggable
+        makeCarouselDraggable(container);
+      })
+      .catch(error => console.error('Error:', error));
   }
 
-  // Update the display
-  updateDisplayedProducts();
-}
+  // Function to make the carousel draggable
+  function makeCarouselDraggable(container) {
+    let startX;
+    let scrollLeft;
 
+    container.addEventListener('mousedown', (e) => {
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+      container.classList.add('active');
+    });
 
-// Set up event listeners for navigation buttons
-document.addEventListener('DOMContentLoaded', () => {
-  fetchAndDisplayProducts(); // Initial fetch and display of products
+    container.addEventListener('mouseleave', () => {
+      container.classList.remove('active');
+    });
 
-  const leftButton = document.querySelector('.carousel-btn.left');
-  const rightButton = document.querySelector('.carousel-btn.right');
+    container.addEventListener('mouseup', () => {
+      container.classList.remove('active');
+    });
 
-  // Move left
-  leftButton.addEventListener('click', () => moveSlide(-0.5));
+    container.addEventListener('mousemove', (e) => {
+      if (!container.classList.contains('active')) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 3;
+      container.scrollLeft = scrollLeft - walk;
+    });
+  }
 
-  // Move right
-  rightButton.addEventListener('click', () => moveSlide(0.5));
-});
-
+  // Call function on DOM load
+  document.addEventListener('DOMContentLoaded', fetchAndDisplayProducts);
 </script>
-
-<script> //Cart Management
-	storeUUID()
-	
-	function updateCart(sku, amount) {
-	    // Retrieve the cart from localStorage or set it to an empty string if none exists
-	    let cartStr = localStorage.getItem('cart') || '';
-	    
-	    // Convert the cart string to an array of objects for easier manipulation
-	    let cartItems = cartStr.split(';').filter(item => item).map(item => {
-	        const parts = item.split(',');
-	        return { sku: parts[0], amount: parseInt(parts[1], 10) };
-	    });
-	
-	    // Check if the SKU already exists in the cart
-	    let itemIndex = cartItems.findIndex(item => item.sku === sku);
-	
-	    if (itemIndex > -1) {
-	        // If the SKU exists, update the amount
-	        cartItems[itemIndex].amount = amount;
-	    } else {
-	        // If the SKU does not exist, add a new item
-	        cartItems.push({ sku, amount });
-	    }
-	
-	    // Convert the cart items back into the string format
-	    cartStr = cartItems.map(item => `${item.sku},${item.amount}`).join(';') + ';';
-	
-	    // Update the cart in localStorage
-	    localStorage.setItem('cart', cartStr);
-	
-	saveCartToSheet(getUserUUID, cartStr);
-	}
-
-	function saveCartToSheet(userIdentifier, cartData) {
-	    var data = {
-	        'userIdentifier': userIdentifier,
-	        'cartData': JSON.stringify(cartData) // Assuming cartData is an object/array
-	    };
-	
-	    fetch('<https://script.google.com/macros/s/AKfycbz5PMxwDMQGa3SvYPOsHZGhA0yhV9xttIpLX-2eyugFUaxaRKDkYcMbXIW9fjtSL0UNMw/exec>', {
-	        method: 'POST',
-	        mode: 'no-cors', // Note: no-cors mode doesn't allow reading the response from the fetch
-	        body: JSON.stringify(data),
-	        headers: {
-	            'Content-Type': 'application/json'
-	        }
-	    })
-	    .then(response => console.log('Cart data saved'))
-	    .catch(error => console.error('Error:', error));
-	}
-
-	// Example: Generating and storing a UUID
-	function generateUUID() {
-	  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-	    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-	    return v.toString(16);
-	  });
-	}
-	
-	function storeUUID() {
-	  if (!localStorage.getItem('userUUID')) {
-	    localStorage.setItem('userUUID', generateUUID());
-	  }
-	}
-	
-	function getUserUUID() {
-	  return localStorage.getItem('userUUID');
-	}
-
-</script>
-
-
-
 
 </body>
 </html>
