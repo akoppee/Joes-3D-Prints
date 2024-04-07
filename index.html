@@ -493,48 +493,81 @@ document.addEventListener('DOMContentLoaded', () => {
   
   fetchAndDisplayProducts(); // Initial fetch and display of products
 });
-const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
-// Function to fetch products and populate the carousel
 document.addEventListener('DOMContentLoaded', () => {
-  const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
+  fetchAndDisplayProducts(); // Load products initially
 
-  function fetchAndDisplayProducts() {
-    fetch(apiURL)
-      .then(response => response.json())
-      .then(data => {
-        const rows = data.values; // Each row represents a product
-        const container = document.querySelector('#products-container');
-        // Start from the second row, assuming the first row contains column headers
-        rows.slice(1).forEach((columns) => {
-          // Create a div element for each product
-          const productDiv = document.createElement('div');
-          productDiv.classList.add('product-item');
+  // Make carousel spinnable with mouse drag
+  let isDragging = false, startPos = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0, currentIndex = 0;
 
-          // Assuming the product image URL is in the second column (index 1)
-          const imageURL = columns[1];
-          const productName = columns[0]; // Product name is in the first column
-          const productPrice = columns[2]; // Price is in the third column
+  const setPositionByIndex = () => {
+    currentTranslate = currentIndex * -window.innerWidth;
+    prevTranslate = currentTranslate;
+    setSliderPosition();
+  };
 
-          // Adjust image URL, name, and price retrieval according to your sheet structure
-          productDiv.innerHTML = `
-            <div class="product-image-container">
-              <img src="${imageURL}" alt="${productName}" class="product-image">
-            </div>
-            <h3 class="product-name">${productName}</h3>
-            <p class="product-price">$${productPrice}</p>
-          `;
-          container.appendChild(productDiv);
-        });
-      })
-      .catch(error => {
-        console.error('Error fetching products:', error);
-      });
-  }
+  const setSliderPosition = () => {
+    const slider = document.querySelector('.carousel');
+    if (!slider) return;
+    slider.style.transform = `translateX(${currentTranslate}px)`;
+  };
 
-  fetchAndDisplayProducts(); // Call the function to fetch and display products
+  const touchStart = (index) => {
+    return (event) => {
+      currentIndex = index;
+      startPos = getPositionX(event);
+      isDragging = true;
+      animationID = requestAnimationFrame(animation);
+      slider.classList.add('grabbing');
+    };
+  };
 
-  // Rest of your code for carousel mouse drag functionality...
+  const touchEnd = () => {
+    isDragging = false;
+    cancelAnimationFrame(animationID);
+    const movedBy = currentTranslate - prevTranslate;
+    if (movedBy < -100 && currentIndex < products.length - 1) currentIndex += 1;
+    if (movedBy > 100 && currentIndex > 0) currentIndex -= 1;
+    setPositionByIndex();
+    slider.classList.remove('grabbing');
+  };
+
+  const touchMove = (event) => {
+    if (isDragging) {
+      const currentPosition = getPositionX(event);
+      currentTranslate = prevTranslate + currentPosition - startPos;
+    }
+  };
+
+  const getPositionX = (event) => {
+    return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+  };
+
+  const animation = () => {
+    setSliderPosition();
+    if (isDragging) requestAnimationFrame(animation);
+  };
+
+  // Add touch event listeners
+  const slider = document.querySelector('.carousel');
+  slider.addEventListener('dragstart', (e) => e.preventDefault());
+  slider.addEventListener('touchstart', touchStart(0));
+  slider.addEventListener('touchend', touchEnd);
+  slider.addEventListener('touchmove', touchMove);
+  slider.addEventListener('mousedown', touchStart(0));
+  slider.addEventListener('mouseup', touchEnd);
+  slider.addEventListener('mouseleave', touchEnd);
+  slider.addEventListener('mousemove', touchMove);
 });
+
+function fetchAndDisplayProducts() {
+  // Your existing product fetching logic here
+}
+
+// Update the displayed products based on currentIndex
+function updateDisplayedProducts() {
+  // Your existing logic for updating displayed products
+}
+
 
 
   </script>
