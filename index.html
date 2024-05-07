@@ -44,7 +44,7 @@ $(document).ready(function() {
       slidesToShow: 3,
       slidesToScroll: 1,
       draggable: true,
-      dots: false,
+      dots: true,
       cssEase: 'linear',
       responsive: [
         {
@@ -563,12 +563,9 @@ html {
 <div class="products-section">
     <h2>Our Products</h2>
     <div class="carousel-container">
-      <!-- Carousel buttons -->
-      <button onclick="moveSlide(-1)" class="carousel-btn left">&#10094;</button>
       <div id="products-container" class="carousel">
         <!-- Products will be loaded here by the script -->
       </div>
-      <button onclick="moveSlide(1)" class="carousel-btn right">&#10095;</button>
     </div>
 </div>
   <footer>
