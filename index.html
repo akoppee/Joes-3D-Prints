@@ -289,7 +289,7 @@
  .product-item {
     position: relative;
     width: 375px; /* Adjust width as needed */
-    height: 375px; /* Set height to 375 to maintain aspect ratio */
+    height: auto; /* Set height to 375 to maintain aspect ratio */
     margin: 20px auto; /* Center the card with automatic horizontal margins */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     text-align: center;
@@ -350,7 +350,7 @@
 
 .product-image {
   width: 100%; /* Maintain aspect ratio */
-  height: 75%; /* Fill the container height */
+  height: auto; /* Fill the container height */
   transition: transform 0.3s ease; /* Smooth transition for hover effect */
 }
 
@@ -567,21 +567,22 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function initializeCarousel() {
-    $('.carousel').slick({
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      infinite: false,
-      draggable: true,
-      dots: true,
-      responsive: [
-        {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 1
-          }
-        }
-      ]
-    });
+	$('.carousel').slick({
+	  infinite: true,  // Enables looping
+	  slidesToShow: 3,
+	  slidesToScroll: 1,
+	  draggable: true,
+	  dots: true,
+	  cssEase: 'linear', // Changes the animation easing to prevent snapping
+	  responsive: [
+	    {
+	      breakpoint: 768,
+	      settings: {
+	        slidesToShow: 1
+	      }
+	    }
+	  ]
+	});
   }
 
   fetchAndDisplayProducts();
