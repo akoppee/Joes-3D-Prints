@@ -9,10 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400&display=swap" rel="stylesheet">
   <link rel="icon" href="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" type="image/x-icon">
   <script src="https://scripts.sirv.com/sirvjs/v3/sirv.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
-<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!-- Flickity CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.2/flickity.min.css" />
+
+<!-- Flickity JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.2/flickity.pkgd.min.js"></script>
+
 <script>
   $(document).ready(function() {
     // Your JavaScript code including the fetchAndDisplayProducts and initializeCarousel functions
@@ -559,28 +561,22 @@ document.addEventListener('DOMContentLoaded', function() {
         <p class="product-price">${row[2]}</p>
       </div>
     `).join('');
-    initializeCarousel();
+    initializeFlickity();
   }
 
-  function initializeCarousel() {
-	$('.carousel').slick({
-	    infinite: true,
-	    slidesToShow: 3,
-	    slidesToScroll: 1,
-	    draggable: true,
-	    dots: true,
-	    speed: 500, // Adjust transition speed; lower might feel more 'freewheeling'
-	    swipeToSlide: true, // Allows swiping to a slide without it needing to snap exactly in place
-	    variableWidth: true, // If your slides have variable widths
-	    responsive: [{
-	        breakpoint: 768,
-	        settings: {
-	            slidesToShow: 1
-	        }
-	    }]
-	});
-
-  }
+  // Function to initialize Flickity
+    function initializeFlickity() {
+        var elem = document.querySelector('.carousel');
+        var flkty = new Flickity(elem, {
+            cellAlign: 'left',
+            contain: true,
+            freeScroll: true,
+            wrapAround: true,
+            pageDots: true,
+            prevNextButtons: true,
+            autoPlay: false
+        });
+    }
 
   fetchAndDisplayProducts();
 });
