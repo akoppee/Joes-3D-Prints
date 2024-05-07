@@ -24,7 +24,8 @@ $(document).ready(function() {
       .catch(error => console.error('Error fetching products:', error));
   }
 
-  function displayProducts(products) {
+ function displayProducts(products) {
+    console.log("Fetched products:", products); // Check what's fetched
     const container = $('#products-container');
     const productHTML = products.map(row => `
       <div class="product-item">
@@ -34,9 +35,11 @@ $(document).ready(function() {
         <p class="product-price">$${row[2]}</p>
       </div>
     `).join('');
+    console.log("HTML generated:", productHTML); // Check the HTML output
     container.html(productHTML);
     initializeCarousel();
-  }
+}
+
 
   function initializeCarousel() {
     $('.carousel').slick({
