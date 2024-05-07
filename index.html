@@ -535,9 +535,7 @@ html {
 document.addEventListener('DOMContentLoaded', function() {
   const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const apiURL = 'https://path-to-your-api/products';  // Change this to your actual API endpoint
-
+    // Function to fetch and display products
     function fetchAndDisplayProducts() {
         fetch(apiURL)
             .then(response => {
@@ -547,13 +545,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
-                // Assuming 'data.values' contains your product arrays, and skipping the header row
                 let products = data.values.slice(1).filter(row => row[13] && row[13].toUpperCase() === 'TRUE');
                 displayProducts(products);
             })
             .catch(error => console.error('Error fetching products:', error));
     }
 
+    // Function to display products
     function displayProducts(products) {
         const container = document.getElementById('products-container');
         container.innerHTML = products.map(row => `
@@ -565,10 +563,10 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `).join('');
 
-        // Initialize Flickity after the content is loaded
         initializeFlickity();
     }
 
+    // Function to initialize Flickity
     function initializeFlickity() {
         const elem = document.querySelector('.carousel');
         new Flickity(elem, {
@@ -578,29 +576,14 @@ document.addEventListener('DOMContentLoaded', function() {
             wrapAround: true,
             pageDots: true,
             prevNextButtons: true,
-            autoPlay: 50000  // You can set this to 3000 or another interval (in ms) for autoplay
+            autoPlay: false  // Optionally set this to a number (milliseconds) for autoplay
         });
     }
 
+    // Call the function to load and display products
     fetchAndDisplayProducts();
 });
 
-
-  // Function to initialize Flickity
-    function initializeFlickity() {
-        var elem = document.querySelector('.carousel');
-        var flkty = new Flickity(elem, {
-            cellAlign: 'left',
-            contain: true,
-            freeScroll: true,
-            wrapAround: true,
-            pageDots: true,
-            prevNextButtons: true,
-            autoPlay: false
-        });
-    }
-
-  fetchAndDisplayProducts();
 });
 </script>
 
