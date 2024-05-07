@@ -533,9 +533,8 @@ html {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
+    const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=YOUR_API_KEY';
 
-    // Function to fetch and display products
     function fetchAndDisplayProducts() {
         fetch(apiURL)
             .then(response => {
@@ -545,16 +544,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
+                console.log('Data fetched:', data);
                 let products = data.values.slice(1).filter(row => row[13] && row[13].toUpperCase() === 'TRUE');
+                console.log('Filtered products:', products);
                 displayProducts(products);
             })
             .catch(error => console.error('Error fetching products:', error));
     }
 
-    // Function to display products
     function displayProducts(products) {
-	console.log(products)
         const container = document.getElementById('products-container');
+        if (!container) {
+            console.error('Product container not found');
+            return;
+        }
         container.innerHTML = products.map(row => `
             <div class="product-item">
                 ${row[5] ? `<div class="ribbon">${row[5]}</div>` : ''}
@@ -567,7 +570,6 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeFlickity();
     }
 
-    // Function to initialize Flickity
     function initializeFlickity() {
         const elem = document.querySelector('.carousel');
         new Flickity(elem, {
@@ -581,9 +583,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Call the function to load and display products
     fetchAndDisplayProducts();
 });
+
 </script>
 
 
