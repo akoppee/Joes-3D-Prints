@@ -24,39 +24,35 @@ $(document).ready(function() {
       .catch(error => console.error('Error fetching products:', error));
   }
 
- function displayProducts(products) {
-    console.log("Fetched products:", products); // Check what's fetched
+function displayProducts(products) {
     const container = $('#products-container');
     const productHTML = products.map(row => `
       <div class="product-item">
         ${row[5] ? `<div class="ribbon">${row[5]}</div>` : ''}
-        <img src="/Kopes-3D-Prints/Images/Product-Images/${row[0].replace(/\s+/g, '-')}.jpg" alt="${row[0]}" class="product-image">
+        <img src="/Kopes-3D-Prints/Images/Product-Images/${encodeURIComponent(row[0].replace(/\s+/g, '-'))}.jpg" alt="${row[0]}" class="product-image">
         <h3 class="product-name">${row[0]}</h3>
         <p class="product-price">$${row[2]}</p>
       </div>
     `).join('');
-    console.log("HTML generated:", productHTML); // Check the HTML output
     container.html(productHTML);
     initializeCarousel();
 }
 
-
 function initializeCarousel() {
-    $(document).ready(function() { // Ensure DOM is fully ready
-        $('.carousel').slick({
-            infinite: true,
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            draggable: true,
-            dots: true,
-            cssEase: 'linear',
-            responsive: [{
-                breakpoint: 768,
-                settings: { slidesToShow: 1 }
-            }]
-        });
+    $('.carousel').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        draggable: true,
+        dots: true,
+        cssEase: 'linear',
+        responsive: [{
+            breakpoint: 768,
+            settings: { slidesToShow: 1 }
+        }]
     });
 }
+
 
 
   fetchAndDisplayProducts();
@@ -461,6 +457,15 @@ function initializeCarousel() {
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+	  
+.carousel, .product-item {
+    display: block; /* Ensures items are not set to display: none */
+    visibility: visible; /* Makes sure items are not invisible */
+    opacity: 1; /* Ensures items are fully opaque */
+    min-height: 100px; /* Set a minimum height */
+    color: black; /* Ensure text is visible */
+    background-color: white; /* Temporarily set a background to spot the items */
+}
 
     /* Footer styles */
   footer {
