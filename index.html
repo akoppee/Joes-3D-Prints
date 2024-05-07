@@ -553,6 +553,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to display products
     function displayProducts(products) {
+	console.log(products)
         const container = document.getElementById('products-container');
         container.innerHTML = products.map(row => `
             <div class="product-item">
