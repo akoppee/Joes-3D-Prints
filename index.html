@@ -535,33 +535,56 @@ html {
 document.addEventListener('DOMContentLoaded', function() {
   const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
 
-    // Function to fetch products and build HTML
+  document.addEventListener('DOMContentLoaded', function() {
+    const apiURL = 'https://path-to-your-api/products';  // Change this to your actual API endpoint
+
     function fetchAndDisplayProducts() {
         fetch(apiURL)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(data => {
-                const container = document.querySelector('.carousel');
-                let innerHTML = '';
-
-                // Build HTML for each product
-                data.forEach(product => {
-                    innerHTML += `
-                        <div class="product-item">
-                            <img src="${product.imageURL}" alt="${product.name}">
-                            <h3>${product.name}</h3>
-                            <p>$${product.price}</p>
-                        </div>
-                    `;
-                });
-
-                // Set inner HTML of the container
-                container.innerHTML = innerHTML;
-
-                // Initialize Flickity after products are loaded
-                initializeFlickity();
+                // Assuming 'data.values' contains your product arrays, and skipping the header row
+                let products = data.values.slice(1).filter(row => row[13] && row[13].toUpperCase() === 'TRUE');
+                displayProducts(products);
             })
             .catch(error => console.error('Error fetching products:', error));
     }
+
+    function displayProducts(products) {
+        const container = document.getElementById('products-container');
+        container.innerHTML = products.map(row => `
+            <div class="product-item">
+                ${row[5] ? `<div class="ribbon">${row[5]}</div>` : ''}
+                <img src="/Kopes-3D-Prints/Images/Product-Images/${row[0].replace(/\s+/g, '-')}.jpg" alt="${row[0]}" class="product-image">
+                <h3 class="product-name">${row[0]}</h3>
+                <p class="product-price">${row[2]}</p>
+            </div>
+        `).join('');
+
+        // Initialize Flickity after the content is loaded
+        initializeFlickity();
+    }
+
+    function initializeFlickity() {
+        const elem = document.querySelector('.carousel');
+        new Flickity(elem, {
+            cellAlign: 'left',
+            contain: true,
+            freeScroll: true,
+            wrapAround: true,
+            pageDots: true,
+            prevNextButtons: true,
+            autoPlay: 50000  // You can set this to 3000 or another interval (in ms) for autoplay
+        });
+    }
+
+    fetchAndDisplayProducts();
+});
+
 
   // Function to initialize Flickity
     function initializeFlickity() {
