@@ -349,9 +349,10 @@
 }
 
 .product-image {
-  width: 100%; /* Maintain aspect ratio */
+  width: 90%; /* Maintain aspect ratio */
   height: auto; /* Fill the container height */
   transition: transform 0.3s ease; /* Smooth transition for hover effect */
+  transform: scale(1.05);
 }
 
 .product-image-container::before {
@@ -362,10 +363,6 @@
   right: 0;
   bottom: 0;
   background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-}
-
-.product-item:hover .product-image {
-  transform: scale(1.1); /* Zoom effect on hover */
 }
 
 
