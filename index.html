@@ -551,23 +551,35 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error fetching products:', error));
     }
 
-    function displayProducts(products) {
-        const container = document.getElementById('products-container');
-        if (!container) {
-            console.error('Product container not found');
-            return;
-        }
-    container.innerHTML = products.map(row => `
-      <div class="product-item">
-        ${row[5] ? `<div class="ribbon">${row[5]}</div>` : ''}
-        <img src="/Kopes-3D-Prints/Images/Product-Images/${row[0].replace(/\s+/g, '-')}.jpg" alt="${row[0]}" class="product-image">
-        <h3 class="product-name">${row[0]}</h3>
-        <p class="product-price">${row[2]}</p>
-      </div>
-    `).join('');
-
-        initializeFlickity();
+function displayProducts(products) {
+    const container = document.getElementById('products-container');
+    if (!container) {
+        console.error('Container not found');
+        return;
     }
+
+    const productHTML = products.map(row => {
+        if (row.length < 14) {
+            console.error('Incomplete data for row:', row);
+            return ''; // Skip this row as it has incomplete data
+        }
+
+        return `
+            <div class="product-item">
+                ${row[5] ? `<div class="ribbon">${row[5]}</div>` : ''}
+                <img src="/Kopes-3D-Prints/Images/Product-Images/${row[0].replace(/\s+/g, '-')}.jpg" alt="${row[0]}" class="product-image">
+                <h3 class="product-name">${row[0]}</h3>
+                <p class="product-price">${row[2]}</p>
+            </div>
+        `;
+    }).join('');
+
+    console.log('Displaying HTML:', productHTML); // Check what HTML is being set
+    container.innerHTML = productHTML;
+
+    initializeFlickity();
+}
+
 
     function initializeFlickity() {
         const elem = document.querySelector('.carousel');
