@@ -9,15 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400&display=swap" rel="stylesheet">
   <link rel="icon" href="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" type="image/x-icon">
   <script src="https://scripts.sirv.com/sirvjs/v3/sirv.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
-<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script>
-  $(document).ready(function() {
-    // Your JavaScript code including the fetchAndDisplayProducts and initializeCarousel functions
-  });
-</script>
+<link rel="stylesheet" href="https://pawelgrzybek.github.io/siema/assets/siema.min.css">
+<script src="https://pawelgrzybek.github.io/siema/assets/siema.min.js"></script>
+
 
 
   <style>
@@ -278,11 +272,12 @@
 
     /* Carousel Container Styles */
     .carousel {
-      display: flex;
       justify-content: center;
-      overflow-x: auto;
       scroll-behavior: smooth;
       padding: 20px 0;
+      display: flex;
+      overflow-x: auto; /* Allows horizontal scrolling */
+      white-space: nowrap; /* Keeps carousel items in a single line */
     }
 
     /* Individual Product Item Styles */
@@ -517,13 +512,12 @@ html {
 <!-- Products Section -->
 <div class="products-section">
     <h2>Our Products</h2>
-    <div class="carousel-container">
-      <!-- Carousel buttons -->
-      <div id="products-container" class="carousel">
-        <!-- Products will be loaded here by the script -->
-      </div>
-
+    <div class="siema">
+        <!-- Dynamic product items will be inserted here -->
     </div>
+</div>
+
+
 </div>
   <footer>
     <p>About Kope's 3D Prints</p>
@@ -537,54 +531,70 @@ html {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
+   const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
 
-  function fetchAndDisplayProducts() {
-    fetch(apiURL)
-      .then(response => response.json())
-      .then(data => {
-        let products = data.values.slice(1).filter(row => (row[13]?.toUpperCase() || 'TRUE') !== 'FALSE');
-        displayProducts(products);
-      })
-      .catch(error => console.error('Error fetching products:', error));
-  }
+    // Fetch products and then initialize the carousel
+    fetchAndDisplayProducts().then(() => {
+        initializeSiema();
+    });
 
-  function displayProducts(products) {
-    const container = document.getElementById('products-container');
-    container.innerHTML = products.map(row => `
-      <div class="product-item">
-        ${row[5] ? `<div class="ribbon">${row[5]}</div>` : ''}
-        <img src="/Kopes-3D-Prints/Images/Product-Images/${row[0].replace(/\s+/g, '-')}.jpg" alt="${row[0]}" class="product-image">
-        <h3 class="product-name">${row[0]}</h3>
-        <p class="product-price">${row[2]}</p>
-      </div>
-    `).join('');
-    initializeCarousel();
-  }
+    function fetchAndDisplayProducts() {
+        return fetch(apiURL)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                let products = data.values.slice(1).filter(row => row[13] && row[13].toUpperCase() === 'TRUE');
+                displayProducts(products);
+            })
+            .catch(error => {
+                console.error('Error fetching products:', error);
+            });
+    }
 
-  function initializeCarousel() {
-	$('.carousel').slick({
-	    infinite: true,
-	    slidesToShow: 3,
-	    slidesToScroll: 1,
-	    draggable: true,
-	    dots: true,
-	    speed: 500, // Adjust transition speed; lower might feel more 'freewheeling'
-	    swipeToSlide: true, // Allows swiping to a slide without it needing to snap exactly in place
-	    variableWidth: true, // If your slides have variable widths
-	    responsive: [{
-	        breakpoint: 768,
-	        settings: {
-	            slidesToShow: 1
-	        }
-	    }]
-	});
+    function displayProducts(products) {
+        const container = document.querySelector('.siema');
+        if (!container) {
+            console.error('Siema container not found');
+            return;
+        }
 
-  }
+        const productHTML = products.map(product => `
+            <div class="product-item">
+                ${product[5] ? `<div class="ribbon">${product[5]}</div>` : ''}
+                <img src="/Kopes-3D-Prints/Images/Product-Images/${product[0].replace(/\s+/g, '-')}.jpg" alt="${product[0]}" class="product-image">
+                <h3 class="product-name">${product[0]}</h3>
+                <p class="product-price">${product[2]}</p>
+            </div>
+        `).join('');
 
-  fetchAndDisplayProducts();
+        container.innerHTML = productHTML;
+    }
+
+    function initializeSiema() {
+        const siema = new Siema({
+            duration: 200,
+            perPage: {
+                768: 2, // 2 items per page when the viewport width is 768px or more
+                1024: 3 // 3 items per page when the viewport width is 1024px or more
+            },
+            startIndex: 0,
+            draggable: true,
+            multipleDrag: true,
+            threshold: 20,
+            loop: true
+        });
+
+        // Add event listeners for custom navigation buttons if needed
+        document.querySelector('.prev').addEventListener('click', () => siema.prev());
+        document.querySelector('.next').addEventListener('click', () => siema.next());
+    }
 });
 </script>
+
 
 
 
