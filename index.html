@@ -15,70 +15,77 @@
 
 
   <style>
-/* Apply Oswald to headers */
-h1, h2, h3 {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500; /* Oswald medium weight */
-  color: #162b6f;
-}
+    /* Your existing CSS */
 
-/* Apply Mulish to paragraphs */
-p {
-  font-family: 'Mulish', sans-serif;
-  font-weight: 300; /*Mulish Medium weight */
-  color: #162b6f;
-}
+    /* Apply Oswald to headers */
+    h1, h2, h3 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 500; /* Oswald medium weight */
+      color: #162b6f;
+    }
 
-/* Apply Mulish to buttons */
-button, 
-input[type="button"], 
-input[type="submit"], 
-a.learn-more-btn {
-  font-family: 'Mulish', sans-serif;
-  font-weight: 300; /*Mulish Medium weight */
-  color: #162b6f;
-}
+    /* Apply Mulish to paragraphs */
+    p {
+      font-family: 'Mulish', sans-serif;
+      font-weight: 300; /*Mulish Medium weight */
+      color: #162b6f;
+    }
 
-/* Product Section Header Styles */
-.products-section h2 {
-  text-align: center; /* Center the heading text */
-  font-size: 2.5em; /* Make the font size larger */
-  margin-top: 0; /* Adjust top margin as needed */
-  margin-bottom: 1em; /* Add some space below the heading */
-  color: #162b6f; /* Match the color with your design scheme */
-  font-weight: normal; /* Adjust the font weight as needed */
-  padding: 0.5em; /* Add padding to increase tap/click area if needed */
-}
+    /* Apply Mulish to buttons */
+    button, 
+    input[type="button"], 
+    input[type="submit"], 
+    a.learn-more-btn {
+      font-family: 'Mulish', sans-serif;
+      font-weight: 300; /*Mulish Medium weight */
+      color: #162b6f;
+    }
 
-.fixed-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 70px;
-  background: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  z-index: 10000;
-  display: flex;
-  justify-content: space-between; /* This stays the same, it's our magic line */
-  align-items: center;
-  padding: 10px 20px;
-}
+    /* Product Section Header Styles */
+	.products-section h2 {
+	  text-align: center; /* Center the heading text */
+	  font-size: 2.5em; /* Make the font size larger */
+	  margin-top: 0; /* Adjust top margin as needed */
+	  margin-bottom: 1em; /* Add some space below the heading */
+	  color: #162b6f; /* Match the color with your design scheme */
+	  font-weight: normal; /* Adjust the font weight as needed */
+	  padding: 0.5em; /* Add padding to increase tap/click area if needed */
+	}
 
-.nav-links {
-  display: flex;
-  justify-content: flex-end; /* Pushes all children to the right */
-}
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 10000;
+    display: flex;
+    justify-content: space-between; /* This stays the same, it's our magic line */
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  /* Adding a new class for the navigation links container */
+  .nav-links {
+    display: flex;
+    justify-content: flex-end; /* Pushes all children to the right */
+  }
 
+/* Target only the last button for the additional margin */
 .nav-links a.header-btn:last-child {
   margin-right: 90px; /* Extra space to the left of the last button */
 }
 
-.logo {
-  height: 80px;
-  width: auto;
-  margin-right: 20px; /* Make sure there's some space */
-}
+
+  /* Adjust the logo class if necessary */
+  .logo {
+    height: 80px;
+    width: auto;
+    margin-right: 20px; /* Make sure there's some space */
+  }
+
 
 .header-btn {
   font-family: 'Oswald', sans-serif; /* Oswald font for consistency */
@@ -106,93 +113,208 @@ a.learn-more-btn {
   }
 }
 
-/* Product Section Styles */
-.products-section {
-  text-align: left;
-  margin: 40px auto;
-  position: relative;
+
+
+
+
+    /* Rest of your CSS */
+  </style>
+</head>
+<body>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kope's 3D Prints</title>
+  <style>
+    /* Reset margins and padding for consistency */
+    html, body, h1, p {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+  	width: 100%;
+  	display: block; /* Change from flex to block */
+	line-height: 1.6; /* Adjusts line spacing; 1.6 is generally a good value for readability */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	}
+	
+    h1, h2, h3 {
+	  line-height: 1.3; /* Slightly tighter line spacing for headers */
+	}
+
+    /* Hero image styles */
+    .hero-image {
+      background-image: url("https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Home-screen-title-bg.jpg");
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-text {
+      color: #162b6f;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 10px;
+      max-width: 40%;
+      min-height: 60vh; /* 0.6 times the viewport height */
+      height: auto;
+      position: absolute;
+      left: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2em;
+    }
+
+    h1 {
+      text-align: center;
+      width: 60%;
+      font-size: 4.5em;
+    }
+
+    p {
+      font-size: 1.2em;
+    }
+
+    /* New about section styles */
+    .about-section {
+  	display: flex;
+  	width: 90%; /* Reduce width to create spacing around */
+  	height: 80vh; /* Make it taller */
+  	margin: 50px auto; /* Add space above and below */
+  	box-shadow: 20px 20px 15px rgba(0,0,0,0.5); /* Optional: Add a shadow for a "card" effect */
+	}
+
+
+    .about-image {
+      flex: 1; /* Make the image and text box the same size */
+      background: url("https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Home-screen-about-us-pic.jpg") no-repeat center center;
+      background-size: cover;
+    }
+
+    .about-text {
+	    flex: 1; /* Make the image and text box the same size */
+    	background-color: #162b6f;
+    	color: white;
+    	display: flex;
+    	flex-direction: column;
+    	justify-content: center; /* Ensure vertical center alignment */
+    	align-items: center; /* Center the text horizontally */
+    	padding: 2em;
+    	width: 50%; /* Limit the width to 50% */
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .about-text h2 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      text-align: center; /* Center the heading */
+      color: white;
+      text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .about-text p {
+  	font-size: 1.1em;
+  	margin-bottom: 20px;
+  	text-align: center; /* Center the paragraph */
+  	max-width: 60%; /* Limit the paragraph width to 50% of .about-text */
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	}
+
+
+    .about-text .learn-more-btn {
+	    padding: 15px 30px; /* Increase padding to make the button larger */
+	    background-color: transparent; /* Make the button transparent */
+	    color: #ffffff;
+	    text-decoration: none;
+	    border-radius: 100px;
+	    transition: background-color 0.3s ease;
+	    font-size: 1em; /* Increase font size */
+	    border: 1px solid #ffffff; /* Add a border to the button */
+	    margin-top: 20px; /* Adjust margin as needed */
+        text-shadow: 2px 2px 2px rgba(0,0,2,0.2);
+	}
+
+    .about-text .learn-more-btn:hover {
+        background-color: #1460A0;
+        color: #fff;
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .about-section {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .about-image,
+      .about-text {
+        width: 100%;
+      }
+    }
+</div>
+    /* Product Section Styles */
+    .products-section {
+      text-align: left;
+      margin: 40px auto;
+      position: relative;
+    }
+
+    /* Carousel Container Styles */
+    .carousel {
+      justify-content: center;
+      scroll-behavior: smooth;
+      padding: 20px 0;
+      display: flex;
+      overflow-x: auto; /* Allows horizontal scrolling */
+      white-space: nowrap; /* Keeps carousel items in a single line */
+    }
+
+    /* Individual Product Item Styles */
+ .product-item {
+    position: relative;
+    width: 25vw; /* Adjust width as needed */
+    height: auto; /* Set height to 375 to maintain aspect ratio */
+    margin: 20px auto; /* Center the card with automatic horizontal margins */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    text-align: center;
+    padding: 16px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+  }
+
+.product-item h3, .product-item p {
+  width: 100%; /* Ensure text spans the full width of the card */
+  margin-top: 10px; /* Add space above the text */
+  text-align: left; /* Center the text */
 }
 
-.carousel-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center rows */
+.product-item h3 {
+  font-size: 2em; /* Larger font size for the product title */
+  margin-top: 10px; /* Space below the product title */
+  color: #162b6f; /* Dark blue color for the text */
 }
 
-.product-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  max-width: 100%;
-  margin: 150px auto; /* Increased margin-top from 50px to 100px for more space */
-  padding: 20px;
+.product-item p {
+  font-size: 1.5em; /* Larger font size for the price */
+  margin-top: 10px; /* Space above the price */
+  color: #162b6f; /* Dark blue color for the price */
 }
-
-.product-image {
-  width: 400px; /* Define a fixed width for the image container */
-  height: 400px; /* Define a fixed height for the image container */
-  overflow: hidden; /* Hide any overflow to maintain the container size */
-  display: flex; /* Flex to help center the content */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-}
-
-.product-image img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain; /* This will make sure that the image fits nicely within the container, maintaining its aspect ratio without cropping. */
-}
-
-.product-details {
-  flex-basis: 50%;
-  padding: 20px 50px 20px 50px; /* Adjusted padding for spacing around text */
-}
-
-.product-title {
-  font-size: 2em;
-  margin-bottom: 10px;
-}
-
-.product-sku {
-  font-size: 1em;
-  margin-bottom: 20px;
-}
-
-.product-price {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-}
-
-.quantity-selector input[type="number"] {
-  font-family: 'Mulish', sans-serif;
-  font-size: 1em;
-  padding: 10px;
-  margin-right: 10px;
-  border: 2px solid #162b6f;
-  border-radius: 5px;
-  appearance: none; /* This little trick removes the default spinner */
-  -moz-appearance: textfield; /* Firefox removes the spinner */
-  background-color: #fff; /* A clean, white background */
-  color: #162b6f; /* Text color to match your theme */
-  width: 60px; /* You can adjust the width as you see fit */
-}
-
-.add-to-cart-btn {
-  font-family: 'Oswald', sans-serif; /* Matching the header's fashion-forward font */
-  color: #fff;
-  background-color: #162b6f; /* Background color */
-  padding: 5px 15px; /* Snug padding for a trim appearance */
-  border: 1px solid #999999; /* That same light grey outline for cohesion */
-  border-radius: 4px; /* A soft rounding of the corners */
-  cursor: pointer; /* The hand that says "Go on, give me a click" */
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* The triple threat of transitions */
-  display: inline-block; /* Keeping it inline, but with block-level respect */
-  text-decoration: none; /* Clean lines, no underlines */
-  margin-top: 5px; /* A small gap to keep things breathable */
-  font-size: 1em; /* A modest font size that doesn't overpower */
-}
-
+	  
 /* Ribbon base */
 .ribbon {
   position: absolute;
@@ -210,56 +332,124 @@ a.learn-more-btn {
   text-align: center;
 }
 
-.carousel::-webkit-scrollbar {
-  display: none;
+/* Styles for the product image container */
+.product-image-container {
+  width: 100%; /* Full width of the product item */
+  height: 200px; /* Adjust based on your preference */
+  overflow: hidden; /* Hide parts of the image that exceed the container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
-.carousel {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.product-image {
+  width: 90%; /* Maintain aspect ratio */
+  height: auto; /* Fill the container height */
+  transition: transform 0.3s ease; /* Smooth transition for hover effect */
+  transform: scale(1.05);
 }
 
-footer {
-  position: fixed;
+.product-image-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   bottom: 0;
-  left: -10px;
-  background-color: #162b6f; /* Keep the dark blue background */
-  color: #ffffff; /* Keep text color white for contrast */
-  padding: 2em 1em; /* Generous padding inside the footer */
-  width: 100%;
-  margin-top: 50px; /* This ensures space above the footer */
-  font-family: 'Oswald', sans-serif; /* Keep the consistent font style */
-  text-align: center; /* Centralize the text */
-  line-height: 1.5; /* Good line spacing for readability */
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
 }
 
-footer p {
-  margin: 0.5em 0; /* Maintain spacing between paragraphs */
-  font-size: 0.9em; /* Adjust the font size to fit the design */
-  color: white;
-}
 
-footer a {
-  color: #85E2FF; /* Use a light blue color for links to make them stand out */
-  text-decoration: none; /* No underline */
-  margin: 0 5px; /* Spacing between links */
-}
+    /* Carousel Navigation Button Styles */
+	.carousel-btn {
+	  background-color: #1C3E8C; /* A lighter shade of the primary blue */
+	  color: white;
+	  border: none;
+	  padding: 10px 20px;
+	  cursor: pointer;
+	  font-family: 'Oswald', sans-serif;
+	  border-radius: 25px; /* Rounded edges to match the "Order Now" button */
+	  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Soft shadow for depth */
+	  transition: all 0.3s ease;
+	  position: absolute;
+	  top: 210%;
+	  transform: translateY(-50%);
+	  z-index: 10;
+	}
+	
+	.carousel-btn:hover {
+	  background-color: #162b6f; /* Darker blue on hover for interaction feedback */
+	  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Slightly deeper shadow on hover */
+	}
 
-footer a:hover {
-  text-decoration: underline; /* Underline on hover */
-}
 
-@media (max-width: 768px) {
-  footer p {
-    font-size: 0.8em; /* Smaller font size on smaller screens */
+    .carousel-btn.left {
+      left: 10px; /* Adjust for spacing */
+    }
+
+    .carousel-btn.right {
+      right: 10px; /* Adjust for spacing */
+    }
+
+    /* Responsive adjustments if needed */
+    @media (max-width: 768px) {
+      .carousel-btn.left, .carousel-btn.right {
+        left: 10px;
+        right: 10px;
+      }
+    }
+
+    /* Hide scrollbar for carousel */
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Footer styles */
+  footer {
+    background-color: #162b6f; /* Keep the dark blue background */
+    color: #ffffff; /* Keep text color white for contrast */
+    padding: 2em 1em; /* Generous padding inside the footer */
+    margin-top: 50px; /* This ensures space above the footer */
+    font-family: 'Oswald', sans-serif; /* Keep the consistent font style */
+    text-align: center; /* Centralize the text */
+    line-height: 1.5; /* Good line spacing for readability */
   }
-}
 
+    footer p {
+      margin: 0.5em 0; /* Maintain spacing between paragraphs */
+      font-size: 0.9em; /* Adjust the font size to fit the design */
+      color: white;
+    }
+
+    footer a {
+      color: #85E2FF; /* Use a light blue color for links to make them stand out */
+      text-decoration: none; /* No underline */
+      margin: 0 5px; /* Spacing between links */
+    }
+
+    footer a:hover {
+      text-decoration: underline; /* Underline on hover */
+    }
+
+    /* Make the footer responsive */
+    @media (max-width: 768px) {
+      footer p {
+        font-size: 0.8em; /* Smaller font size on smaller screens */
+      }
+    }
+/* Global scrollbar styles */
 html {
   scrollbar-width: thin !important; /* For Firefox */
   scrollbar-color: rgba(0, 78, 215, 0.5) transparent !important; /* For Firefox, with transparent track */
 }
 
+/* For Chrome, Safari, and newer versions of Edge */
 ::-webkit-scrollbar {
   width: 10px !important; /* Adjust the width of the scrollbar */
   height: 10px !important; /* Adjust the height of the scrollbar for horizontal scrolls */
@@ -278,9 +468,12 @@ html {
   background: rgba(0, 78, 215, 0.8) !important; /* Blue thumb with less transparency when hovered */
 }
 
+/* Remove scrollbar arrows */
 ::-webkit-scrollbar-button {
   display: none !important;
 }
+
+
 
   </style>
 </head>
