@@ -9,75 +9,70 @@
   <link rel="icon" href="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" type="image/x-icon">
   <script src="https://scripts.sirv.com/sirvjs/v3/sirv.js"></script>
   <style>
-      /* Apply Oswald to headers */
-    h1, h2, h3 {
-      font-family: 'Oswald', sans-serif;
-      font-weight: 500; /* Oswald medium weight */
-      color: #162b6f;
-    }
+/* Apply Oswald to headers */
+h1, h2, h3 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500; /* Oswald medium weight */
+  color: #162b6f;
+}
 
-    /* Apply Mulish to paragraphs */
-    p {
-      font-family: 'Mulish', sans-serif;
-      font-weight: 300; /*Mulish Medium weight */
-      color: #162b6f;
-    }
+/* Apply Mulish to paragraphs */
+p {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 300; /*Mulish Medium weight */
+  color: #162b6f;
+}
 
-    /* Apply Mulish to buttons */
-    button, 
-    input[type="button"], 
-    input[type="submit"], 
-    a.learn-more-btn {
-      font-family: 'Mulish', sans-serif;
-      font-weight: 300; /*Mulish Medium weight */
-      color: #162b6f;
-    }
+/* Apply Mulish to buttons */
+button, 
+input[type="button"], 
+input[type="submit"], 
+a.learn-more-btn {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 300; /*Mulish Medium weight */
+  color: #162b6f;
+}
 
-    /* Product Section Header Styles */
-	.products-section h2 {
-	  text-align: center; /* Center the heading text */
-	  font-size: 2.5em; /* Make the font size larger */
-	  margin-top: 0; /* Adjust top margin as needed */
-	  margin-bottom: 1em; /* Add some space below the heading */
-	  color: #162b6f; /* Match the color with your design scheme */
-	  font-weight: normal; /* Adjust the font weight as needed */
-	  padding: 0.5em; /* Add padding to increase tap/click area if needed */
-	}
+/* Product Section Header Styles */
+.products-section h2 {
+  text-align: center; /* Center the heading text */
+  font-size: 2.5em; /* Make the font size larger */
+  margin-top: 0; /* Adjust top margin as needed */
+  margin-bottom: 1em; /* Add some space below the heading */
+  color: #162b6f; /* Match the color with your design scheme */
+  font-weight: normal; /* Adjust the font weight as needed */
+  padding: 0.5em; /* Add padding to increase tap/click area if needed */
+}
 
-  .fixed-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    z-index: 10000;
-    display: flex;
-    justify-content: space-between; /* This stays the same, it's our magic line */
-    align-items: center;
-    padding: 10px 20px;
-  }
-  
-  /* Adding a new class for the navigation links container */
-  .nav-links {
-    display: flex;
-    justify-content: flex-end; /* Pushes all children to the right */
-  }
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 10000;
+  display: flex;
+  justify-content: space-between; /* This stays the same, it's our magic line */
+  align-items: center;
+  padding: 10px 20px;
+}
 
-/* Target only the last button for the additional margin */
+.nav-links {
+  display: flex;
+  justify-content: flex-end; /* Pushes all children to the right */
+}
+
 .nav-links a.header-btn:last-child {
   margin-right: 90px; /* Extra space to the left of the last button */
 }
 
-
-  /* Adjust the logo class if necessary */
-  .logo {
-    height: 80px;
-    width: auto;
-    margin-right: 20px; /* Make sure there's some space */
-  }
-
+.logo {
+  height: 80px;
+  width: auto;
+  margin-right: 20px; /* Make sure there's some space */
+}
 
 .header-btn {
   font-family: 'Oswald', sans-serif; /* Oswald font for consistency */
@@ -104,14 +99,14 @@
     flex-direction: column;
   }
 }
-    /* Product Section Styles */
-    .products-section {
-      text-align: left;
-      margin: 40px auto;
-      position: relative;
-    }
 
-    /* Carousel Container Styles */
+/* Product Section Styles */
+.products-section {
+  text-align: left;
+  margin: 40px auto;
+  position: relative;
+}
+
 .carousel-container {
   width: 100%;
   display: flex;
@@ -127,6 +122,7 @@
   margin: 150px auto; /* Increased margin-top from 50px to 100px for more space */
   padding: 20px;
 }
+
 .product-image {
   width: 400px; /* Define a fixed width for the image container */
   height: 400px; /* Define a fixed height for the image container */
@@ -146,18 +142,22 @@
   flex-basis: 50%;
   padding: 20px 50px 20px 50px; /* Adjusted padding for spacing around text */
 }
-    .product-title {
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
-    .product-sku {
-      font-size: 1em;
-      margin-bottom: 20px;
-    }
-    .product-price {
-      font-size: 1.5em;
-      margin-bottom: 10px;
-    }
+
+.product-title {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.product-sku {
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+.product-price {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
 .quantity-selector input[type="number"] {
   font-family: 'Mulish', sans-serif;
   font-size: 1em;
@@ -172,26 +172,6 @@
   width: 60px; /* You can adjust the width as you see fit */
 }
 
-/* Quantity Selector Styles */
-.quantity-selector input[type="number"] {
-  font-family: 'Oswald', sans-serif; /* Correcting the font family */
-  font-size: 1em;
-  padding: 10px;
-  border: 2px solid #162b6f; /* Border color to match your theme */
-  border-radius: 12.5px; /* Match the border-radius of the header buttons */
-  background-color: #fff; /* White background */
-  color: #162b6f; /* Text color to match your theme */
-  width: 60px; /* Adjust the width if needed */
-  margin-bottom: 10px; /* Adding some space below the input */
-  transition: border-color 0.3s; /* Smooth transition for the border color */
-}
-
-/* Quantity Selector Focus Styles */
-.quantity-selector input[type="number"]:focus {
-  border-color: #1573C8; /* A different border color on focus */
-}
-
-/* Add to Cart Button Styles */
 .add-to-cart-btn {
   font-family: 'Oswald', sans-serif; /* Matching the header's fashion-forward font */
   color: #fff;
@@ -206,18 +186,6 @@
   margin-top: 5px; /* A small gap to keep things breathable */
   font-size: 1em; /* A modest font size that doesn't overpower */
 }
-
-/* Add to Cart Button Hover Styles */
-.add-to-cart-btn:hover {
-  background-color: #1573C8; /* Color change on hover */
-  color: #fff; /* And a pop of white for the text */
-  border-color: #CCCCCC; /* The border joins the color party, too */
-}
-
-    .product-description {
-      margin-top: 20px;
-      font-size: 1em;
-    }
 
 /* Ribbon base */
 .ribbon {
@@ -235,61 +203,57 @@
   width: 200px;
   text-align: center;
 }
-	  
-    /* Hide scrollbar for carousel */
-    .carousel::-webkit-scrollbar {
-      display: none;
-    }
 
-    .carousel {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+.carousel::-webkit-scrollbar {
+  display: none;
+}
 
-    /* Footer styles */
-  footer {
-    position: fixed;
-    bottom: 0;
-    left: -10px;
-    background-color: #162b6f; /* Keep the dark blue background */
-    color: #ffffff; /* Keep text color white for contrast */
-    padding: 2em 1em; /* Generous padding inside the footer */
-    width: 100%;
-    margin-top: 50px; /* This ensures space above the footer */
-    font-family: 'Oswald', sans-serif; /* Keep the consistent font style */
-    text-align: center; /* Centralize the text */
-    line-height: 1.5; /* Good line spacing for readability */
+.carousel {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: -10px;
+  background-color: #162b6f; /* Keep the dark blue background */
+  color: #ffffff; /* Keep text color white for contrast */
+  padding: 2em 1em; /* Generous padding inside the footer */
+  width: 100%;
+  margin-top: 50px; /* This ensures space above the footer */
+  font-family: 'Oswald', sans-serif; /* Keep the consistent font style */
+  text-align: center; /* Centralize the text */
+  line-height: 1.5; /* Good line spacing for readability */
+}
+
+footer p {
+  margin: 0.5em 0; /* Maintain spacing between paragraphs */
+  font-size: 0.9em; /* Adjust the font size to fit the design */
+  color: white;
+}
+
+footer a {
+  color: #85E2FF; /* Use a light blue color for links to make them stand out */
+  text-decoration: none; /* No underline */
+  margin: 0 5px; /* Spacing between links */
+}
+
+footer a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+@media (max-width: 768px) {
+  footer p {
+    font-size: 0.8em; /* Smaller font size on smaller screens */
   }
+}
 
-    footer p {
-      margin: 0.5em 0; /* Maintain spacing between paragraphs */
-      font-size: 0.9em; /* Adjust the font size to fit the design */
-      color: white;
-    }
-
-    footer a {
-      color: #85E2FF; /* Use a light blue color for links to make them stand out */
-      text-decoration: none; /* No underline */
-      margin: 0 5px; /* Spacing between links */
-    }
-
-    footer a:hover {
-      text-decoration: underline; /* Underline on hover */
-    }
-
-    /* Make the footer responsive */
-    @media (max-width: 768px) {
-      footer p {
-        font-size: 0.8em; /* Smaller font size on smaller screens */
-      }
-    }
-/* Global scrollbar styles */
 html {
   scrollbar-width: thin !important; /* For Firefox */
   scrollbar-color: rgba(0, 78, 215, 0.5) transparent !important; /* For Firefox, with transparent track */
 }
 
-/* For Chrome, Safari, and newer versions of Edge */
 ::-webkit-scrollbar {
   width: 10px !important; /* Adjust the width of the scrollbar */
   height: 10px !important; /* Adjust the height of the scrollbar for horizontal scrolls */
@@ -308,10 +272,10 @@ html {
   background: rgba(0, 78, 215, 0.8) !important; /* Blue thumb with less transparency when hovered */
 }
 
-/* Remove scrollbar arrows */
 ::-webkit-scrollbar-button {
   display: none !important;
 }
+
 
   </style>
 </head>
