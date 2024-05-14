@@ -530,6 +530,7 @@ html {
 
 
 <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
    const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
 
@@ -585,13 +586,35 @@ document.addEventListener('DOMContentLoaded', function() {
             draggable: true,
             multipleDrag: true,
             threshold: 20,
-            loop: false
+            loop: false,
+            onInit: addShrinkFadeEffect, // Add shrink/fade effect on init
+            onChange: addShrinkFadeEffect // Add shrink/fade effect on change
         });
 
         // Add event listeners for custom navigation buttons if needed
         document.querySelector('.prev').addEventListener('click', () => siema.prev());
         document.querySelector('.next').addEventListener('click', () => siema.next());
     }
+
+    function addShrinkFadeEffect() {
+        const items = document.querySelectorAll('.siema .product-item');
+        const containerWidth = document.querySelector('.siema').offsetWidth;
+        const itemWidth = items[0].offsetWidth;
+
+        items.forEach(item => {
+            const itemRect = item.getBoundingClientRect();
+            const distanceFromCenter = Math.abs((itemRect.left + itemRect.right) / 2 - containerWidth / 2);
+            const maxDistance = containerWidth / 2;
+            const scale = 1 - (distanceFromCenter / maxDistance) * 0.5;
+            const opacity = 1 - (distanceFromCenter / maxDistance) * 0.5;
+
+            item.style.transform = `scale(${scale})`;
+            item.style.opacity = opacity;
+        });
+    }
+});
+</script>
+
 });
 </script>
 
