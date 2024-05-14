@@ -597,17 +597,22 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add event listeners for custom navigation buttons if needed
         document.querySelector('.prev').addEventListener('click', () => siema.prev());
         document.querySelector('.next').addEventListener('click', () => siema.next());
+
+        window.addEventListener('resize', addShrinkFadeEffect); // Recalculate on window resize
+        window.addEventListener('scroll', addShrinkFadeEffect); // Recalculate on window scroll
     }
 
     function addShrinkFadeEffect() {
         const items = document.querySelectorAll('.siema .product-item');
-        const containerWidth = document.querySelector('.siema').offsetWidth;
-        const itemWidth = items[0].offsetWidth;
+        const container = document.querySelector('.siema');
+        const containerRect = container.getBoundingClientRect();
+        const containerCenter = containerRect.left + containerRect.width / 2;
 
         items.forEach(item => {
             const itemRect = item.getBoundingClientRect();
-            const distanceFromCenter = Math.abs((itemRect.left + itemRect.right) / 2 - containerWidth / 2);
-            const maxDistance = containerWidth / 2;
+            const itemCenter = itemRect.left + itemRect.width / 2;
+            const distanceFromCenter = Math.abs(itemCenter - containerCenter);
+            const maxDistance = containerRect.width / 2;
             const scale = 1 - (distanceFromCenter / maxDistance) * 0.5;
             const opacity = 1 - (distanceFromCenter / maxDistance) * 0.5;
 
@@ -618,8 +623,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-});
-</script>
 
 
 
