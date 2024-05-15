@@ -344,7 +344,7 @@
 }
 
 .product-image {
-  width: 90%; /* Maintain aspect ratio */
+  width: 100%; /* Maintain aspect ratio */
   height: auto; /* Fill the container height */
   transition: transform 0.3s ease; /* Smooth transition for hover effect */
   transform: scale(1.05);
@@ -360,37 +360,6 @@
   background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
 }
 
-
-    /* Carousel Navigation Button Styles */
-	.carousel-btn {
-	  background-color: #1C3E8C; /* A lighter shade of the primary blue */
-	  color: white;
-	  border: none;
-	  padding: 10px 20px;
-	  cursor: pointer;
-	  font-family: 'Oswald', sans-serif;
-	  border-radius: 25px; /* Rounded edges to match the "Order Now" button */
-	  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Soft shadow for depth */
-	  transition: all 0.3s ease;
-	  position: absolute;
-	  top: 210%;
-	  transform: translateY(-50%);
-	  z-index: 10;
-	}
-	
-	.carousel-btn:hover {
-	  background-color: #162b6f; /* Darker blue on hover for interaction feedback */
-	  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Slightly deeper shadow on hover */
-	}
-
-
-    .carousel-btn.left {
-      left: 10px; /* Adjust for spacing */
-    }
-
-    .carousel-btn.right {
-      right: 10px; /* Adjust for spacing */
-    }
 
     /* Responsive adjustments if needed */
     @media (max-width: 768px) {
