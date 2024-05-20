@@ -314,9 +314,6 @@
   margin-top: 10px; /* Space above the price */
   color: #162b6f; /* Dark blue color for the price */
 }
-    .product-item {
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
 	  
 /* Ribbon base */
 .ribbon {
@@ -347,7 +344,7 @@
 }
 
 .product-image {
-  width: 90%; /* Maintain aspect ratio */
+  width: 100%; /* Maintain aspect ratio */
   height: auto; /* Fill the container height */
   transition: transform 0.3s ease; /* Smooth transition for hover effect */
   transform: scale(1.05);
@@ -363,37 +360,6 @@
   background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
 }
 
-
-    /* Carousel Navigation Button Styles */
-	.carousel-btn {
-	  background-color: #1C3E8C; /* A lighter shade of the primary blue */
-	  color: white;
-	  border: none;
-	  padding: 10px 20px;
-	  cursor: pointer;
-	  font-family: 'Oswald', sans-serif;
-	  border-radius: 25px; /* Rounded edges to match the "Order Now" button */
-	  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Soft shadow for depth */
-	  transition: all 0.3s ease;
-	  position: absolute;
-	  top: 210%;
-	  transform: translateY(-50%);
-	  z-index: 10;
-	}
-	
-	.carousel-btn:hover {
-	  background-color: #162b6f; /* Darker blue on hover for interaction feedback */
-	  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Slightly deeper shadow on hover */
-	}
-
-
-    .carousel-btn.left {
-      left: 10px; /* Adjust for spacing */
-    }
-
-    .carousel-btn.right {
-      right: 10px; /* Adjust for spacing */
-    }
 
     /* Responsive adjustments if needed */
     @media (max-width: 768px) {
@@ -532,7 +498,6 @@ html {
 
 
 
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
    const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
@@ -589,40 +554,15 @@ document.addEventListener('DOMContentLoaded', function() {
             draggable: true,
             multipleDrag: true,
             threshold: 20,
-            loop: true,
-            onInit: addShrinkFadeEffect, // Add shrink/fade effect on init
-            onChange: addShrinkFadeEffect // Add shrink/fade effect on change
+            loop: true
         });
 
         // Add event listeners for custom navigation buttons if needed
         document.querySelector('.prev').addEventListener('click', () => siema.prev());
         document.querySelector('.next').addEventListener('click', () => siema.next());
-
-        window.addEventListener('resize', addShrinkFadeEffect); // Recalculate on window resize
-        window.addEventListener('scroll', addShrinkFadeEffect); // Recalculate on window scroll
-    }
-
-    function addShrinkFadeEffect() {
-        const items = document.querySelectorAll('.siema .product-item');
-        const container = document.querySelector('.siema');
-        const containerRect = container.getBoundingClientRect();
-        const containerCenter = containerRect.left + containerRect.width / 2;
-
-        items.forEach(item => {
-            const itemRect = item.getBoundingClientRect();
-            const itemCenter = itemRect.left + itemRect.width / 2;
-            const distanceFromCenter = Math.abs(itemCenter - containerCenter);
-            const maxDistance = containerRect.width / 2;
-            const scale = 1 - (distanceFromCenter / maxDistance) * 0.5;
-            const opacity = 1 - (distanceFromCenter / maxDistance) * 0.5;
-
-            item.style.transform = `scale(${scale})`;
-            item.style.opacity = opacity;
-        });
     }
 });
 </script>
-
 
 
 
