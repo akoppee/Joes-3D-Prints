@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400&display=swap">
     <link rel="icon" href="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" type="image/x-icon">
-    <style>
+     <style>
     /* Your existing CSS */
 
     /* Apply Oswald to headers */
@@ -114,7 +114,8 @@
     /* Individual Product Item Styles */
     .product-item {
       position: relative;
-      width: 25vw; /* Adjust width as needed */
+      width: 100%; /* Full width for better alignment */
+      max-width: 600px; /* Max width to limit the item size */
       height: auto; /* Set height to maintain aspect ratio */
       margin: 20px auto; /* Center the card with automatic horizontal margins */
       box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -131,7 +132,7 @@
     .product-item h3, .product-item p {
       width: 100%; /* Ensure text spans the full width of the card */
       margin-top: 10px; /* Add space above the text */
-      text-align: left; /* Center the text */
+      text-align: center; /* Center the text */
     }
 
     .product-item h3 {
@@ -149,8 +150,8 @@
     /* Ribbon base */
     .ribbon {
       position: absolute;
-      top: 140px;
-      right: 80px;
+      top: 10px;
+      right: -10px;
       z-index: 10;
       background-color: #FF4136; /* Ribbon color */
       padding: 5px 10px; /* Adjust padding as needed */
@@ -158,8 +159,7 @@
       transform-origin: top right;
       color: white;
       font: bold 1em 'Oswald', sans-serif;
-      /* Set a high enough width for the ribbon to look good on the corner */
-      width: 200px;
+      width: 150px;
       text-align: center;
     }
 
@@ -175,8 +175,8 @@
     }
 
     .product-image {
-      width: 100%; /* Maintain aspect ratio */
-      height: auto; /* Fill the container height */
+      width: auto;
+      height: 100%; /* Fill the container height */
       transition: transform 0.3s ease; /* Smooth transition for hover effect */
       transform: scale(1.05);
     }
