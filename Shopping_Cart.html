@@ -223,6 +223,7 @@ html {
 const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU'
 let products = [];
     
+
 document.addEventListener('DOMContentLoaded', function() {
     // Fetch products and then load cart items
     fetchAndDisplayProducts().then(() => {
@@ -255,12 +256,25 @@ function loadCartItems() {
             const cartItem = document.createElement('div');
             cartItem.classList.add('cart-item');
             cartItem.innerHTML = `
-                <h3 class="product-name">${product[0]}</h3>
-                <p class="product-sku">SKU: ${product[12]}</p>
-                <p class="product-quantity">Quantity: ${item.quantity}</p>
+                <div class="product-item">
+                    ${product[5] ? `<div class="ribbon">${product[5]}</div>` : ''}
+                    <img src="/Kopes-3D-Prints/Images/Product-Images/${product[0].replace(/\s+/g, '-')}.jpg" alt="${product[0]}" class="product-image">
+                    <h3 class="product-name">${product[0]}</h3>
+                    <p class="product-price">${product[2]}</p>
+                    <p class="product-quantity">Quantity: ${item.quantity}</p>
+                    <button class="remove-from-cart-btn" data-sku="${item.sku}">Remove</button>
+                </div>
             `;
             cartContainer.appendChild(cartItem);
         }
+    });
+
+    // Add event listeners for remove buttons
+    document.querySelectorAll('.remove-from-cart-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const sku = this.getAttribute('data-sku');
+            removeFromCart(sku);
+        });
     });
 }
 
@@ -274,6 +288,13 @@ function findProductBySKU(sku) {
         console.error("Product not found for SKU:", trimmedSKU);
         return null;
     }
+}
+
+function removeFromCart(sku) {
+    let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+    cart = cart.filter(item => item.sku !== sku);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    loadCartItems(); // Refresh the cart display
 }
 </script>
 
