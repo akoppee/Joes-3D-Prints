@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - Kope's 3D Prints</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400&display=swap">
-    <link rel="icon" href="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" type="image/x-icon">
-     <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kope's 3D Prints</title>
+  <logo url(https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png)></logo>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" type="image/x-icon">
+  <script src="https://scripts.sirv.com/sirvjs/v3/sirv.js"></script>
+<link rel="stylesheet" href="https://pawelgrzybek.github.io/siema/assets/siema.min.css">
+<script src="https://pawelgrzybek.github.io/siema/assets/siema.min.js"></script>
+
+
+
+  <style>
     /* Your existing CSS */
 
     /* Apply Oswald to headers */
@@ -35,75 +42,227 @@
     }
 
     /* Product Section Header Styles */
-    .products-section h2 {
-      text-align: center; /* Center the heading text */
-      font-size: 2.5em; /* Make the font size larger */
-      margin-top: 0; /* Adjust top margin as needed */
-      margin-bottom: 1em; /* Add some space below the heading */
-      color: #162b6f; /* Match the color with your design scheme */
-      font-weight: normal; /* Adjust the font weight as needed */
-      padding: 0.5em; /* Add padding to increase tap/click area if needed */
+	.products-section h2 {
+	  text-align: center; /* Center the heading text */
+	  font-size: 2.5em; /* Make the font size larger */
+	  margin-top: 0; /* Adjust top margin as needed */
+	  margin-bottom: 1em; /* Add some space below the heading */
+	  color: #162b6f; /* Match the color with your design scheme */
+	  font-weight: normal; /* Adjust the font weight as needed */
+	  padding: 0.5em; /* Add padding to increase tap/click area if needed */
+	}
+
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 10000;
+    display: flex;
+    justify-content: space-between; /* This stays the same, it's our magic line */
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  /* Adding a new class for the navigation links container */
+  .nav-links {
+    display: flex;
+    justify-content: flex-end; /* Pushes all children to the right */
+  }
+
+/* Target only the last button for the additional margin */
+.nav-links a.header-btn:last-child {
+  margin-right: 90px; /* Extra space to the left of the last button */
+}
+
+
+  /* Adjust the logo class if necessary */
+  .logo {
+    height: 80px;
+    width: auto;
+    margin-right: 20px; /* Make sure there's some space */
+  }
+
+
+.header-btn {
+  font-family: 'Oswald', sans-serif; /* Oswald font for consistency */
+  font-weight: 500;
+  color: #fff; /* White text for contrast */
+  background-color: #162b6f; /* Dark blue background */
+  margin-right: 75px; /* Adjusted spacing to the left */
+  text-decoration: none;
+  padding: 10px 25px;
+  border-radius: 12.5px;
+  transition: background-color 0.3s;
+  border: 2px solid #fff; /* White border for contrast */
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.header-btn:hover {
+  background-color: #1573C8;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .fixed-header {
+    flex-direction: column;
+  }
+}
+
+
+
+
+
+    /* Rest of your CSS */
+  </style>
+</head>
+<body>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kope's 3D Prints</title>
+  <style>
+    /* Reset margins and padding for consistency */
+    html, body, h1, p {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    .fixed-header {
-      position: fixed;
-      top: 0;
-      left: 0;
+    body, html {
+  	width: 100%;
+  	display: block; /* Change from flex to block */
+	line-height: 1.6; /* Adjusts line spacing; 1.6 is generally a good value for readability */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	}
+	
+    h1, h2, h3 {
+	  line-height: 1.3; /* Slightly tighter line spacing for headers */
+	}
+
+    /* Hero image styles */
+    .hero-image {
+      background-image: url("https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Home-screen-title-bg.jpg");
+      background-size: cover;
+      background-position: center;
       width: 100%;
-      height: 70px;
-      background: rgba(255, 255, 255, 0.5);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      z-index: 10000;
+      height: 80vh;
       display: flex;
-      justify-content: space-between; /* This stays the same, it's our magic line */
       align-items: center;
-      padding: 10px 20px;
+      position: relative;
     }
 
-    /* Adding a new class for the navigation links container */
-    .nav-links {
+    .hero-text {
+      color: #162b6f;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 10px;
+      max-width: 40%;
+      min-height: 60vh; /* 0.6 times the viewport height */
+      height: auto;
+      position: absolute;
+      left: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      box-sizing: border-box;
       display: flex;
-      justify-content: flex-end; /* Pushes all children to the right */
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2em;
     }
 
-    /* Target only the last button for the additional margin */
-    .nav-links a.header-btn:last-child {
-      margin-right: 90px; /* Extra space to the left of the last button */
+    h1 {
+      text-align: center;
+      width: 60%;
+      font-size: 4.5em;
     }
 
-    /* Adjust the logo class if necessary */
-    .logo {
-      height: 80px;
-      width: auto;
-      margin-right: 20px; /* Make sure there's some space */
+    p {
+      font-size: 1.2em;
     }
 
-    .header-btn {
-      font-family: 'Oswald', sans-serif; /* Oswald font for consistency */
-      font-weight: 500;
-      color: #fff; /* White text for contrast */
-      background-color: #162b6f; /* Dark blue background */
-      margin-right: 75px; /* Adjusted spacing to the left */
-      text-decoration: none;
-      padding: 10px 25px;
-      border-radius: 12.5px;
-      transition: background-color 0.3s;
-      border: 2px solid #fff; /* White border for contrast */
-      cursor: pointer;
-      font-size: 1em;
+    /* New about section styles */
+    .about-section {
+  	display: flex;
+  	width: 90%; /* Reduce width to create spacing around */
+  	height: 80vh; /* Make it taller */
+  	margin: 50px auto; /* Add space above and below */
+  	box-shadow: 20px 20px 15px rgba(0,0,0,0.5); /* Optional: Add a shadow for a "card" effect */
+	}
+
+
+    .about-image {
+      flex: 1; /* Make the image and text box the same size */
+      background: url("https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Home-screen-about-us-pic.jpg") no-repeat center center;
+      background-size: cover;
     }
 
-    .header-btn:hover {
-      background-color: #1573C8;
-      color: #fff;
+    .about-text {
+	    flex: 1; /* Make the image and text box the same size */
+    	background-color: #162b6f;
+    	color: white;
+    	display: flex;
+    	flex-direction: column;
+    	justify-content: center; /* Ensure vertical center alignment */
+    	align-items: center; /* Center the text horizontally */
+    	padding: 2em;
+    	width: 50%; /* Limit the width to 50% */
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
     }
 
+    .about-text h2 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      text-align: center; /* Center the heading */
+      color: white;
+      text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .about-text p {
+  	font-size: 1.1em;
+  	margin-bottom: 20px;
+  	text-align: center; /* Center the paragraph */
+  	max-width: 60%; /* Limit the paragraph width to 50% of .about-text */
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	}
+
+
+    .about-text .learn-more-btn {
+	    padding: 15px 30px; /* Increase padding to make the button larger */
+	    background-color: transparent; /* Make the button transparent */
+	    color: #ffffff;
+	    text-decoration: none;
+	    border-radius: 100px;
+	    transition: background-color 0.3s ease;
+	    font-size: 1em; /* Increase font size */
+	    border: 1px solid #ffffff; /* Add a border to the button */
+	    margin-top: 20px; /* Adjust margin as needed */
+        text-shadow: 2px 2px 2px rgba(0,0,2,0.2);
+	}
+
+    .about-text .learn-more-btn:hover {
+        background-color: #1460A0;
+        color: #fff;
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Responsive adjustments */
     @media (max-width: 768px) {
-      .fixed-header {
+      .about-section {
         flex-direction: column;
+        height: auto;
+      }
+
+      .about-image,
+      .about-text {
+        width: 100%;
       }
     }
-
+</div>
     /* Product Section Styles */
     .products-section {
       text-align: left;
@@ -111,122 +270,125 @@
       position: relative;
     }
 
-    /* Individual Product Item Styles */
-    .product-item {
-      position: relative;
-      width: 100%; /* Full width for better alignment */
-      max-width: 600px; /* Max width to limit the item size */
-      height: auto; /* Set height to maintain aspect ratio */
-      margin: 20px auto; /* Center the card with automatic horizontal margins */
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-      text-align: center;
-      padding: 16px;
-      background-color: white;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    .product-item h3, .product-item p {
-      width: 100%; /* Ensure text spans the full width of the card */
-      margin-top: 10px; /* Add space above the text */
-      text-align: center; /* Center the text */
-    }
-
-    .product-item h3 {
-      font-size: 2em; /* Larger font size for the product title */
-      margin-top: 10px; /* Space below the product title */
-      color: #162b6f; /* Dark blue color for the text */
-    }
-
-    .product-item p {
-      font-size: 1.5em; /* Larger font size for the price */
-      margin-top: 10px; /* Space above the price */
-      color: #162b6f; /* Dark blue color for the price */
-    }
-
-    /* Ribbon base */
-    .ribbon {
-      position: absolute;
-      top: 10px;
-      right: -10px;
-      z-index: 10;
-      background-color: #FF4136; /* Ribbon color */
-      padding: 5px 10px; /* Adjust padding as needed */
-      transform: translate(50%, -50%) rotate(45deg);
-      transform-origin: top right;
-      color: white;
-      font: bold 1em 'Oswald', sans-serif;
-      width: 150px;
-      text-align: center;
-    }
-
-    /* Styles for the product image container */
-    .product-image-container {
-      width: 100%; /* Full width of the product item */
-      height: 200px; /* Adjust based on your preference */
-      overflow: hidden; /* Hide parts of the image that exceed the container */
-      display: flex;
+    /* Carousel Container Styles */
+    .carousel {
       justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    .product-image {
-      width: auto;
-      height: 100%; /* Fill the container height */
-      transition: transform 0.3s ease; /* Smooth transition for hover effect */
-      transform: scale(1.05);
-    }
-
-    .product-image-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-    }
-
-    /* Cart Item Styles */
-    .cart-item {
+      scroll-behavior: smooth;
+      padding: 20px 0;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: white;
-      padding: 16px;
-      margin: 10px 0;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      overflow-x: auto; /* Allows horizontal scrolling */
+      white-space: nowrap; /* Keeps carousel items in a single line */
     }
 
-    .remove-from-cart-btn {
-      margin-top: 10px;
-      padding: 5px 10px;
-      border: none;
-      background-color: #FF4136;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
+    /* Individual Product Item Styles */
+ .product-item {
+    position: relative;
+    width: 25vw; /* Adjust width as needed */
+    height: auto; /* Set height to 375 to maintain aspect ratio */
+    margin: 20px auto; /* Center the card with automatic horizontal margins */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    text-align: center;
+    padding: 16px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+  }
+
+.product-item h3, .product-item p {
+  width: 100%; /* Ensure text spans the full width of the card */
+  margin-top: 10px; /* Add space above the text */
+  text-align: left; /* Center the text */
+}
+
+.product-item h3 {
+  font-size: 2em; /* Larger font size for the product title */
+  margin-top: 10px; /* Space below the product title */
+  color: #162b6f; /* Dark blue color for the text */
+}
+
+.product-item p {
+  font-size: 1.5em; /* Larger font size for the price */
+  margin-top: 10px; /* Space above the price */
+  color: #162b6f; /* Dark blue color for the price */
+}
+	  
+/* Ribbon base */
+.ribbon {
+  position: absolute;
+  top: 140px;
+  right: 80px;
+  z-index: 10;
+  background-color: #FF4136; /* Ribbon color */
+  padding: 5px 10px; /* Adjust padding as needed */
+  transform: translate(50%, -50%) rotate(45deg);
+  transform-origin: top right;
+  color: white;
+  font: bold 1em 'Oswald', sans-serif;
+  /* Set a high enough width for the ribbon to look good on the corner */
+  width: 200px;
+  text-align: center;
+}
+
+/* Styles for the product image container */
+.product-image-container {
+  width: 100%; /* Full width of the product item */
+  height: 200px; /* Adjust based on your preference */
+  overflow: hidden; /* Hide parts of the image that exceed the container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.product-image {
+  width: 100%; /* Maintain aspect ratio */
+  height: auto; /* Fill the container height */
+  transition: transform 0.3s ease; /* Smooth transition for hover effect */
+  transform: scale(1.05);
+}
+
+.product-image-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+
+
+    /* Responsive adjustments if needed */
+    @media (max-width: 768px) {
+      .carousel-btn.left, .carousel-btn.right {
+        left: 10px;
+        right: 10px;
+      }
     }
 
-    .remove-from-cart-btn:hover {
-      background-color: #e03e2e;
+    /* Hide scrollbar for carousel */
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
 
     /* Footer styles */
-    footer {
-      background-color: #162b6f; /* Keep the dark blue background */
-      color: #ffffff; /* Keep text color white for contrast */
-      padding: 2em 1em; /* Generous padding inside the footer */
-      margin-top: 50px; /* This ensures space above the footer */
-      font-family: 'Oswald', sans-serif; /* Keep the consistent font style */
-      text-align: center; /* Centralize the text */
-      line-height: 1.5; /* Good line spacing for readability */
-    }
+  footer {
+    background-color: #162b6f; /* Keep the dark blue background */
+    color: #ffffff; /* Keep text color white for contrast */
+    padding: 2em 1em; /* Generous padding inside the footer */
+    margin-top: 50px; /* This ensures space above the footer */
+    font-family: 'Oswald', sans-serif; /* Keep the consistent font style */
+    text-align: center; /* Centralize the text */
+    line-height: 1.5; /* Good line spacing for readability */
+  }
 
     footer p {
       margin: 0.5em 0; /* Maintain spacing between paragraphs */
@@ -250,40 +412,41 @@
         font-size: 0.8em; /* Smaller font size on smaller screens */
       }
     }
+/* Global scrollbar styles */
+html {
+  scrollbar-width: thin !important; /* For Firefox */
+  scrollbar-color: rgba(0, 78, 215, 0.5) transparent !important; /* For Firefox, with transparent track */
+}
 
-    /* Global scrollbar styles */
-    html {
-      scrollbar-width: thin !important; /* For Firefox */
-      scrollbar-color: rgba(0, 78, 215, 0.5) transparent !important; /* For Firefox, with transparent track */
-    }
+/* For Chrome, Safari, and newer versions of Edge */
+::-webkit-scrollbar {
+  width: 10px !important; /* Adjust the width of the scrollbar */
+  height: 10px !important; /* Adjust the height of the scrollbar for horizontal scrolls */
+}
 
-    /* For Chrome, Safari, and newer versions of Edge */
-    ::-webkit-scrollbar {
-      width: 10px !important; /* Adjust the width of the scrollbar */
-      height: 10px !important; /* Adjust the height of the scrollbar for horizontal scrolls */
-    }
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.2) !important; /* Mostly transparent track */
+}
 
-    ::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.2) !important; /* Mostly transparent track */
-    }
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 78, 215, 0.5) !important; /* Blue thumb with 0.5 transparency */
+  border-radius: 10px !important; /* Rounded corners for the thumb */
+}
 
-    ::-webkit-scrollbar-thumb {
-      background: rgba(0, 78, 215, 0.5) !important; /* Blue thumb with 0.5 transparency */
-      border-radius: 10px !important; /* Rounded corners for the thumb */
-    }
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 78, 215, 0.8) !important; /* Blue thumb with less transparency when hovered */
+}
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(0, 78, 215, 0.8) !important; /* Blue thumb with less transparency when hovered */
-    }
+/* Remove scrollbar arrows */
+::-webkit-scrollbar-button {
+  display: none !important;
+}
 
-    /* Remove scrollbar arrows */
-    ::-webkit-scrollbar-button {
-      display: none !important;
-    }
+
+
   </style>
 </head>
 <body>
-
 <div class="fixed-header">
   <a href="/">
     <img src="https://koppee.sirv.com/3D%20Shop/Kope's%203d%20Prints%20Web%20Images/Logo.png" alt="Company Logo" class="logo">
@@ -294,97 +457,189 @@
   </div>
 </div>
 
-<div class="container" id="cart-container">
-    <h2>Your Shopping Cart</h2>
-    <!-- Cart items will be dynamically inserted here -->
+	
+<!-- Existing hero-image section -->
+<div class="hero-image">
+  <div class="hero-text">
+    <h1>Welcome to Kope's 3D Prints</h1>
+    <p>Your Satisfaction Is Our Priority</p>
+  </div>
 </div>
 
-<footer>
+
+<!-- New about section -->
+<div class="about-section">
+    <div class="about-image">
+      <!-- Background image is set via CSS -->
+    </div>
+    <div class="about-text">
+      <h2>About Us</h2>
+      <p>Fast, efficient, and honest, Kope's 3D Prints is an up-and-coming and great 3D Printing Service. We want our customers to be satisfied with our work, which is why we provide open communication channels throughout the duration of each project.</p>
+      <a href="#" class="learn-more-btn">Learn More</a>
+  </div>
+</div>
+<!-- Products Section -->
+<div class="products-section">
+    <h2>Our Products</h2>
+    <div class="siema">
+        <!-- Dynamic product items will be inserted here -->
+    </div>
+</div>
+
+
+</div>
+  <footer>
     <p>About Kope's 3D Prints</p>
     <p>Kope's 3D Prints is dedicated to providing high-quality 3D printed products.</p>
     <p>For inquiries, email us at: <a href="mailto:Kope3DPrints@gmail.com" target="_blank">Kope3DPrints@gmail.com</a></p>
     <p>Follow us on social media: <a href="https://twitter.com/kopes3dprints" target="_blank">Twitter,</a><a href="https://instagram.com/kope3dprints" target="_blank">Instagram</a></p>
     <p>&copy; 2024 Kope's 3D Prints. All rights reserved.</p>
-</footer>
+  </footer>
+
+
 
 <script>
-const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU'
-let products = [];
-    
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Fetch products and then load cart items
+   const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOMLbz4Cx9-JdFlmUQPNtuC8qRic0/values/Products!A:N?key=AIzaSyBeuJ6zEDkJbOLDpFoti2Qfg-j2TI1TcUU';
+
+    // Fetch products and then initialize the carousel
     fetchAndDisplayProducts().then(() => {
-        loadCartItems();
+        initializeSiema();
     });
-});
 
-function fetchAndDisplayProducts() {
-    return fetch(apiURL)
-        .then(response => response.json())
-        .then(data => {
-            products = data.values.slice(1).filter(row => row[13].toString().trim().toUpperCase() !== 'FALSE'); // Adjust based on your actual structure
-            console.log("Products loaded:", products);
-        })
-        .catch(error => console.error('Error fetching products:', error));
-}
-
-function loadCartItems() {
-    let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
-    const cartContainer = document.getElementById('cart-container');
-
-    if (cart.length === 0) {
-        cartContainer.innerHTML += '<p>Your cart is empty.</p>';
-        return;
+    function fetchAndDisplayProducts() {
+        return fetch(apiURL)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                let products = data.values.slice(1).filter(row => row[13] && row[13].toUpperCase() === 'TRUE');
+                displayProducts(products);
+            })
+            .catch(error => {
+                console.error('Error fetching products:', error);
+            });
     }
 
-    cart.forEach(item => {
-        const product = findProductBySKU(item.sku);
-        if (product) {
-            const cartItem = document.createElement('div');
-            cartItem.classList.add('cart-item');
-            cartItem.innerHTML = `
-                <div class="product-item">
-                    ${product[5] ? `<div class="ribbon">${product[5]}</div>` : ''}
-                    <img src="/Kopes-3D-Prints/Images/Product-Images/${product[0].replace(/\s+/g, '-')}.jpg" alt="${product[0]}" class="product-image">
-                    <h3 class="product-name">${product[0]}</h3>
-                    <p class="product-price">${product[2]}</p>
-                    <p class="product-quantity">Quantity: ${item.quantity}</p>
-                    <button class="remove-from-cart-btn" data-sku="${item.sku}">Remove</button>
-                </div>
-            `;
-            cartContainer.appendChild(cartItem);
+    function displayProducts(products) {
+        const container = document.querySelector('.siema');
+        if (!container) {
+            console.error('Siema container not found');
+            return;
         }
-    });
 
-    // Add event listeners for remove buttons
-    document.querySelectorAll('.remove-from-cart-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const sku = this.getAttribute('data-sku');
-            removeFromCart(sku);
-        });
-    });
-}
+        const productHTML = products.map(product => `
+            <div class="product-item">
+                ${product[5] ? `<div class="ribbon">${product[5]}</div>` : ''}
+                <img src="/Kopes-3D-Prints/Images/Product-Images/${product[0].replace(/\s+/g, '-')}.jpg" alt="${product[0]}" class="product-image">
+                <h3 class="product-name">${product[0]}</h3>
+                <p class="product-price">${product[2]}</p>
+            </div>
+        `).join('');
 
-function findProductBySKU(sku) {
-    const trimmedSKU = sku.trim().toUpperCase();
-    const product = products.find(p => p[12].trim().toUpperCase() === trimmedSKU);
-    if (product) {
-        console.log("Product found:", product);
-        return product;
-    } else {
-        console.error("Product not found for SKU:", trimmedSKU);
-        return null;
+        container.innerHTML = productHTML;
     }
-}
 
-function removeFromCart(sku) {
-    let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
-    cart = cart.filter(item => item.sku !== sku);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    loadCartItems(); // Refresh the cart display
-}
+    function initializeSiema() {
+        const siema = new Siema({
+            duration: 200,
+            perPage: {
+                768: 2, // 2 items per page when the viewport width is 768px or more
+                1024: 3 // 3 items per page when the viewport width is 1024px or more
+            },
+            startIndex: 0,
+            draggable: true,
+            multipleDrag: true,
+            threshold: 20,
+            loop: true
+        });
+
+        // Add event listeners for custom navigation buttons if needed
+        document.querySelector('.prev').addEventListener('click', () => siema.prev());
+        document.querySelector('.next').addEventListener('click', () => siema.next());
+    }
+});
 </script>
+
+
+
+
+<script> //Cart Management
+	storeUUID()
+	
+	function updateCart(sku, amount) {
+	    // Retrieve the cart from localStorage or set it to an empty string if none exists
+	    let cartStr = localStorage.getItem('cart') || '';
+	    
+	    // Convert the cart string to an array of objects for easier manipulation
+	    let cartItems = cartStr.split(';').filter(item => item).map(item => {
+	        const parts = item.split(',');
+	        return { sku: parts[0], amount: parseInt(parts[1], 10) };
+	    });
+	
+	    // Check if the SKU already exists in the cart
+	    let itemIndex = cartItems.findIndex(item => item.sku === sku);
+	
+	    if (itemIndex > -1) {
+	        // If the SKU exists, update the amount
+	        cartItems[itemIndex].amount = amount;
+	    } else {
+	        // If the SKU does not exist, add a new item
+	        cartItems.push({ sku, amount });
+	    }
+	
+	    // Convert the cart items back into the string format
+	    cartStr = cartItems.map(item => `${item.sku},${item.amount}`).join(';') + ';';
+	
+	    // Update the cart in localStorage
+	    localStorage.setItem('cart', cartStr);
+	
+	saveCartToSheet(getUserUUID, cartStr);
+	}
+
+	function saveCartToSheet(userIdentifier, cartData) {
+	    var data = {
+	        'userIdentifier': userIdentifier,
+	        'cartData': JSON.stringify(cartData) // Assuming cartData is an object/array
+	    };
+	
+	    fetch('<https://script.google.com/macros/s/AKfycbz5PMxwDMQGa3SvYPOsHZGhA0yhV9xttIpLX-2eyugFUaxaRKDkYcMbXIW9fjtSL0UNMw/exec>', {
+	        method: 'POST',
+	        mode: 'no-cors', // Note: no-cors mode doesn't allow reading the response from the fetch
+	        body: JSON.stringify(data),
+	        headers: {
+	            'Content-Type': 'application/json'
+	        }
+	    })
+	    .then(response => console.log('Cart data saved'))
+	    .catch(error => console.error('Error:', error));
+	}
+
+	// Example: Generating and storing a UUID
+	function generateUUID() {
+	  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+	    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+	    return v.toString(16);
+	  });
+	}
+	
+	function storeUUID() {
+	  if (!localStorage.getItem('userUUID')) {
+	    localStorage.setItem('userUUID', generateUUID());
+	  }
+	}
+	
+	function getUserUUID() {
+	  return localStorage.getItem('userUUID');
+	}
+
+</script>
+
+
+
 
 </body>
 </html>
