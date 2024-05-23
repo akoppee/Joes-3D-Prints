@@ -224,12 +224,21 @@ const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/1DLW35HY2lsNeWMWOM
 let products = [];
     
 document.addEventListener('DOMContentLoaded', function() {
-    // Fetch products (already implemented)
-    fetchAndDisplayProducts();
-    
-    // Load cart items
-    loadCartItems();
+    // Fetch products and then load cart items
+    fetchAndDisplayProducts().then(() => {
+        loadCartItems();
+    });
 });
+
+function fetchAndDisplayProducts() {
+    return fetch(apiURL)
+        .then(response => response.json())
+        .then(data => {
+            products = data.values.slice(1).filter(row => row[13].toString().trim().toUpperCase() !== 'FALSE'); // Adjust based on your actual structure
+            console.log("Products loaded:", products);
+        })
+        .catch(error => console.error('Error fetching products:', error));
+}
 
 function loadCartItems() {
     let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
@@ -241,7 +250,6 @@ function loadCartItems() {
     }
 
     cart.forEach(item => {
-        // Assuming `findProductBySKU` is available
         const product = findProductBySKU(item.sku);
         if (product) {
             const cartItem = document.createElement('div');
@@ -256,24 +264,14 @@ function loadCartItems() {
     });
 }
 
-// Fetch products and then load cart items (Assume this function exists)
-function fetchAndDisplayProducts() {
-    fetch(apiURL)
-        .then(response => response.json())
-        .then(data => {
-            products = data.values.slice(1).filter(row => row[13].toString().trim().toUpperCase() !== 'FALSE'); // Adjust based on your actual structure
-            console.log("Products loaded:", products);
-        })
-        .catch(error => console.error('Error fetching products:', error));
-}
-
 function findProductBySKU(sku) {
-    const product = products.find(p => p[12] === sku);
+    const trimmedSKU = sku.trim().toUpperCase();
+    const product = products.find(p => p[12].trim().toUpperCase() === trimmedSKU);
     if (product) {
         console.log("Product found:", product);
         return product;
     } else {
-        console.error("Product not found for SKU:", sku);
+        console.error("Product not found for SKU:", trimmedSKU);
         return null;
     }
 }
